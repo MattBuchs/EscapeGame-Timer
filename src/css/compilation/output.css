@@ -729,14 +729,96 @@ table {
 .timer__bottom form {
   height: 100%;
 }
-.timer__bottom--select {
+.timer__bottom--autocomplete {
+  position: relative;
   width: 79.7%;
-  height: 1.6rem;
   margin-bottom: 2px;
+}
+.timer__bottom--autocomplete .phrases-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #a9a3e1;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+.timer__bottom--autocomplete .phrases-dropdown.hidden {
+  display: none;
+}
+.timer__bottom--autocomplete .phrases-dropdown .phrase-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid #f0f0f0;
   font-size: 1rem;
 }
-.timer__bottom--select option {
-  border-bottom: 1px solid #000;
+.timer__bottom--autocomplete .phrases-dropdown .phrase-item:hover {
+  background-color: #f5f3ff;
+}
+.timer__bottom--autocomplete .phrases-dropdown .phrase-item:last-child {
+  border-bottom: none;
+}
+.timer__bottom--autocomplete .phrases-dropdown .phrase-item.no-results {
+  color: #999;
+  font-style: italic;
+  cursor: default;
+}
+.timer__bottom--autocomplete .phrases-dropdown .phrase-item.no-results:hover {
+  background-color: #fff;
+}
+.timer__bottom--autocomplete .clear-phrase-btn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+.timer__bottom--autocomplete .clear-phrase-btn:hover {
+  opacity: 0.7;
+  box-shadow: none;
+  scale: 1;
+}
+.timer__bottom--autocomplete .clear-phrase-btn svg {
+  fill: #666;
+  width: 14px;
+  height: 14px;
+}
+.timer__bottom--autocomplete .clear-phrase-btn.visible {
+  display: flex;
+}
+.timer__bottom--select {
+  width: 100%;
+  height: 1.6rem;
+  font-size: 1rem;
+  padding: 0 30px 0 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.timer__bottom--select:focus {
+  outline: none;
+  border-color: #a9a3e1;
+  box-shadow: 0 0 0 2px rgba(169, 163, 225, 0.2);
+}
+.timer__bottom--select::placeholder {
+  color: #999;
+  font-style: italic;
 }
 .timer__bottom--container {
   display: flex;

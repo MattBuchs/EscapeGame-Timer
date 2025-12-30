@@ -1,6 +1,7 @@
 import roomsObj from "../rooms/rooms.js";
 import { dataloaded, writeFile } from "../../utils.js";
 import { notification } from "../UI/notification.js";
+import phrasesAutocompleteObj from "./phrasesAutocomplete.js";
 
 const selectDeletePhrase = document.querySelector("#select-delete_phrase");
 const deletePhraseForm = document.querySelector("#delete-phrase");
@@ -45,6 +46,9 @@ const deletePhrasesObj = {
         dataloaded[indexRoom].phrases.splice(findIndex, 1);
 
         writeFile(dataloaded);
+
+        // Supprimer de l'autocomplétion
+        phrasesAutocompleteObj.removePhrase(optionSelected.textContent);
 
         this.loadPhrases();
         roomsObj.loadOption();
