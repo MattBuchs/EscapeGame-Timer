@@ -1,0 +1,62 @@
+// ============================================
+// THÈME NÉON - Style Lumineux et Futuriste
+// ============================================
+
+[data-theme="neon"] {
+    // ===== COLORS =====
+    --color-primary: #6366f1;
+    --color-primary-dark: #4f46e5;
+    --color-primary-light: #818cf8;
+    --color-primary-glow: rgba(99, 102, 241, 0.4);
+
+    --color-secondary: #06b6d4;
+    --color-secondary-dark: #0891b2;
+    --color-secondary-light: #22d3ee;
+    --color-secondary-glow: rgba(6, 182, 212, 0.3);
+
+    --color-bg-dark: #0f0f1e;
+    --color-bg-darker: #08080f;
+    --color-bg-card: #1a1a2e;
+    --color-bg-card-hover: #212134;
+    --color-bg-input: #252538;
+
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #cbd5e1;
+    --color-text-muted: #94a3b8;
+
+    --color-success: #10b981;
+    --color-success-glow: rgba(16, 185, 129, 0.3);
+    --color-error: #ef4444;
+    --color-warning: #f59e0b;
+
+    --color-border: #2d2d44;
+    --color-border-light: #3d3d5a;
+
+    // ===== EFFECTS =====
+    --shadow-glow: 0 0 20px var(--color-primary-glow),
+        0 0 40px rgba(99, 102, 241, 0.2);
+    --shadow-glow-cyan: 0 0 20px var(--color-secondary-glow),
+        0 0 40px rgba(6, 182, 212, 0.15);
+    --neon-border: 2px solid var(--color-primary);
+    --neon-box-shadow: 0 0 10px rgba(99, 102, 241, 0.5),
+        inset 0 0 10px rgba(99, 102, 241, 0.2);
+
+    // Background gradient overlay
+    &::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(
+                circle at 20% 50%,
+                rgba(99, 102, 241, 0.08) 0%,
+                transparent 50%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(6, 182, 212, 0.08) 0%,
+                transparent 50%
+            );
+        pointer-events: none;
+        z-index: 0;
+    }
+}

@@ -1,0 +1,380 @@
+// ============================================
+// MODERN DESIGN SYSTEM - ESCAPE GAME TIMER
+// Variables SCSS pour compatibilité + CSS Variables pour thèmes
+// ============================================
+
+// ===== THÈME PAR DÉFAUT (Néon) =====
+:root {
+    --color-primary: #6366f1;
+    --color-primary-dark: #4f46e5;
+    --color-primary-light: #818cf8;
+    --color-primary-glow: rgba(99, 102, 241, 0.4);
+
+    --color-secondary: #06b6d4;
+    --color-secondary-dark: #0891b2;
+    --color-secondary-light: #22d3ee;
+    --color-secondary-glow: rgba(6, 182, 212, 0.3);
+
+    --color-bg-dark: #0f0f1e;
+    --color-bg-darker: #08080f;
+    --color-bg-card: #1a1a2e;
+    --color-bg-card-hover: #212134;
+    --color-bg-input: #252538;
+
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #cbd5e1;
+    --color-text-muted: #94a3b8;
+
+    --color-success: #10b981;
+    --color-success-glow: rgba(16, 185, 129, 0.3);
+    --color-error: #ef4444;
+    --color-warning: #f59e0b;
+
+    --color-border: #2d2d44;
+    --color-border-light: #3d3d5a;
+
+    --shadow-glow: 0 0 20px var(--color-primary-glow),
+        0 0 40px rgba(99, 102, 241, 0.2);
+    --shadow-glow-cyan: 0 0 20px var(--color-secondary-glow),
+        0 0 40px rgba(6, 182, 212, 0.15);
+    --neon-border: 2px solid var(--color-primary);
+    --neon-box-shadow: 0 0 10px rgba(99, 102, 241, 0.5),
+        inset 0 0 10px rgba(99, 102, 241, 0.2);
+}
+
+// ===== VARIABLES SCSS (pour compatibilité) =====
+// Primary Colors
+$color-primary: var(--color-primary);
+$color-primary-dark: var(--color-primary-dark);
+$color-primary-light: var(--color-primary-light);
+$color-primary-glow: var(--color-primary-glow);
+
+// Secondary Colors
+$color-secondary: var(--color-secondary);
+$color-secondary-dark: var(--color-secondary-dark);
+$color-secondary-light: var(--color-secondary-light);
+$color-secondary-glow: var(--color-secondary-glow);
+
+// Background Colors
+$color-bg-dark: var(--color-bg-dark);
+$color-bg-darker: var(--color-bg-darker);
+$color-bg-card: var(--color-bg-card);
+$color-bg-card-hover: var(--color-bg-card-hover);
+$color-bg-input: var(--color-bg-input);
+
+// Text Colors
+$color-text-primary: var(--color-text-primary);
+$color-text-secondary: var(--color-text-secondary);
+$color-text-muted: var(--color-text-muted);
+$color-text-dark: #1e293b;
+
+// Accent Colors
+$color-success: var(--color-success);
+$color-success-glow: var(--color-success-glow);
+$color-warning: var(--color-warning);
+$color-error: var(--color-error);
+$color-info: #3b82f6;
+
+// Border Colors
+$color-border: var(--color-border);
+$color-border-light: var(--color-border-light);
+$color-border-focus: $color-primary;
+
+// ===== GRADIENTS =====
+$gradient-primary: linear-gradient(
+    135deg,
+    $color-primary 0%,
+    $color-secondary 100%
+);
+$gradient-primary-hover: linear-gradient(
+    135deg,
+    $color-primary-dark 0%,
+    $color-secondary-dark 100%
+);
+$gradient-card: linear-gradient(145deg, #1e1e32 0%, #222238 100%);
+$gradient-button: linear-gradient(
+    135deg,
+    $color-primary 0%,
+    $color-primary-light 100%
+);
+$gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+$gradient-error: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+
+// ===== SHADOWS =====
+$shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
+    0 4px 6px -2px rgba(0, 0, 0, 0.4);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6),
+    0 10px 10px -5px rgba(0, 0, 0, 0.5);
+$shadow-glow: var(--shadow-glow);
+$shadow-glow-cyan: var(--shadow-glow-cyan);
+$shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+
+// ===== SPACING =====
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+$spacing-3xl: 4rem;
+
+// ===== BORDER RADIUS =====
+$border-radius-sm: 0.375rem;
+$border-radius-md: 0.5rem;
+$border-radius-lg: 0.75rem;
+$border-radius-xl: 1rem;
+$border-radius-2xl: 1.5rem;
+$border-radius-full: 9999px;
+
+// Aliases for compatibility
+$radius-sm: $border-radius-sm;
+$radius-md: $border-radius-md;
+$radius-lg: $border-radius-lg;
+$radius-xl: $border-radius-xl;
+$radius-2xl: $border-radius-2xl;
+$radius-full: $border-radius-full;
+
+// ===== TYPOGRAPHY =====
+$font-family-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", sans-serif;
+$font-family-display: "Space Grotesk", "Inter", sans-serif;
+$font-family-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+$font-size-5xl: 3rem;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// ===== TRANSITIONS =====
+$transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+// ===== Z-INDEX =====
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;
+$z-notification: 9999;
+
+// ===== BREAKPOINTS =====
+$breakpoint-xs: 400px;
+$breakpoint-sm: 550px;
+$breakpoint-md: 800px;
+$breakpoint-lg: 1000px;
+$breakpoint-xl: 1280px;
+
+// ===== ANIMATIONS =====
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes glow {
+    0%,
+    100% {
+        box-shadow: var(--shadow-glow);
+    }
+    50% {
+        box-shadow: 0 0 30px var(--color-primary-glow),
+            0 0 60px rgba(99, 102, 241, 0.3);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes pushNotification {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    10% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    90% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// ===== MIXINS =====
+@mixin glass-morphism {
+    background: rgba(26, 26, 46, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@mixin neon-border($color: $color-primary, $opacity: 1) {
+    border: var(--neon-border);
+    box-shadow: var(--neon-box-shadow);
+}
+
+@mixin button-base {
+    padding: $spacing-sm $spacing-lg;
+    border-radius: $radius-md;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-base;
+    transition: all $transition-base;
+    cursor: pointer;
+    border: none;
+    outline: none;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+}
+
+@mixin card-base {
+    background: $gradient-card;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    box-shadow: $shadow-md;
+    transition: all $transition-base;
+
+    &:hover {
+        border-color: $color-border-light;
+        box-shadow: $shadow-lg;
+        transform: translateY(-4px);
+    }
+}
+
+@mixin input-base {
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    background: $color-bg-input;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    color: $color-text-primary;
+    font-size: $font-size-base;
+    transition: all $transition-base;
+
+    &:focus {
+        outline: none;
+        border-color: $color-border-focus;
+        box-shadow: 0 0 0 3px $color-primary-glow;
+    }
+
+    &::placeholder {
+        color: $color-text-muted;
+    }
+}
+
+@mixin scrollbar-modern {
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $color-bg-darker;
+        border-radius: $radius-sm;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $color-border-light;
+        border-radius: $radius-sm;
+
+        &:hover {
+            background: $color-primary;
+        }
+    }
+}

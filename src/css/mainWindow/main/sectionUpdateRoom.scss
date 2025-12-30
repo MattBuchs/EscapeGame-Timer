@@ -42,11 +42,7 @@
         @include button-base;
         min-width: 140px;
         padding: $spacing-md $spacing-xl;
-        background: linear-gradient(
-            135deg,
-            $color-error 0%,
-            lighten($color-error, 10%) 100%
-        );
+        background: $gradient-error;
         color: $color-text-primary;
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: $shadow-md, 0 0 20px rgba(239, 68, 68, 0.2);

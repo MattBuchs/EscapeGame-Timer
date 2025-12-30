@@ -15,6 +15,7 @@ import dragAndDropObj from "./settings/DragAndDrop.js";
 import deleteSongFileObj from "./settings/deleteSongFile.js";
 import manageNavbarObj from "./UI/manageNavbar.js";
 import checkFoldersExist from "./sounds/checkFoldersExist.js";
+import { initThemeSelector } from "./settings/themeSelector.js";
 
 // Initialisation du Timer
 timerObj.init();
@@ -38,6 +39,9 @@ uploadFilesObj.init();
 dragAndDropObj.init();
 deleteSongFileObj.init();
 checkFoldersExist();
+
+// Initialisation du sélecteur de thème
+initThemeSelector();
 
 // Initialisation des fonctionnalités liées à la navbar
 manageNavbarObj.init();

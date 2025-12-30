@@ -136,11 +136,7 @@
             @include button-base;
             padding: $spacing-sm $spacing-lg;
             min-width: 120px;
-            background: linear-gradient(
-                135deg,
-                $color-success 0%,
-                lighten($color-success, 10%) 100%
-            );
+            background: $gradient-success;
             color: $color-text-primary;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: $shadow-sm, 0 0 15px $color-success-glow;

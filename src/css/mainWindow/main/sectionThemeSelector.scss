@@ -1,0 +1,159 @@
+// ===== THEME SELECTOR STYLES =====
+
+// Styles pour le conteneur de grille dans les settings
+.settingsRooms__section {
+    .title-icon {
+        font-size: 1.5rem;
+        margin-right: $spacing-xs;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .theme-selector-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: $spacing-md;
+        margin-top: $spacing-md;
+    }
+}
+
+// Styles pour les boutons de thème
+.theme-option {
+    @include button-base;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-lg;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid transparent;
+    border-radius: $border-radius-lg;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: radial-gradient(
+            circle,
+            rgba(99, 102, 241, 0.2),
+            transparent 70%
+        );
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .theme-icon {
+        font-size: 2rem;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s ease;
+    }
+
+    .theme-name {
+        font-size: 0.95rem;
+        font-weight: 500;
+        position: relative;
+        z-index: 1;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(99, 102, 241, 0.3);
+
+        &::before {
+            width: 200%;
+            height: 200%;
+        }
+
+        .theme-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+    }
+
+    &.active {
+        background: rgba(99, 102, 241, 0.1);
+        border-color: $color-primary;
+        @include neon-border($color-primary, 0.6);
+
+        .theme-icon {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .theme-name {
+            color: $color-primary;
+            font-weight: 600;
+        }
+
+        &::after {
+            content: "✓";
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background: $color-primary;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            animation: scaleIn 0.3s ease-out;
+        }
+    }
+}
+
+// Preview colors for each theme (optional visual indicator)
+.theme-option[data-theme="neon"] {
+    &:hover,
+    &.active {
+        border-color: #6366f1;
+        @include neon-border(#6366f1, 0.6);
+    }
+}
+
+.theme-option[data-theme="neutral"] {
+    &:hover,
+    &.active {
+        border-color: #64748b;
+        box-shadow: 0 0 20px rgba(100, 116, 139, 0.3);
+    }
+}
+
+.theme-option[data-theme="elegant"] {
+    &:hover,
+    &.active {
+        border-color: #8b5cf6;
+        @include neon-border(#8b5cf6, 0.6);
+    }
+}
+
+.theme-option[data-theme="modern"] {
+    &:hover,
+    &.active {
+        border-color: #2563eb;
+        @include neon-border(#2563eb, 0.6);
+    }
+}
+
+// Animation pour le checkmark
+@keyframes scaleIn {
+    0% {
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}

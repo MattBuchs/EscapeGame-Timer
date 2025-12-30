@@ -1,5 +1,9 @@
 // ===== IMPORTS =====
-@import "./variables";
+@import "./variables-new";
+@import "./themes/theme-neon";
+@import "./themes/theme-neutral";
+@import "./themes/theme-elegant";
+@import "./themes/theme-modern";
 @import "./reset.scss";
 @import "./mainWindow/header.scss";
 @import "./mainWindow/main/sectionRoom.scss";
@@ -8,6 +12,7 @@
 @import "./mainWindow/main/sectionAddRoom.scss";
 @import "./mainWindow/main/sectionUpdateRoom.scss";
 @import "./mainWindow/main/sectionSettings.scss";
+@import "./mainWindow/main/sectionThemeSelector.scss";
 @import "./secondWindow/content.scss";
 
 // ===== GLOBAL STYLES =====
@@ -22,28 +27,6 @@ body {
     color: $color-text-primary;
     line-height: 1.6;
     overflow-x: hidden;
-
-    // Modern gradient overlay
-    &::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(
-                circle at 20% 50%,
-                rgba(99, 102, 241, 0.08) 0%,
-                transparent 50%
-            ),
-            radial-gradient(
-                circle at 80% 80%,
-                rgba(6, 182, 212, 0.08) 0%,
-                transparent 50%
-            );
-        pointer-events: none;
-        z-index: 0;
-    }
 }
 
 label,
