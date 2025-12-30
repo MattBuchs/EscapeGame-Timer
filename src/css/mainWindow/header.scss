@@ -1,26 +1,60 @@
+// ===== MODERN SIDEBAR NAVIGATION =====
 .header {
     position: relative;
     min-height: 100vh;
-    width: 4rem;
-    background-color: #dfe1ff;
+    width: 4.5rem;
+    background: $color-bg-card;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-right: 1px solid #000;
-    box-shadow: 1px 0 10px #90909063;
+    border-right: 1px solid $color-border;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+    transition: width $transition-slow ease-in-out,
+        align-items $transition-slow ease-in-out;
+    z-index: $z-sticky;
+    backdrop-filter: blur(10px);
+
+    // État étendu de la navbar
+    &.navbar-anim {
+        width: 16rem;
+        align-items: flex-start;
+
+        .header__logo h1 {
+            display: block;
+        }
+
+        li span {
+            display: block;
+        }
+    }
 
     &__logo {
         display: flex;
         align-items: center;
+        padding: $spacing-lg $spacing-sm;
+        margin-bottom: $spacing-md;
 
         img {
-            width: 4.2rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px $color-primary-glow);
+            transition: all $transition-base;
+
+            &:hover {
+                filter: drop-shadow(0 0 12px $color-primary-glow);
+                transform: scale(1.05);
+            }
         }
 
         h1 {
             display: none;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-weight: $font-weight-bold;
+            font-size: $font-size-xl;
+            color: $color-text-primary;
+            margin-left: $spacing-md;
+            white-space: nowrap;
+            font-family: $font-family-display;
         }
     }
 
@@ -30,33 +64,44 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin-top: 4rem;
 
         li {
             display: flex;
             align-items: center;
             width: 100%;
-            height: 4rem;
+            height: 3.5rem;
+            position: relative;
+            overflow: hidden;
 
-            &:hover .header__nav--svg path,
-            &:hover .header__nav--svg polygon {
-                fill: #f1f1f1;
+            &:hover:not(.active) .header__nav--svg path,
+            &:hover:not(.active) .header__nav--svg polygon {
+                fill: $color-primary-light;
+            }
+
+            &:hover:not(.active) {
+                background: rgba(99, 102, 241, 0.1);
             }
 
             button {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                padding: $spacing-sm;
+                transition: all $transition-base;
+                position: relative;
 
                 &:hover {
-                    color: #f1f1f1;
+                    color: $color-text-primary;
                 }
             }
 
             span {
                 display: none;
-                margin-left: 1rem;
-                font-size: 1rem;
+                margin-left: $spacing-md;
+                font-size: $font-size-base;
+                font-weight: $font-weight-medium;
+                white-space: nowrap;
+                color: $color-text-primary;
             }
         }
 
@@ -67,19 +112,20 @@
             width: 100%;
             height: 100%;
             text-align: left;
-            transition: all 0.3s ease;
+            transition: all $transition-base;
 
             &:hover {
-                background-color: rgb(38, 38, 145);
+                background: rgba(99, 102, 241, 0.15);
             }
         }
 
         &--svg,
         &--svg path,
         &--svg polygon {
-            width: 2.8rem;
-            height: 2.8rem;
-            fill: #080030;
+            width: 2.2rem;
+            height: 2.2rem;
+            fill: $color-text-secondary;
+            transition: all $transition-base;
         }
     }
 
@@ -89,30 +135,32 @@
         top: 50%;
         transform: translate(100%, -50%);
         width: 2rem;
-        height: 3rem;
+        height: 3.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 100;
-        background-color: #ececec;
-        border-top: 2px solid #000;
-        border-bottom: 2px solid #000;
-        border-right: 2px solid #000;
-        border-left: none;
-        border-radius: 0 12px 12px 0;
-        box-shadow: 1px 1px 3px #00000039;
+        z-index: $z-dropdown;
+        background: $gradient-primary;
+        border: none;
+        border-radius: 0 $radius-lg $radius-lg 0;
+        box-shadow: $shadow-md;
+        cursor: pointer;
+        transition: all $transition-base;
 
         &:hover {
-            background-color: #e0e0e0;
+            background: $gradient-primary-hover;
+            transform: translate(100%, -50%) scale(1.05);
+            box-shadow: $shadow-lg, $shadow-glow;
         }
 
         &:active {
-            box-shadow: inset 1px 1px 3px #00000039;
+            transform: translate(100%, -50%) scale(0.95);
         }
 
         img {
-            width: 100%;
-            height: 100%;
+            width: 1.2rem;
+            height: 1.2rem;
+            filter: brightness(0) invert(1);
         }
 
         @media screen and (max-width: 700px) {
@@ -121,10 +169,11 @@
     }
 
     @media screen and (max-width: 700px) {
-        animation: navbarAnim2 0.5s ease-out forwards;
+        animation: navbarAnim2 $transition-slow ease-out forwards;
     }
 }
 
+// ===== TAB STYLES =====
 .tabs {
     background-color: transparent;
     border: 0;
@@ -132,45 +181,47 @@
     width: 100%;
     height: 100%;
     text-align: left;
-    transition: all 0.3s ease;
+    transition: all $transition-base;
 
     &:hover {
-        background-color: rgb(47, 47, 183);
+        background: rgba(99, 102, 241, 0.15);
     }
 }
 
+// ===== NAVBAR ANIMATIONS =====
 .navbar-anim {
-    animation: navbarAnim 0.5s ease-out forwards;
+    animation: navbarAnim $transition-slow ease-out forwards;
 }
 
 .navbar-anim2 {
-    animation: navbarAnim2 0.5s ease-out forwards;
+    animation: navbarAnim2 $transition-slow ease-out forwards;
 }
 
 .h1-anim {
-    animation: h1Anim 0.3s ease-out forwards;
+    animation: h1Anim $transition-base ease-out forwards;
 }
 
 @keyframes navbarAnim {
     0% {
-        align-items: start;
+        width: 4.5rem;
+        align-items: center;
     }
     100% {
         width: 16rem;
-        align-items: start;
+        align-items: flex-start;
     }
 }
 
 @keyframes navbarAnim2 {
     0% {
         width: 16rem;
-        align-items: normal;
+        align-items: flex-start;
     }
     75% {
-        align-items: normal;
+        align-items: flex-start;
     }
     100% {
-        width: 4rem;
+        width: 4.5rem;
         align-items: center;
     }
 }
@@ -178,10 +229,10 @@
 @keyframes h1Anim {
     0% {
         opacity: 0;
-        transform: translateY(-30%);
+        transform: translateX(-20px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
     }
 }

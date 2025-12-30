@@ -1,68 +1,124 @@
+// ===== SETTINGS SECTION - MODERN INTERFACE =====
 .settingsRooms {
-    width: 50%;
+    width: min(90%, 900px);
     margin: 0 auto;
     min-height: 100vh;
-    padding-top: 4rem;
-    color: #f1f1f1;
+    padding: $spacing-3xl $spacing-xl;
+    color: $color-text-primary;
 
     select {
-        width: 60%;
-        height: 30px;
-        padding: 0 0.3rem;
+        @include input-base;
+        height: 2.8rem;
+        padding: 0 $spacing-md;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.5rem center;
+        background-size: 1.5em;
+        padding-right: 2.5rem;
+        cursor: pointer;
     }
 
     &__title {
         text-align: center;
-        font-size: 2rem;
-        font-weight: bold;
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        margin-bottom: 3rem;
+        font-size: clamp($font-size-2xl, 4vw, $font-size-4xl);
+        font-weight: $font-weight-bold;
+        font-family: $font-family-display;
+        margin-bottom: $spacing-3xl;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: -$spacing-md;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: $gradient-primary;
+            border-radius: $radius-full;
+            box-shadow: $shadow-glow;
+        }
     }
 
     &__section {
-        border: 3px solid #a8a3e5;
-        background-color: #8075fa1a;
-        border-radius: 4px;
-        box-shadow: 3px 3px 4px #ffffff21;
-        padding: 1rem;
-        margin-bottom: 2rem;
+        @include card-base;
+        padding: $spacing-2xl;
+        margin-bottom: $spacing-2xl;
+        border: 1px solid $color-border-light;
+        background: $gradient-card;
+
+        &:hover {
+            transform: none;
+        }
 
         h3 {
-            margin-bottom: 1.4rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-decoration: underline;
+            font-size: $font-size-xl;
+            font-weight: $font-weight-semibold;
+            color: $color-text-primary;
+            margin-bottom: $spacing-xl;
+            padding-bottom: $spacing-md;
+            border-bottom: 2px solid $color-border;
+            display: flex;
+            align-items: center;
+            gap: $spacing-md;
+
+            &::before {
+                content: "";
+                width: 4px;
+                height: 1.5rem;
+                background: $gradient-primary;
+                border-radius: $radius-full;
+            }
         }
 
         &--container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: $spacing-xl;
         }
 
         &--drop {
-            border: 3px solid #fff;
-            border-radius: 2px;
-            height: 12rem;
-            width: 48%;
-            min-width: 230px;
+            @include neon-border($color-border-light);
+            border-radius: $radius-lg;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
+            background: linear-gradient(
+                145deg,
+                rgba(26, 26, 46, 0.3),
+                rgba(26, 26, 46, 0.5)
+            );
+            transition: all $transition-base;
+            padding: $spacing-lg;
+
+            &:hover {
+                border-color: $color-primary;
+                box-shadow: 0 0 20px $color-primary-glow;
+            }
 
             button {
-                margin-bottom: 1rem;
-                padding: 0.5rem 0.8rem;
+                @include button-base;
+                margin-bottom: $spacing-md;
+                padding: $spacing-md $spacing-lg;
+                background: $gradient-button;
+                color: $color-text-primary;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: $shadow-sm;
                 position: relative;
                 z-index: 1;
+
+                &:hover {
+                    box-shadow: $shadow-md, $shadow-glow;
+                }
             }
 
             img {
                 z-index: 1;
+                filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
             }
 
             .file-import {
@@ -70,62 +126,103 @@
                 width: 100%;
                 height: 100%;
                 position: absolute;
+                top: 0;
+                left: 0;
+                cursor: pointer;
             }
         }
 
         &--validate {
-            padding: 0 0.8rem;
-            height: 30px;
+            @include button-base;
+            padding: $spacing-sm $spacing-lg;
+            min-width: 120px;
+            background: linear-gradient(
+                135deg,
+                $color-success 0%,
+                lighten($color-success, 10%) 100%
+            );
+            color: $color-text-primary;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: $shadow-sm, 0 0 15px $color-success-glow;
+            font-weight: $font-weight-semibold;
+
+            &:hover {
+                box-shadow: $shadow-md, 0 0 25px $color-success-glow;
+            }
         }
 
         &--preference {
             display: flex;
             align-items: center;
-            height: 22px;
+            gap: $spacing-md;
+            padding: $spacing-md;
+            background: rgba(26, 26, 46, 0.3);
+            border-radius: $radius-md;
+            transition: all $transition-base;
+
+            &:hover {
+                background: rgba(26, 26, 46, 0.5);
+            }
+
+            input[type="checkbox"],
+            input[type="radio"] {
+                width: 1.25rem;
+                height: 1.25rem;
+                cursor: pointer;
+                accent-color: $color-primary;
+            }
 
             label {
-                margin-left: 4px;
+                cursor: pointer;
+                font-size: $font-size-base;
+                color: $color-text-secondary;
+                user-select: none;
+
+                &:hover {
+                    color: $color-text-primary;
+                }
             }
         }
     }
 
+    // ===== RESPONSIVE =====
     @media screen and (max-width: 1000px) {
-        width: 65%;
+        width: min(92%, 900px);
     }
 
     @media screen and (max-width: 800px) {
-        width: 80%;
+        width: min(95%, 900px);
+        padding: $spacing-2xl $spacing-md;
     }
 
     @media screen and (max-width: 550px) {
         select {
             width: 100%;
-            margin-bottom: 1rem;
+            margin-bottom: $spacing-md;
         }
-
-        &__section--validate {
-            width: 100px;
-        }
-    }
-
-    @media screen and (max-width: 400px) {
-        width: 90%;
 
         &__section {
-            padding: 1rem 0.5rem;
+            padding: $spacing-lg;
 
-            &--drop {
+            &--container {
+                grid-template-columns: 1fr;
+            }
+
+            &--validate {
                 width: 100%;
-                min-width: 100%;
             }
         }
     }
 
-    @media screen and (max-width: 319px) {
+    @media screen and (max-width: 400px) {
+        width: 98%;
+        padding: $spacing-xl $spacing-sm;
+
         &__section {
-            &--preference {
-                height: auto;
-                margin-bottom: 10px;
+            padding: $spacing-md;
+
+            &--drop {
+                width: 100%;
             }
         }
     }

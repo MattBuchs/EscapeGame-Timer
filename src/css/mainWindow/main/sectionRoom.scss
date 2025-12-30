@@ -1,139 +1,176 @@
+// ===== HOME/ROOMS SECTION - MODERN CARDS =====
 .home {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 100vh;
+    padding: $spacing-3xl $spacing-xl;
 
     &__title {
         text-align: center;
-        font-size: 3rem;
-        color: #f1f1f1;
-        font-weight: bold;
-        margin-top: 4rem;
-        text-decoration: underline;
-        text-underline-offset: 10px;
+        font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
+        color: $color-text-primary;
+        font-weight: $font-weight-extrabold;
+        font-family: $font-family-display;
+        margin-bottom: $spacing-2xl;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: -$spacing-md;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: $gradient-primary;
+            border-radius: $radius-full;
+            box-shadow: $shadow-glow;
+        }
     }
 
     &__container {
-        width: 88%;
-        margin: 6rem auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: $spacing-xl;
+        padding: $spacing-xl 0;
 
         &--btn {
-            width: 25rem;
-            min-width: 25rem;
-            height: 10rem;
-            margin: 0.4rem;
+            @include card-base;
+            min-height: 180px;
             display: flex;
             flex-direction: column;
-            border: 1px solid #fff;
-            border-radius: 3px;
-            padding: 0 1rem;
-            background-image: linear-gradient(
-                45deg,
-                #e4fbfe 0%,
-                #a8a3e5 51%,
-                #e4fbfe 100%
-            );
-            transition: background 0.5s;
-            background-size: 200% auto;
-            box-shadow: 1px 2px 3px #f1f1f13e;
+            justify-content: center;
+            padding: $spacing-xl;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: $gradient-card;
+
+            // Gradient overlay on hover
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: $gradient-primary;
+                opacity: 0;
+                transition: opacity $transition-base;
+                z-index: 0;
+            }
+
+            &:hover::before {
+                opacity: 0.1;
+            }
 
             &:hover {
-                background-position: right center;
-                box-shadow: inset 1px 1px 2px #00000044;
+                transform: translateY(-8px) scale(1.02);
+                box-shadow: $shadow-xl, $shadow-glow;
+                border-color: $color-primary;
+            }
+
+            // Content wrapper
+            > * {
+                position: relative;
+                z-index: 1;
             }
 
             h3 {
-                align-self: center;
-                font-weight: bold;
-                font-size: 1.6rem;
-                color: #211389;
-                text-shadow: 1px 1px 0 #ffffff68;
-                margin-top: 0.4rem;
+                font-weight: $font-weight-bold;
+                font-size: $font-size-2xl;
+                color: $color-text-primary;
+                margin-bottom: $spacing-md;
+                text-align: center;
+                font-family: $font-family-display;
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             }
 
             p {
-                font-size: 1.1rem;
-                text-align: start;
-                text-wrap: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                width: 100%;
+                font-size: $font-size-base;
+                color: $color-text-secondary;
+                line-height: 1.6;
+                margin-bottom: $spacing-sm;
 
-                &:nth-child(2) {
-                    margin-top: 0.8rem;
-                }
-
-                &:not(:last-child) {
-                    margin-bottom: 4px;
-                }
-            }
-
-            @media screen and (max-width: 500px) {
-                width: 100%;
-                min-width: auto;
-                height: auto;
-                padding-bottom: 0.6rem;
-
-                p {
-                    white-space: normal;
-                    text-overflow: initial;
-                    overflow: auto;
+                &:first-of-type {
+                    font-weight: $font-weight-medium;
+                    color: $color-text-primary;
                 }
             }
         }
 
         &--noRoom {
-            margin-top: 10%;
-            padding: 0 1rem;
-            color: #f1f1f1;
+            grid-column: 1 / -1;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: $spacing-3xl;
+            margin-top: $spacing-3xl;
+            text-align: center;
+            animation: fadeIn $transition-slow;
 
             h3 {
-                font-size: 2.5rem;
-                text-shadow: 1px 1px 2px #00000081;
+                font-size: clamp($font-size-2xl, 4vw, $font-size-4xl);
+                font-weight: $font-weight-bold;
+                color: $color-text-primary;
+                margin-bottom: $spacing-md;
+                font-family: $font-family-display;
             }
 
             p {
-                font-size: 1.2rem;
-                margin-top: 0.2rem;
+                font-size: $font-size-lg;
+                color: $color-text-secondary;
+                margin-bottom: $spacing-2xl;
+                max-width: 600px;
             }
 
             button {
-                width: 6rem;
-                height: 3rem;
-                font-size: 2rem;
-                align-self: center;
-                color: #fff;
-                text-shadow: 1px 1px 2px #00000050;
-                background-image: linear-gradient(
-                    45deg,
-                    #e4fbfe 0%,
-                    #a8a3e5 51%,
-                    #e4fbfe 100%
-                );
-                transition: 0.5s;
-                border: 0;
-                margin-top: 1rem;
-                border: 1px solid #fff;
-                border-radius: 2px;
-                box-shadow: 1px 1px 2px #f1f1f166;
-                cursor: pointer;
+                @include button-base;
+                padding: $spacing-md $spacing-2xl;
+                font-size: $font-size-xl;
+                background: $gradient-button;
+                color: $color-text-primary;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: $shadow-md, 0 0 20px rgba(99, 102, 241, 0.2);
+                font-weight: $font-weight-bold;
 
                 &:hover {
-                    color: #222;
-                    box-shadow: inset 1px 1px 2px #00000044;
+                    box-shadow: $shadow-lg, $shadow-glow;
+                    transform: translateY(-4px) scale(1.05);
                 }
             }
         }
+    }
 
-        @media screen and (max-width: 500px) {
-            width: 98%;
+    // ===== RESPONSIVE =====
+    @media screen and (max-width: 1200px) {
+        &__container {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: $spacing-lg;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: $spacing-2xl $spacing-md;
+
+        &__container {
+            grid-template-columns: 1fr;
+            gap: $spacing-md;
+            padding: $spacing-lg 0;
+
+            &--btn {
+                min-height: auto;
+                padding: $spacing-lg;
+            }
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        padding: $spacing-xl $spacing-sm;
+
+        &__title {
+            font-size: $font-size-2xl;
         }
     }
 }

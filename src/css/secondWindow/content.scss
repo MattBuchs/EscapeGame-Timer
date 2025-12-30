@@ -1,95 +1,165 @@
+// ===== SECOND WINDOW - DISPLAY TIMER =====
 .timer2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 3vh;
-    height: 100vh;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 3vh $spacing-xl;
+    background: $color-bg-dark;
+
+    // Modern gradient overlay
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+            circle at 50% 50%,
+            rgba(99, 102, 241, 0.1) 0%,
+            transparent 60%
+        );
+        pointer-events: none;
+        z-index: 0;
+    }
 
     &__logo {
-        min-width: 100px;
-        width: 15%;
+        width: clamp(100px, 15vw, 200px);
         height: auto;
-        margin-bottom: 1vh;
+        margin-bottom: 3vh;
+        position: relative;
+        z-index: 1;
+        animation: fadeIn $transition-base;
 
         img {
             width: 100%;
             height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
         }
     }
 
     &__middle {
         position: relative;
-        border: 2px solid #fff;
-        border-radius: 2px;
-        width: 70%;
-        font-size: 100%;
-        padding: 2vh;
+        @include neon-border($color-primary);
+        border-radius: $radius-2xl;
+        padding: 4vh 6vw;
+        background: linear-gradient(
+            145deg,
+            rgba(26, 26, 46, 0.6),
+            rgba(26, 26, 46, 0.9)
+        );
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: $shadow-xl, inset 0 0 60px rgba(99, 102, 241, 0.1);
+        animation: scaleIn $transition-base;
+        z-index: 1;
 
         &--timer {
-            width: 100%;
-            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 10vw;
-            color: #fff;
-            font-family: cursive;
+            font-size: clamp(4rem, 12vw, 12rem);
+            color: $color-text-primary;
+            font-family: $font-family-mono;
+            font-weight: $font-weight-extrabold;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 40px $color-primary-glow,
+                0 0 80px rgba(99, 102, 241, 0.4), 0 4px 8px rgba(0, 0, 0, 0.5);
+            line-height: 1;
         }
     }
 
     &__message {
-        background-color: #000;
-        width: 60%;
-        min-height: 33%;
-        margin-top: 6vh;
-        color: #fff;
-        font-size: 3vw;
-        border-radius: 4px;
-        border: 1px solid #ffffff55;
-        box-shadow: 1px 1px 10px #00000075;
+        @include glass-morphism;
+        width: min(90%, 800px);
+        min-height: 200px;
+        margin-top: 4vh;
+        border-radius: $radius-xl;
+        border: 1px solid $color-border-light;
+        box-shadow: $shadow-lg;
         word-wrap: break-word;
+        animation: fadeIn $transition-slow 0.3s;
+        z-index: 1;
 
         p {
-            font-family: Arial, Helvetica, sans-serif;
-            padding: 10px 14px;
+            font-family: $font-family-primary;
+            font-size: clamp($font-size-lg, 3vw, $font-size-2xl);
+            color: $color-text-primary;
+            padding: $spacing-2xl;
+            line-height: 1.6;
+            text-align: center;
         }
     }
 }
 
+// ===== PHOTO MODE (Fullscreen timer) =====
 .photo {
-    background: black;
+    background: $color-bg-darker;
+
+    &::before {
+        display: none;
+    }
 
     .timer2 {
         &__logo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 20%;
+            position: fixed;
+            top: $spacing-lg;
+            left: $spacing-lg;
+            width: clamp(80px, 12vw, 150px);
+            z-index: 10;
         }
 
         &__middle {
-            width: auto;
-            text-wrap: nowrap;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 3vh 5vw;
+            border-width: 3px;
 
             &--timer {
-                font-size: 15vw;
-                padding: 0 4vw;
+                font-size: clamp(6rem, 18vw, 20rem);
+                white-space: nowrap;
             }
         }
 
         &__message {
             display: none;
         }
-
-        &__middle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
     }
 
     #timer-roomNegative {
         display: none;
+    }
+}
+
+// ===== RESPONSIVE ADJUSTMENTS =====
+@media screen and (max-width: 768px) {
+    .timer2 {
+        padding: 2vh $spacing-md;
+
+        &__middle {
+            padding: 3vh 4vw;
+        }
+
+        &__message p {
+            padding: $spacing-xl;
+            font-size: $font-size-lg;
+        }
+    }
+
+    .photo .timer2__middle {
+        padding: 2vh 4vw;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .timer2 {
+        &__message p {
+            padding: $spacing-lg;
+        }
     }
 }

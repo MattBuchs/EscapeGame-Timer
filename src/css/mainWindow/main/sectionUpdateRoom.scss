@@ -1,57 +1,77 @@
+// ===== UPDATE ROOM SECTION - MODERN DESIGN =====
 .updateTimer {
     min-height: 70vh;
+    padding: $spacing-xl;
 }
 
 .deleteRoom {
-    min-height: 18vh;
-    width: 50%;
-    margin: 2rem auto;
-    color: #f1f1f1;
-    border: 3px solid #a8a3e5;
-    background-color: #8075fa1a;
-    border-radius: 4px;
-    box-shadow: 3px 3px 4px #ffffff21;
-    padding: 1rem;
-    font-size: 1.2rem;
+    @include card-base;
+    width: min(90%, 600px);
+    margin: $spacing-2xl auto;
+    padding: $spacing-2xl;
+    color: $color-text-primary;
+    border: 1px solid $color-border-light;
+    background: $gradient-card;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: $spacing-lg;
+
+    &:hover {
+        transform: none;
+    }
+
+    label {
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+        color: $color-text-secondary;
+    }
 
     &__select {
-        width: 100%;
-        height: 30px;
-        margin-top: 3px;
+        @include input-base;
+        height: 2.8rem;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.5rem center;
+        background-size: 1.5em;
+        padding-right: 2.5rem;
+        cursor: pointer;
     }
 
     &__validate {
-        width: 9rem;
-        height: 2.5rem;
-        border-radius: 2px;
-        font-size: 1.2rem;
-        color: #fff;
-        font-weight: bold;
-        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4549019608);
-        border: 1px solid #fff;
-        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2156862745);
-        background-image: linear-gradient(
-            45deg,
-            #e4fbfe 0%,
-            #317ff5 51%,
-            #e4fbfe 100%
+        @include button-base;
+        min-width: 140px;
+        padding: $spacing-md $spacing-xl;
+        background: linear-gradient(
+            135deg,
+            $color-error 0%,
+            lighten($color-error, 10%) 100%
         );
+        color: $color-text-primary;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: $shadow-md, 0 0 20px rgba(239, 68, 68, 0.2);
+        font-weight: $font-weight-bold;
+
+        &:hover {
+            box-shadow: $shadow-lg, 0 0 30px rgba(239, 68, 68, 0.3);
+        }
     }
 
-    @media screen and (max-width: 1000px) {
-        width: 70%;
-    }
-
-    @media screen and (max-width: 650px) {
-        width: 85%;
+    // ===== RESPONSIVE =====
+    @media screen and (max-width: 800px) {
+        width: min(95%, 600px);
+        padding: $spacing-xl;
     }
 
     @media screen and (max-width: 400px) {
+        padding: $spacing-lg;
+
         label {
-            font-size: 1rem;
+            font-size: $font-size-sm;
+        }
+
+        &__validate {
+            width: 100%;
         }
     }
 }
