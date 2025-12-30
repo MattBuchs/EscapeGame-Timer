@@ -54,6 +54,9 @@ function createWindows() {
                 ? "src/html/mainWindow/index.html"
                 : "src/html/secondWindow.html"
         );
+
+        // Ouvrir les devtools
+        window.webContents.openDevTools();
     });
 
     return windows;
@@ -70,6 +73,7 @@ function createWindowsIf1Screen() {
         center: true,
         icon,
         webPreferences: {
+            devTools: true,
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
@@ -84,6 +88,7 @@ function createWindowsIf1Screen() {
         fullscreen: true,
         icon,
         webPreferences: {
+            devTools: true,
             nodeIntegration: true,
             contextIsolation: false,
         },
@@ -93,6 +98,10 @@ function createWindowsIf1Screen() {
     window1.loadFile("src/html/mainWindow/index.html");
     window1.setMenuBarVisibility(false);
     window2.setMenuBarVisibility(false);
+
+    // Ouvrir les devtools
+    window1.webContents.openDevTools();
+    window2.webContents.openDevTools();
 
     return [window1, window2];
 }

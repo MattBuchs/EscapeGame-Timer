@@ -284,6 +284,18 @@ $breakpoint-xl: 1280px;
     }
 }
 
+@keyframes wave {
+    0%,
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scaleY(0.3);
+        opacity: 0.6;
+    }
+}
+
 // ===== MIXINS =====
 @mixin glass-morphism {
     background: rgba(26, 26, 46, 0.7);

@@ -111,14 +111,19 @@ const utils = {
         const app = document.querySelector("#app");
 
         const container = document.createElement("div");
-        const img = document.createElement("img");
+        const loader = document.createElement("div");
 
-        img.src = "../../../public/img/spinner.svg";
-        img.alt = "Chargement en cours...";
+        loader.className = "loader";
+
+        // Créer 5 barres pour l'animation
+        for (let i = 0; i < 5; i++) {
+            const bar = document.createElement("div");
+            bar.className = "bar";
+            loader.appendChild(bar);
+        }
 
         container.classList.add("spinner");
-
-        container.appendChild(img);
+        container.appendChild(loader);
         app.appendChild(container);
     },
 

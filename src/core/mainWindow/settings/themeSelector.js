@@ -3,6 +3,8 @@
  * Gère le changement de thème de l'application
  */
 
+const { ipcRenderer } = require("electron");
+
 const THEMES = {
     neon: { name: "Néon", icon: "✨" },
     neutral: { name: "Neutre", icon: "🌑" },
@@ -47,9 +49,7 @@ function applyTheme(themeName) {
     localStorage.setItem(STORAGE_KEY, themeName);
 
     // Envoyer le changement de thème à la seconde fenêtre via IPC
-    if (window.electron && window.electron.ipcRenderer) {
-        window.electron.ipcRenderer.send("change-theme", themeName);
-    }
+    ipcRenderer.send("change-theme", themeName);
 
     // Mettre à jour l'UI si elle existe
     updateThemeSelectorUI(themeName);

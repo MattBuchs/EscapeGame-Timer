@@ -3,6 +3,8 @@
  * Gère la réception et l'application du thème dans la fenêtre secondaire
  */
 
+const { ipcRenderer } = require("electron");
+
 const STORAGE_KEY = "escape-game-theme";
 
 /**
@@ -14,11 +16,9 @@ function initThemeHandler() {
     applyTheme(savedTheme);
 
     // Écouter les changements de thème via IPC
-    if (window.electron && window.electron.ipcRenderer) {
-        window.electron.ipcRenderer.on("change-theme", (_, themeName) => {
-            applyTheme(themeName);
-        });
-    }
+    ipcRenderer.on("change-theme", (_, themeName) => {
+        applyTheme(themeName);
+    });
 }
 
 /**
