@@ -107,9 +107,9 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                max-height: 200px;
+                max-height: 300px;
                 overflow-y: auto;
-                background-color: #fff;
+                background-color: #f8f8f8;
                 border: 1px solid #a9a3e1;
                 border-top: none;
                 border-radius: 0 0 3px 3px;
@@ -124,11 +124,11 @@
                     padding: 8px 12px;
                     cursor: pointer;
                     transition: background-color 0.2s;
-                    border-bottom: 1px solid #f0f0f0;
+                    border-bottom: 1px solid #e8e8e8;
                     font-size: 1rem;
 
                     &:hover {
-                        background-color: #f5f3ff;
+                        background-color: #e0dcf5;
                     }
 
                     &:last-child {
@@ -141,7 +141,7 @@
                         cursor: default;
 
                         &:hover {
-                            background-color: #fff;
+                            background-color: #f8f8f8;
                         }
                     }
                 }
