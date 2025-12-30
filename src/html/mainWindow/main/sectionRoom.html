@@ -73,6 +73,18 @@
 
         <div class="timer__bottom">
             <form id="form-message">
+                <div class="timer__bottom--filters">
+                    <select
+                        id="phrases-category-filter"
+                        class="phrases-filter-select"
+                    >
+                        <option value="all">📋 Toutes les catégories</option>
+                    </select>
+                    <label class="phrases-favorites-label">
+                        <input type="checkbox" id="phrases-favorites-only" />
+                        <span>⭐ Favoris uniquement</span>
+                    </label>
+                </div>
                 <div class="timer__bottom--autocomplete">
                     <input
                         type="text"

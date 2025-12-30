@@ -69,6 +69,32 @@
             <label for="add-phrases">Enregistrer une phrase :</label>
             <textarea id="add-phrases" maxlength="230"></textarea>
             <p><span id="counter-add-phrases">0</span> / 230</p>
+
+            <div class="phrase-options">
+                <div class="phrase-option">
+                    <label for="phrase-category"
+                        >Catégorie (optionnelle) :</label
+                    >
+                    <input
+                        type="text"
+                        id="phrase-category"
+                        class="phrase-category-input"
+                        list="phrase-categories-list"
+                        placeholder="Créer ou sélectionner une catégorie..."
+                        autocomplete="off"
+                    />
+                    <datalist id="phrase-categories-list">
+                        <!-- Options ajoutées dynamiquement par JS -->
+                    </datalist>
+                </div>
+
+                <div class="phrase-option">
+                    <label for="phrase-favorite" class="favorite-label">
+                        <input type="checkbox" id="phrase-favorite" />
+                        <span>⭐ Marquer comme favori</span>
+                    </label>
+                </div>
+            </div>
         </div>
         <button id="btn-validate_addphrases" class="modal__content--validate">
             Valider

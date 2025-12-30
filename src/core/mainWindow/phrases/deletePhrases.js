@@ -23,7 +23,8 @@ const deletePhrasesObj = {
         selectDeletePhrase.options.length = 1;
         phrases.forEach((el) => {
             const option = document.createElement("option");
-            const content = document.createTextNode(el);
+            const phraseText = typeof el === "string" ? el : el.text;
+            const content = document.createTextNode(phraseText);
 
             option.appendChild(content);
             selectDeletePhrase.appendChild(option);
@@ -42,7 +43,11 @@ const deletePhrasesObj = {
         const optionSelected =
             selectDeletePhrase.options[selectDeletePhrase.selectedIndex];
 
-        const findIndex = phrases.indexOf(optionSelected.textContent);
+        const findIndex = phrases.findIndex(
+            (p) =>
+                (typeof p === "string" ? p : p.text) ===
+                optionSelected.textContent
+        );
         dataloaded[indexRoom].phrases.splice(findIndex, 1);
 
         writeFile(dataloaded);

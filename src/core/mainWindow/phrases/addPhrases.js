@@ -10,12 +10,18 @@ const modalContent = document.querySelector("#modal-add_phrases__content");
 const btnCloseModal = document.querySelector("#close-modal_addphrases");
 const btnValidate = document.querySelector("#btn-validate_addphrases");
 const phrases = document.querySelector("#add-phrases");
+const categoryInput = document.querySelector("#phrase-category");
+const favoriteCheckbox = document.querySelector("#phrase-favorite");
 const modalParamsSound = document.querySelector("#modal-params_sound");
 const openParamsSound = document.querySelector("#params-sound");
 const counterMessage = document.querySelector("#counter-add-phrases");
+const categoryDatalist = document.querySelector("#phrase-categories-list");
 
 const addPhrasesObj = {
     init() {
+        // Initialiser le select des catégories
+        this.initCategorySelect();
+
         btnAddPhrases.addEventListener("click", () => {
             openModal(
                 containerRoom,
@@ -39,6 +45,32 @@ const addPhrasesObj = {
         phrasesAutocompleteObj.init();
     },
 
+    initCategorySelect() {
+        if (!categoryDatalist) return;
+
+        // Vider la datalist
+        categoryDatalist.innerHTML = "";
+
+        // Récupérer toutes les catégories uniques de toutes les phrases
+        const allCategories = new Set();
+        dataloaded.forEach((room) => {
+            if (room.phrases) {
+                room.phrases.forEach((phrase) => {
+                    if (typeof phrase === "object" && phrase.category) {
+                        allCategories.add(phrase.category);
+                    }
+                });
+            }
+        });
+
+        // Ajouter chaque catégorie unique à la datalist
+        allCategories.forEach((cat) => {
+            const option = document.createElement("option");
+            option.value = cat;
+            categoryDatalist.appendChild(option);
+        });
+    },
+
     addPhrases() {
         const value = phrases.value.trim();
 
@@ -50,21 +82,57 @@ const addPhrasesObj = {
         // Trouve l'index de l'objet avec l'ID donné dans le tableau
         const index = dataloaded.findIndex((obj) => obj.id === roomsObj.roomId);
 
-        // Vérifier si la phrase existe déjà
-        if (dataloaded[index].phrases.includes(value)) {
+        // Créer l'objet phrase avec métadonnées
+        const category = categoryInput ? categoryInput.value.trim() : "";
+        const phraseObj = {
+            text: value,
+            category: category || null,
+            favorite: favoriteCheckbox ? favoriteCheckbox.checked : false,
+            created: new Date().toISOString(),
+            usageCount: 0,
+        };
+
+        // Initialiser le tableau phrases s'il n'existe pas ou convertir anciennes phrases
+        if (!dataloaded[index].phrases) {
+            dataloaded[index].phrases = [];
+        } else {
+            // Convertir les anciennes phrases (string) en objets
+            dataloaded[index].phrases = dataloaded[index].phrases.map((p) =>
+                typeof p === "string"
+                    ? {
+                          text: p,
+                          category: null,
+                          favorite: false,
+                          created: new Date().toISOString(),
+                          usageCount: 0,
+                      }
+                    : p
+            );
+        }
+
+        // Vérifier si la phrase existe déjà (comparer le texte uniquement)
+        const phraseExists = dataloaded[index].phrases.some(
+            (p) => (typeof p === "string" ? p : p.text) === value
+        );
+        if (phraseExists) {
             notification("Cette phrase existe déjà.", "warning");
             return;
         }
 
-        dataloaded[index].phrases.push(value);
+        dataloaded[index].phrases.push(phraseObj);
 
         writeFile(dataloaded);
 
         // Ajouter la phrase à l'autocomplétion
-        phrasesAutocompleteObj.addPhrase(value);
+        phrasesAutocompleteObj.addPhrase(phraseObj);
 
         phrases.value = "";
         counterMessage.textContent = "0";
+        if (categoryInput) categoryInput.value = "";
+        if (favoriteCheckbox) favoriteCheckbox.checked = false;
+
+        // Recharger la datalist
+        this.initCategorySelect();
 
         closeModal(modalAddPhrases, btnAddPhrases);
         notification("La phrase a été ajoutée au timer.", "success");

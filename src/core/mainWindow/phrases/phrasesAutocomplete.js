@@ -1,18 +1,39 @@
 import roomsObj from "../rooms/rooms.js";
-import { dataloaded } from "../../utils.js";
+import { dataloaded, writeFile } from "../../utils.js";
 
 const phrasesInput = document.querySelector("#phrases-select");
 const phrasesDropdown = document.querySelector("#phrases-dropdown");
 const clearPhraseBtn = document.querySelector("#clear-phrase-input");
 const messageTextarea = document.querySelector("#message");
+const categoryFilter = document.querySelector("#phrases-category-filter");
+const showFavoritesOnly = document.querySelector("#phrases-favorites-only");
 
 const phrasesAutocompleteObj = {
     allPhrases: [],
     isDropdownOpen: false,
+    selectedCategoryFilter: "all",
+    favoritesOnly: false,
 
     init() {
         phrasesInput.addEventListener("input", this.handleInput.bind(this));
         clearPhraseBtn.addEventListener("click", this.clearInput.bind(this));
+
+        // Initialiser les filtres de catégories
+        if (categoryFilter) {
+            this.initCategoryFilter();
+            categoryFilter.addEventListener("change", (e) => {
+                this.selectedCategoryFilter = e.target.value;
+                this.filterAndDisplayPhrases(phrasesInput.value.trim());
+            });
+        }
+
+        // Filtre favoris
+        if (showFavoritesOnly) {
+            showFavoritesOnly.addEventListener("change", (e) => {
+                this.favoritesOnly = e.target.checked;
+                this.filterAndDisplayPhrases(phrasesInput.value.trim());
+            });
+        }
 
         // Écouter les touches pour une meilleure UX
         phrasesInput.addEventListener("keydown", this.handleKeyDown.bind(this));
@@ -25,10 +46,37 @@ const phrasesAutocompleteObj = {
         document.addEventListener("click", (e) => {
             if (
                 !phrasesInput.contains(e.target) &&
-                !phrasesDropdown.contains(e.target)
+                !phrasesDropdown.contains(e.target) &&
+                !categoryFilter?.contains(e.target) &&
+                !showFavoritesOnly?.contains(e.target)
             ) {
                 this.closeDropdown();
             }
+        });
+    },
+
+    initCategoryFilter() {
+        if (!categoryFilter) return;
+
+        categoryFilter.innerHTML = `
+            <option value="all">📋 Toutes les catégories</option>
+            <option value="none">🚫 Sans catégorie</option>
+        `;
+
+        // Récupérer toutes les catégories uniques
+        const allCategories = new Set();
+        this.allPhrases.forEach((phrase) => {
+            if (phrase.category) {
+                allCategories.add(phrase.category);
+            }
+        });
+
+        // Ajouter chaque catégorie unique
+        allCategories.forEach((cat) => {
+            const option = document.createElement("option");
+            option.value = cat;
+            option.textContent = cat;
+            categoryFilter.appendChild(option);
         });
     },
 
@@ -83,31 +131,54 @@ const phrasesAutocompleteObj = {
         // Vider le dropdown
         phrasesDropdown.innerHTML = "";
 
-        let filteredPhrases = [];
+        let filteredPhrases = [...this.allPhrases];
 
-        if (!searchValue) {
-            // Si pas de recherche, afficher toutes les phrases (limitées pour performance)
-            filteredPhrases = this.allPhrases.slice(0, 50);
-        } else {
-            // Filtrer les phrases qui commencent par la recherche (insensible à la casse)
-            const searchLower = searchValue.toLowerCase();
-            const startsWithMatches = this.allPhrases.filter((phrase) =>
-                phrase.toLowerCase().startsWith(searchLower)
+        // Filtrer par favoris si demandé
+        if (this.favoritesOnly) {
+            filteredPhrases = filteredPhrases.filter((p) => p.favorite);
+        }
+
+        // Filtrer par catégorie si sélectionnée
+        if (this.selectedCategoryFilter === "none") {
+            filteredPhrases = filteredPhrases.filter(
+                (p) => !p.category || p.category === ""
             );
-
-            // Filtrer les phrases qui contiennent la recherche mais ne commencent pas par celle-ci
-            const containsMatches = this.allPhrases.filter(
-                (phrase) =>
-                    !phrase.toLowerCase().startsWith(searchLower) &&
-                    phrase.toLowerCase().includes(searchLower)
-            );
-
-            // Combiner les résultats: d'abord ceux qui commencent, puis ceux qui contiennent
-            filteredPhrases = [...startsWithMatches, ...containsMatches].slice(
-                0,
-                50
+        } else if (this.selectedCategoryFilter !== "all") {
+            filteredPhrases = filteredPhrases.filter(
+                (p) => p.category === this.selectedCategoryFilter
             );
         }
+
+        // Filtrer par texte de recherche
+        if (searchValue) {
+            const searchLower = searchValue.toLowerCase();
+
+            const startsWithMatches = filteredPhrases.filter((p) =>
+                p.text.toLowerCase().startsWith(searchLower)
+            );
+
+            const containsMatches = filteredPhrases.filter(
+                (p) =>
+                    !p.text.toLowerCase().startsWith(searchLower) &&
+                    p.text.toLowerCase().includes(searchLower)
+            );
+
+            filteredPhrases = [...startsWithMatches, ...containsMatches];
+        }
+
+        // Trier par favoris d'abord, puis par nombre d'utilisations, puis alphabétiquement
+        filteredPhrases.sort((a, b) => {
+            if (a.favorite !== b.favorite) {
+                return b.favorite ? 1 : -1;
+            }
+            if (a.usageCount !== b.usageCount) {
+                return b.usageCount - a.usageCount;
+            }
+            return a.text.localeCompare(b.text, "fr", { sensitivity: "base" });
+        });
+
+        // Limiter à 50 résultats pour les performances
+        filteredPhrases = filteredPhrases.slice(0, 50);
 
         // Afficher les phrases ou un message si aucun résultat
         if (filteredPhrases.length === 0) {
@@ -118,15 +189,90 @@ const phrasesAutocompleteObj = {
                 : "Aucune phrase enregistrée";
             phrasesDropdown.appendChild(noResultDiv);
         } else {
+            // Grouper par catégorie
+            const groupedByCategory = {};
             filteredPhrases.forEach((phrase) => {
-                const phraseDiv = document.createElement("div");
-                phraseDiv.className = "phrase-item";
-                phraseDiv.textContent = phrase;
-                phraseDiv.addEventListener("click", () =>
-                    this.selectPhrase(phrase)
-                );
-                phrasesDropdown.appendChild(phraseDiv);
+                const catKey = phrase.category || "_none";
+                if (!groupedByCategory[catKey]) {
+                    groupedByCategory[catKey] = [];
+                }
+                groupedByCategory[catKey].push(phrase);
             });
+
+            // Afficher les catégories et phrases
+            Object.entries(groupedByCategory).forEach(
+                ([categoryId, phrases]) => {
+                    // Afficher l'en-tête de catégorie si plusieurs catégories
+                    if (
+                        Object.keys(groupedByCategory).length > 1 ||
+                        this.selectedCategoryFilter === "all"
+                    ) {
+                        const categoryHeader = document.createElement("div");
+                        categoryHeader.className = "phrase-category-header";
+                        categoryHeader.textContent =
+                            categoryId === "_none"
+                                ? "🚫 Sans catégorie"
+                                : categoryId;
+                        phrasesDropdown.appendChild(categoryHeader);
+                    }
+
+                    // Afficher les phrases de cette catégorie
+                    phrases.forEach((phrase) => {
+                        const phraseDiv = document.createElement("div");
+                        phraseDiv.className = "phrase-item";
+
+                        if (phrase.favorite) {
+                            phraseDiv.classList.add("favorite");
+                        }
+
+                        // Créer le contenu de la phrase
+                        const phraseContent = document.createElement("div");
+                        phraseContent.className = "phrase-content";
+
+                        const phraseText = document.createElement("span");
+                        phraseText.className = "phrase-text";
+                        phraseText.textContent = phrase.text;
+
+                        // Bouton toggle favori
+                        const favoriteBtn = document.createElement("button");
+                        favoriteBtn.className = "phrase-favorite-btn";
+                        favoriteBtn.innerHTML = phrase.favorite ? "⭐" : "☆";
+                        favoriteBtn.title = phrase.favorite
+                            ? "Retirer des favoris"
+                            : "Ajouter aux favoris";
+                        favoriteBtn.addEventListener("click", (e) => {
+                            e.stopPropagation();
+                            this.toggleFavorite(phrase);
+                        });
+
+                        const phraseMeta = document.createElement("span");
+                        phraseMeta.className = "phrase-meta";
+
+                        let metaText = "";
+                        if (phrase.usageCount > 0)
+                            metaText += `${phrase.usageCount}× `;
+
+                        phraseMeta.textContent = metaText;
+
+                        phraseContent.appendChild(phraseText);
+                        const metaContainer = document.createElement("div");
+                        metaContainer.className = "phrase-actions";
+                        if (metaText) metaContainer.appendChild(phraseMeta);
+                        metaContainer.appendChild(favoriteBtn);
+                        phraseContent.appendChild(metaContainer);
+
+                        phraseDiv.appendChild(phraseContent);
+
+                        phraseDiv.addEventListener("click", (e) => {
+                            // Ne pas sélectionner si on clique sur le bouton favori
+                            if (!e.target.closest(".phrase-favorite-btn")) {
+                                this.selectPhrase(phrase);
+                            }
+                        });
+                        phrasesDropdown.appendChild(phraseDiv);
+                    });
+                }
+            );
         }
 
         // Afficher le dropdown
@@ -135,7 +281,23 @@ const phrasesAutocompleteObj = {
 
     selectPhrase(phrase) {
         // Insérer la phrase dans le textarea
-        messageTextarea.value = phrase;
+        messageTextarea.value = phrase.text;
+
+        // Incrémenter le compteur d'utilisation
+        phrase.usageCount = (phrase.usageCount || 0) + 1;
+
+        // Sauvegarder les modifications dans dataloaded
+        const roomIndex = dataloaded.findIndex(
+            (obj) => obj.id === roomsObj.roomId
+        );
+        if (roomIndex !== -1) {
+            const phraseIndex = dataloaded[roomIndex].phrases.findIndex(
+                (p) => (typeof p === "string" ? p : p.text) === phrase.text
+            );
+            if (phraseIndex !== -1) {
+                dataloaded[roomIndex].phrases[phraseIndex] = phrase;
+            }
+        }
 
         // Déclencher l'événement input pour mettre à jour le compteur
         const event = new Event("input", { bubbles: true });
@@ -157,34 +319,95 @@ const phrasesAutocompleteObj = {
         phrasesInput.focus();
     },
 
+    toggleFavorite(phrase) {
+        phrase.favorite = !phrase.favorite;
+
+        // Sauvegarder dans dataloaded
+        const roomIndex = dataloaded.findIndex(
+            (obj) => obj.id === roomsObj.roomId
+        );
+        if (roomIndex !== -1) {
+            const phraseIndex = dataloaded[roomIndex].phrases.findIndex(
+                (p) => (typeof p === "string" ? p : p.text) === phrase.text
+            );
+            if (phraseIndex !== -1) {
+                dataloaded[roomIndex].phrases[phraseIndex] = phrase;
+                writeFile(dataloaded);
+            }
+        }
+
+        // Rafraîchir l'affichage
+        const currentValue = phrasesInput.value.trim();
+        this.filterAndDisplayPhrases(currentValue);
+
+        // Recharger le filtre de catégories au cas où
+        this.initCategoryFilter();
+    },
+
     loadPhrases(data) {
         // Charger toutes les phrases depuis les données
-        this.allPhrases = data.phrases || [];
+        let phrases = data.phrases || [];
 
-        // Trier les phrases par ordre alphabétique pour une meilleure UX
-        this.allPhrases.sort((a, b) =>
-            a.localeCompare(b, "fr", { sensitivity: "base" })
+        // Convertir les anciennes phrases (string) en objets
+        this.allPhrases = phrases.map((p) =>
+            typeof p === "string"
+                ? {
+                      text: p,
+                      category: null,
+                      favorite: false,
+                      created: new Date().toISOString(),
+                      usageCount: 0,
+                  }
+                : p
         );
+
+        // Trier les phrases
+        this.allPhrases.sort((a, b) => {
+            if (a.favorite !== b.favorite) {
+                return b.favorite ? 1 : -1;
+            }
+            if (a.usageCount !== b.usageCount) {
+                return b.usageCount - a.usageCount;
+            }
+            return a.text.localeCompare(b.text, "fr", { sensitivity: "base" });
+        });
+
+        // Recharger les catégories disponibles
+        this.initCategoryFilter();
     },
 
     addPhrase(phrase) {
         // Ajouter une nouvelle phrase à la liste
-        if (!this.allPhrases.includes(phrase)) {
-            this.allPhrases.push(phrase);
+        const phraseObj =
+            typeof phrase === "string"
+                ? {
+                      text: phrase,
+                      category: null,
+                      favorite: false,
+                      created: new Date().toISOString(),
+                      usageCount: 0,
+                  }
+                : phrase;
+
+        const exists = this.allPhrases.some((p) => p.text === phraseObj.text);
+        if (!exists) {
+            this.allPhrases.push(phraseObj);
             this.allPhrases.sort((a, b) =>
-                a.localeCompare(b, "fr", { sensitivity: "base" })
+                a.text.localeCompare(b.text, "fr", { sensitivity: "base" })
             );
-            // Mettre à jour le dropdown si il est ouvert
+            // Mettre à jour le dropdown et les filtres
             if (this.isDropdownOpen) {
                 const currentValue = phrasesInput.value.trim();
                 this.filterAndDisplayPhrases(currentValue);
             }
+            this.initCategoryFilter();
         }
     },
 
     removePhrase(phrase) {
         // Supprimer une phrase de la liste
-        const index = this.allPhrases.indexOf(phrase);
+        const phraseText = typeof phrase === "string" ? phrase : phrase.text;
+        const index = this.allPhrases.findIndex((p) => p.text === phraseText);
         if (index > -1) {
             this.allPhrases.splice(index, 1);
             // Mettre à jour le dropdown si il est ouvert
