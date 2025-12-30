@@ -840,7 +840,6 @@ table {
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeIn 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .modal__content {
   background: rgba(26, 26, 46, 0.7);
@@ -857,7 +856,6 @@ table {
   border-radius: 1rem;
   border: 1px solid var(--color-border-light);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5), var(--shadow-glow);
-  animation: scaleIn 250ms cubic-bezier(0.4, 0, 0.2, 1);
   overflow: auto;
 }
 .modal__content::-webkit-scrollbar {
@@ -1088,7 +1086,6 @@ table {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  animation: scaleIn 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .modal__confirm p {
   font-size: 1.125rem;
@@ -1154,7 +1151,6 @@ table {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  animation: scaleIn 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .modal__exit--paragraph {
   font-size: 1.125rem;
@@ -2453,7 +2449,6 @@ table {
   margin-bottom: 3vh;
   position: relative;
   z-index: 1;
-  animation: fadeIn 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .timer2__logo img {
   width: 100%;
@@ -2471,7 +2466,6 @@ table {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(99, 102, 241, 0.1);
-  animation: scaleIn 250ms cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
 .timer2__middle--timer {
@@ -2498,7 +2492,6 @@ table {
   border: 1px solid var(--color-border-light);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
   word-wrap: break-word;
-  animation: fadeIn 350ms cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
   z-index: 1;
 }
 .timer2__message p {

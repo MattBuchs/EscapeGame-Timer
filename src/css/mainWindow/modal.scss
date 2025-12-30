@@ -13,7 +13,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: fadeIn $transition-base;
 
     &__content {
         @include glass-morphism;
@@ -27,7 +26,6 @@
         border-radius: $radius-xl;
         border: 1px solid $color-border-light;
         box-shadow: $shadow-xl, $shadow-glow;
-        animation: scaleIn $transition-base;
         overflow: auto;
         @include scrollbar-modern;
 
@@ -217,7 +215,6 @@
         display: flex;
         flex-direction: column;
         gap: $spacing-xl;
-        animation: scaleIn $transition-base;
 
         p {
             font-size: $font-size-lg;
@@ -271,7 +268,6 @@
         display: flex;
         flex-direction: column;
         gap: $spacing-xl;
-        animation: scaleIn $transition-base;
 
         &--paragraph {
             font-size: $font-size-lg;
