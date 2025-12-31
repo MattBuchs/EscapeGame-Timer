@@ -13,35 +13,7 @@
     "isPreferenceTimer": false,
     "phrases": [
       {
-        "text": "ezfzefezf",
-        "category": null,
-        "favorite": true,
-        "created": "2025-12-30T23:17:29.850Z",
-        "usageCount": 0
-      },
-      {
-        "text": "jnyjry",
-        "category": null,
-        "favorite": false,
-        "created": "2025-12-30T23:17:29.850Z",
-        "usageCount": 0
-      },
-      {
-        "text": "jryjryjryj",
-        "category": null,
-        "favorite": false,
-        "created": "2025-12-30T23:17:29.850Z",
-        "usageCount": 0
-      },
-      {
         "text": "Test",
-        "category": null,
-        "favorite": false,
-        "created": "2025-12-30T23:17:29.850Z",
-        "usageCount": 0
-      },
-      {
-        "text": "Testttt",
         "category": null,
         "favorite": false,
         "created": "2025-12-30T23:17:29.850Z",
@@ -62,32 +34,25 @@
         "usageCount": 0
       },
       {
-        "text": "zufz eufefu eeufa oufhfea eaufeafe afaefuoeamfe aofu aefheuaf eao ufeaf hueafoeafhefa eaofeao fueahfu eafoae fheaufheaof aeofuh eafeaofhea foufheoafheaofheafh ou grog rogzrj rzogro r^zgrzor zrogr zorjgrgjrz rzogjrzjg rzogjrgjrrorj",
-        "category": null,
-        "favorite": false,
-        "created": "2025-12-30T23:17:29.850Z",
-        "usageCount": 0
-      },
-      {
-        "text": "Wuwuw",
-        "category": "Test",
-        "favorite": false,
-        "created": "2025-12-30T23:17:29.850Z",
-        "usageCount": 0
-      },
-      {
-        "text": "Matt",
-        "category": "Test",
-        "favorite": false,
-        "created": "2025-12-30T23:18:17.217Z",
-        "usageCount": 0
-      },
-      {
         "text": "Wowowowowwoow",
         "category": "🎬 Wow",
         "favorite": true,
         "created": "2025-12-31T08:39:04.935Z",
         "usageCount": 0
+      },
+      {
+        "text": "Testrfgfds",
+        "category": "💡 1ère Salle",
+        "favorite": true,
+        "created": "2025-12-31T08:53:28.521Z",
+        "usageCount": 0
+      },
+      {
+        "text": "dfhbdfgbhdgf",
+        "category": "💡 1ère Salle",
+        "favorite": false,
+        "created": "2025-12-31T08:53:42.523Z",
+        "usageCount": 1
       }
     ]
   },

@@ -109,3 +109,45 @@
 
     <button type="submit" class="deleteRoom__validate">Valider</button>
 </form>
+
+<form id="edit-phrase" class="editPhrase">
+    <div>
+        <label class="editPhrase__label" for="select-edit_phrase"
+            >Phrase à modifier :
+        </label>
+        <select
+            class="editPhrase__select"
+            name="edit_phrase"
+            id="select-edit_phrase"
+        >
+            <option value="">Éditer une phrase existante</option>
+        </select>
+    </div>
+
+    <div id="edit-phrase-form" class="editPhrase__form hidden">
+        <label for="edit-phrase-category">Catégorie :</label>
+        <input
+            type="text"
+            id="edit-phrase-category"
+            class="editPhrase__input"
+            list="edit-phrase-categories-list"
+            placeholder="Modifier la catégorie..."
+            autocomplete="off"
+        />
+        <datalist id="edit-phrase-categories-list">
+            <!-- Options ajoutées dynamiquement par JS -->
+        </datalist>
+
+        <div class="editPhrase__icons-container">
+            <label>Icônes disponibles :</label>
+            <div id="edit-category-icons" class="editPhrase__icons"></div>
+        </div>
+
+        <label class="editPhrase__favorite-label">
+            <input type="checkbox" id="edit-phrase-favorite" />
+            <span>⭐ Marquer comme favori</span>
+        </label>
+
+        <button type="submit" class="editPhrase__validate">Enregistrer</button>
+    </div>
+</form>

@@ -11,6 +11,7 @@ import utilsSettingsObj from "./settings/utilsSettings.js";
 import manageTabsObj from "./UI/manageTabs.js";
 import updateRoomObj from "./rooms/updateRoom.js";
 import deletePhrasesObj from "./phrases/deletePhrases.js";
+import editPhrasesObj from "./phrases/editPhrases.js";
 import dragAndDropObj from "./settings/DragAndDrop.js";
 import deleteSongFileObj from "./settings/deleteSongFile.js";
 import manageNavbarObj from "./UI/manageNavbar.js";
@@ -30,6 +31,7 @@ updateRoomObj.init();
 // Initialisation des fonctionnalités liées aux paramètres de la room
 addPhrasesObj.init();
 deletePhrasesObj.init();
+editPhrasesObj.init();
 updateSoundObj.init();
 manageSoundObj.init();
 

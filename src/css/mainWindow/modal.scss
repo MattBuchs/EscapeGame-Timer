@@ -129,16 +129,15 @@
                 font-size: $font-size-base;
                 line-height: 1.6;
                 font-family: $font-family-primary;
-                margin-bottom: $spacing-md;
+                margin-bottom: $spacing-xs;
             }
 
-            p {
-                position: absolute;
-                bottom: $spacing-2xl;
-                right: $spacing-2xl;
+            > p {
                 font-size: $font-size-sm;
                 color: $color-text-muted;
                 font-family: $font-family-mono;
+                text-align: right;
+                margin-bottom: $spacing-md;
             }
 
             .phrase-options {

@@ -2,6 +2,7 @@ import { listSounds, dataloaded, writeFile } from "../../utils.js";
 import { notification } from "../UI/notification.js";
 import roomsObj from "./rooms.js";
 import { loadPhrases } from "../phrases/deletePhrases.js";
+import editPhrasesObj from "../phrases/editPhrases.js";
 const path = require("path");
 
 const btnUpdateRoom = document.querySelector("#update-timer");
@@ -42,6 +43,7 @@ const updateRoomObj = {
             }
             this.addValuesInInputs();
             loadPhrases();
+            editPhrasesObj.loadPhrases();
         });
     },
 

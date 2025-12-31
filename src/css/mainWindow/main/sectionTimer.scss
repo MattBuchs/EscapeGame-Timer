@@ -223,10 +223,10 @@
 
             .phrases-dropdown {
                 position: absolute;
-                top: 100%;
+                bottom: 104%;
                 left: 0;
                 right: 0;
-                max-height: 350px;
+                max-height: 500px;
                 overflow-y: auto;
                 @include scrollbar-modern;
                 background: $color-bg-card;
