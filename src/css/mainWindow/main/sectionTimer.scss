@@ -130,7 +130,7 @@
             $color-bg-glass
         );
         backdrop-filter: blur(10px);
-        box-shadow: $shadow-xl, inset 0 0 40px rgba(99, 102, 241, 0.1);
+        box-shadow: $shadow-lg, inset 0 0 40px rgba(99, 102, 241, 0.1);
 
         p {
             font-size: clamp(3rem, 8vw, 8rem);

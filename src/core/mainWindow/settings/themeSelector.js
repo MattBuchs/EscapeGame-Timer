@@ -8,7 +8,7 @@ const { ipcRenderer } = require("electron");
 const THEMES = {
     neon: { name: "Néon", icon: "✨" },
     neutral: { name: "Neutre", icon: "🌑" },
-    elegant: { name: "Élégant", icon: "💎" },
+    elegant: { name: "Light", icon: "☀️" },
     modern: { name: "Moderne", icon: "🚀" },
 };
 

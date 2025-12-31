@@ -244,50 +244,99 @@
 }
 
 [data-theme=elegant] {
-  --color-primary: #8b5cf6;
-  --color-primary-dark: #7c3aed;
-  --color-primary-light: #a78bfa;
-  --color-primary-glow: rgba(139, 92, 246, 0.3);
-  --color-secondary: #ec4899;
-  --color-secondary-dark: #db2777;
-  --color-secondary-light: #f472b6;
-  --color-secondary-glow: rgba(236, 72, 153, 0.25);
-  --color-bg-dark: #1a1625;
-  --color-bg-darker: #0f0a1a;
-  --color-bg-card: #2a1f3d;
-  --color-bg-card-hover: #342949;
-  --color-bg-input: #3d3152;
-  --color-bg-section: rgba(42, 31, 61, 0.3);
-  --color-bg-section-hover: rgba(52, 41, 73, 0.5);
-  --color-bg-glass: rgba(42, 31, 61, 0.7);
-  --color-bg-accent: rgba(139, 92, 246, 0.05);
-  --color-bg-accent-hover: rgba(139, 92, 246, 0.1);
-  --color-bg-overlay: rgba(15, 10, 26, 0.2);
-  --color-text-primary: #faf5ff;
-  --color-text-secondary: #e9d5ff;
-  --color-text-muted: #c4b5fd;
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-primary-light: #60a5fa;
+  --color-primary-glow: rgba(59, 130, 246, 0.3);
+  --color-secondary: #8b5cf6;
+  --color-secondary-dark: #7c3aed;
+  --color-secondary-light: #a78bfa;
+  --color-secondary-glow: rgba(139, 92, 246, 0.25);
+  --color-bg-dark: #f8fafc;
+  --color-bg-darker: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #f1f5f9;
+  --color-bg-input: #f8fafc;
+  --color-bg-section: rgba(241, 245, 249, 0.5);
+  --color-bg-section-hover: rgba(226, 232, 240, 0.7);
+  --color-bg-glass: rgba(255, 255, 255, 0.9);
+  --color-bg-accent: rgba(59, 130, 246, 0.05);
+  --color-bg-accent-hover: rgba(59, 130, 246, 0.1);
+  --color-bg-overlay: rgba(0, 0, 0, 0.05);
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
   --color-success: #10b981;
-  --color-success-glow: rgba(16, 185, 129, 0.25);
-  --color-error: #f43f5e;
+  --color-success-glow: rgba(16, 185, 129, 0.2);
+  --color-error: #ef4444;
   --color-warning: #f59e0b;
-  --color-border: #4c1d95;
-  --color-border-light: #6d28d9;
-  --gradient-card: linear-gradient(145deg, #2a1f3d 0%, #342949 100%);
-  --shadow-glow: 0 0 24px var(--color-primary-glow),
-      0 8px 32px rgba(139, 92, 246, 0.2);
-  --shadow-glow-cyan: 0 0 24px var(--color-secondary-glow),
-      0 8px 32px rgba(236, 72, 153, 0.15);
+  --color-border: #cbd5e1;
+  --color-border-light: #94a3b8;
+  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  --shadow-glow: 0 2px 8px rgba(59, 130, 246, 0.03);
+  --shadow-glow-cyan: 0 2px 8px rgba(139, 92, 246, 0.02);
   --neon-border: 2px solid var(--color-primary);
-  --neon-box-shadow: 0 0 12px rgba(139, 92, 246, 0.4),
-      inset 0 0 8px rgba(139, 92, 246, 0.15);
+  --neon-box-shadow: 0 1px 4px rgba(59, 130, 246, 0.05),
+      inset 0 1px 2px rgba(59, 130, 246, 0.02);
 }
 [data-theme=elegant]::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at 30% 40%, rgba(139, 92, 246, 0.12) 0%, transparent 60%), radial-gradient(circle at 70% 70%, rgba(236, 72, 153, 0.1) 0%, transparent 60%);
+  background: radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
+}
+[data-theme=elegant] .header__nav button.active,
+[data-theme=elegant] .header__nav .tabs.active,
+[data-theme=elegant] .header__nav .header__nav--ul2.active {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%) !important;
+}
+[data-theme=elegant] .header__nav button.active .header__nav--svg,
+[data-theme=elegant] .header__nav button.active .header__nav--svg path,
+[data-theme=elegant] .header__nav button.active .header__nav--svg polygon,
+[data-theme=elegant] .header__nav .tabs.active .header__nav--svg,
+[data-theme=elegant] .header__nav .tabs.active .header__nav--svg path,
+[data-theme=elegant] .header__nav .tabs.active .header__nav--svg polygon,
+[data-theme=elegant] .header__nav .header__nav--ul2.active .header__nav--svg,
+[data-theme=elegant] .header__nav .header__nav--ul2.active .header__nav--svg path,
+[data-theme=elegant] .header__nav .header__nav--ul2.active .header__nav--svg polygon {
+  fill: #ffffff !important;
+}
+[data-theme=elegant] .header__nav button.active span,
+[data-theme=elegant] .header__nav .tabs.active span,
+[data-theme=elegant] .header__nav .header__nav--ul2.active span {
+  color: #ffffff !important;
+}
+[data-theme=elegant] button {
+  color: #ffffff;
+}
+[data-theme=elegant] .timer button,
+[data-theme=elegant] .addTimer__container--validate,
+[data-theme=elegant] .settingsRooms__section--validate,
+[data-theme=elegant] .deleteRoom__validate,
+[data-theme=elegant] .editPhrase__validate,
+[data-theme=elegant] .modal__content--validate,
+[data-theme=elegant] .header__expandNavbar {
+  color: #ffffff !important;
+}
+[data-theme=elegant] input[type=text],
+[data-theme=elegant] input[type=time],
+[data-theme=elegant] input[type=range],
+[data-theme=elegant] select,
+[data-theme=elegant] textarea,
+[data-theme=elegant] .settingsRooms__section--drop,
+[data-theme=elegant] .timer__bottom--autocomplete input {
+  border: 1.5px solid #cbd5e1 !important;
+}
+[data-theme=elegant] input[type=text]:focus,
+[data-theme=elegant] input[type=time]:focus,
+[data-theme=elegant] input[type=range]:focus,
+[data-theme=elegant] select:focus,
+[data-theme=elegant] textarea:focus,
+[data-theme=elegant] .settingsRooms__section--drop:focus,
+[data-theme=elegant] .timer__bottom--autocomplete input:focus {
+  border-color: var(--color-primary) !important;
 }
 
 [data-theme=modern] {
@@ -1550,7 +1599,7 @@ table {
   position: relative;
   background: linear-gradient(145deg, var(--color-bg-section-hover), var(--color-bg-glass));
   backdrop-filter: blur(10px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(99, 102, 241, 0.1);
 }
 .timer__middle p {
   font-size: clamp(3rem, 8vw, 8rem);
@@ -3030,7 +3079,7 @@ table {
   background: linear-gradient(145deg, var(--color-bg-section), var(--color-bg-glass));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(99, 102, 241, 0.1);
   z-index: 1;
 }
 .timer2__middle--timer {
