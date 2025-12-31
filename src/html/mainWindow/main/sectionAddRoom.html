@@ -1,43 +1,47 @@
 <form id="form-add_room" class="addTimer">
-    <h2 class="addTimer__title">Ajouter un Timer</h2>
+    <h2 class="addTimer__title" data-i18n="addTimer.title">Ajouter un Timer</h2>
 
     <div class="addTimer__container">
         <section class="addTimer__container--section">
-            <label for="room_name">Nom du bouton du timer :</label>
+            <label for="room_name" data-i18n="addTimer.roomName">Nom du bouton du timer :</label>
             <input
                 type="text"
                 id="room_name"
+                data-i18n-placeholder="addTimer.roomNamePlaceholder"
                 placeholder="ex: Salle 1"
                 required
             />
         </section>
 
         <section class="addTimer__container--section">
-            <label for="room_times"
+            <label for="room_times" data-i18n="addTimer.chooseTime"
                 >Choisir le temps souhaité (heure : minute) :</label
             >
             <input type="time" id="room_times" required />
         </section>
 
         <section class="addTimer__container--section">
-            <label for="end-timer_sound-list">Alarme :</label>
+            <label for="end-timer_sound-list" data-i18n="addTimer.alarm">Alarme :</label>
             <div>
                 <select
                     name="sound"
                     id="end-timer_sound-list"
+                    data-i18n-title="addTimer.chooseEndTimerSound"
                     title="Choisir un son de fin de timer"
                 >
-                    <option value="">Choisir un son de fin de timer</option>
+                    <option value="" data-i18n="addTimer.chooseEndTimerSound">Choisir un son de fin de timer</option>
                 </select>
                 <button type="button" class="listen-music">
                     <img
                         src="../../../public/img/volume.svg"
+                        data-i18n-alt="addTimer.listenEndTimer"
                         alt="Ecouter le son de fin de timer"
                     />
                 </button>
                 <button type="button" class="stop-music hidden">
                     <img
                         src="../../../public/img/stop.svg"
+                        data-i18n-alt="addTimer.stopMusic"
                         alt="Stopper la musique"
                     />
                 </button>
@@ -45,24 +49,27 @@
         </section>
 
         <section class="addTimer__container--section">
-            <label for="notification_sound-list">Notification :</label>
+            <label for="notification_sound-list" data-i18n="addTimer.notification">Notification :</label>
             <div>
                 <select
                     name="sound"
                     id="notification_sound-list"
+                    data-i18n-title="addTimer.chooseNotificationSound"
                     title="Choisir un son de notification"
                 >
-                    <option value="">Choisir un son de notification</option>
+                    <option value="" data-i18n="addTimer.chooseNotificationSound">Choisir un son de notification</option>
                 </select>
                 <button type="button" class="listen-music">
                     <img
                         src="../../../public/img/volume.svg"
+                        data-i18n-alt="addTimer.listenNotification"
                         alt="Ecouter le son de notification"
                     />
                 </button>
                 <button type="button" class="stop-music hidden">
                     <img
                         src="../../../public/img/stop.svg"
+                        data-i18n-alt="addTimer.stopMusic"
                         alt="Stopper la musique"
                     />
                 </button>
@@ -70,31 +77,34 @@
         </section>
 
         <section class="addTimer__container--section">
-            <label for="ambient_sound-list">Son ambiant :</label>
+            <label for="ambient_sound-list" data-i18n="addTimer.ambientSound">Son ambiant :</label>
             <div>
                 <select
                     name="sound"
                     id="ambient_sound-list"
+                    data-i18n-title="addTimer.chooseAmbientSound"
                     title="Choisir un son ambiant"
                 >
-                    <option value="">Choisir un son ambiant</option>
+                    <option value="" data-i18n="addTimer.chooseAmbientSound">Choisir un son ambiant</option>
                 </select>
                 <button type="button" class="listen-music">
                     <img
                         src="../../../public/img/volume.svg"
+                        data-i18n-alt="addTimer.listenAmbient"
                         alt="Ecouter le son d'ambiance"
                     />
                 </button>
                 <button type="button" class="stop-music hidden">
                     <img
                         src="../../../public/img/stop.svg"
+                        data-i18n-alt="addTimer.stopMusic"
                         alt="Stopper la musique"
                     />
                 </button>
             </div>
         </section>
 
-        <button type="submit" class="addTimer__container--validate">
+        <button type="submit" class="addTimer__container--validate" data-i18n="addTimer.add">
             Ajouter
         </button>
     </div>

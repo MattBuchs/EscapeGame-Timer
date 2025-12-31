@@ -1,0 +1,152 @@
+{
+    "header": {
+        "home": "Accueil",
+        "addTimer": "Ajouter un timer",
+        "settings": "Paramètres"
+    },
+    "home": {
+        "title": "Accueil",
+        "secondWindowInfoTitle": "Aide sur la fenêtre secondaire"
+    },
+    "addTimer": {
+        "title": "Ajouter un Timer",
+        "roomName": "Nom du bouton du timer :",
+        "roomNamePlaceholder": "ex: Salle 1",
+        "chooseTime": "Choisir le temps souhaité (heure : minute) :",
+        "alarm": "Alarme :",
+        "chooseEndTimerSound": "Choisir un son de fin de timer",
+        "notification": "Notification :",
+        "chooseNotificationSound": "Choisir un son de notification",
+        "ambientSound": "Son ambiant :",
+        "chooseAmbientSound": "Choisir un son ambiant",
+        "listenEndTimer": "Ecouter le son de fin de timer",
+        "listenNotification": "Ecouter le son de notification",
+        "listenAmbient": "Ecouter le son d'ambiance",
+        "stopMusic": "Stopper la musique",
+        "add": "Ajouter"
+    },
+    "settings": {
+        "title": "Paramètres",
+        "themeTitle": "Thème de l'interface",
+        "addSounds": "Ajouter des sons (fichier mp3)",
+        "endTimerSound": "Son de fin de timer",
+        "notificationSound": "Son de notification",
+        "ambientSound": "Son d'ambiance",
+        "dragAndDrop": "Glisser, déposer le fichier ici",
+        "deleteTimer": "Supprimer un timer",
+        "chooseTimerToDelete": "Choisir le timer à supprimer",
+        "deleteSound": "Supprimer un son définitivement",
+        "chooseSoundToDelete": "Choisir le son à supprimer",
+        "validate": "Valider",
+        "timerPreference": "Préférence du timer",
+        "withLetters": "Avec les lettres (--mn : --s)",
+        "withoutLetters": "Sans les lettres (-- : --)",
+        "language": "Langue de l'application",
+        "languageFrench": "Français",
+        "languageEnglish": "Anglais"
+    },
+    "updateRoom": {
+        "title": "Modifier un Timer",
+        "roomName": "Nom du bouton du timer :",
+        "roomNamePlaceholder": "ex: Salle 1",
+        "chooseTime": "Choisir le temps souhaité (heure : minute) :",
+        "alarm": "Alarme :",
+        "chooseEndTimerSound": "Choisir un son de fin de timer",
+        "notification": "Notification :",
+        "chooseNotificationSound": "Choisir un son de notification",
+        "ambientSound": "Son ambiant :",
+        "chooseAmbientSound": "Choisir un son ambiant",
+        "listenEndTimer": "Ecouter le son de fin de timer",
+        "listenNotification": "Ecouter le son de notification",
+        "listenAmbient": "Ecouter le son d'ambiance",
+        "stopMusic": "Stopper la musique",
+        "update": "Modifier",
+        "delete": "Supprimer"
+    },
+    "room": {
+        "startTimer": "Démarrer le timer",
+        "pauseTimer": "Mettre en pause le timer",
+        "stopTimer": "Arrêter le timer",
+        "addTime": "Ajouter du temps",
+        "notifications": "Notifications",
+        "phrases": "Phrases",
+        "update": "Modifier",
+        "addPhrase": "Ajouter une phrase",
+        "phrasePlaceholder": "Entrez une phrase...",
+        "add": "Ajouter"
+    },
+    "modal": {
+        "customTheme": {
+            "title": "Créer un thème personnalisé",
+            "name": "Nom du thème :",
+            "namePlaceholder": "Mon thème",
+            "colors": "Couleurs",
+            "primaryColor": "Couleur primaire",
+            "secondaryColor": "Couleur secondaire",
+            "backgroundColor": "Couleur de fond",
+            "textColor": "Couleur du texte",
+            "accentColor": "Couleur d'accentuation",
+            "save": "Enregistrer",
+            "cancel": "Annuler"
+        },
+        "confirmExit": {
+            "title": "Confirmation",
+            "message": "Le timer est toujours en cours. Êtes-vous sûr de vouloir quitter ?",
+            "confirm": "Quitter",
+            "cancel": "Annuler"
+        },
+        "secondWindowInfo": {
+            "title": "Aide - Fenêtre secondaire",
+            "description": "La fenêtre secondaire affiche le timer en plein écran pour vos joueurs.",
+            "features": "Fonctionnalités :",
+            "feature1": "Affichage du temps restant",
+            "feature2": "Phrases dynamiques",
+            "feature3": "Changement de thème synchronisé",
+            "close": "Fermer"
+        }
+    },
+    "messages": {
+        "success": {
+            "timerAdded": "Timer ajouté avec succès",
+            "timerUpdated": "Timer modifié avec succès",
+            "timerDeleted": "Timer supprimé avec succès",
+            "soundDeleted": "Son supprimé avec succès",
+            "soundUploaded": "Son téléchargé avec succès",
+            "phraseAdded": "Phrase ajoutée avec succès",
+            "phraseDeleted": "Phrase supprimée avec succès",
+            "themeApplied": "Thème appliqué avec succès",
+            "settingsSaved": "Paramètres sauvegardés",
+            "languageChanged": "Langue changée avec succès"
+        },
+        "error": {
+            "fillAllFields": "Veuillez remplir tous les champs",
+            "selectTimer": "Veuillez sélectionner un timer",
+            "selectSound": "Veuillez sélectionner un son",
+            "invalidFile": "Fichier invalide. Veuillez utiliser un fichier MP3",
+            "uploadFailed": "Échec du téléchargement du fichier",
+            "deleteFailed": "Échec de la suppression",
+            "emptyPhrase": "La phrase ne peut pas être vide",
+            "generic": "Une erreur est survenue"
+        }
+    },
+    "common": {
+        "yes": "Oui",
+        "no": "Non",
+        "ok": "OK",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "add": "Ajouter",
+        "close": "Fermer",
+        "confirm": "Confirmer",
+        "back": "Retour",
+        "next": "Suivant",
+        "previous": "Précédent",
+        "search": "Rechercher",
+        "filter": "Filtrer",
+        "sort": "Trier",
+        "loading": "Chargement...",
+        "noData": "Aucune donnée disponible"
+    }
+}

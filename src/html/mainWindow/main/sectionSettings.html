@@ -1,28 +1,30 @@
 <div class="settingsRooms">
-    <h2 class="settingsRooms__title">Paramètres</h2>
+    <h2 class="settingsRooms__title" data-i18n="settings.title">Paramètres</h2>
 
     <!-- Sélecteur de thème -->
     <section class="settingsRooms__section">
-        <h3>Thème de l'interface</h3>
+        <h3 data-i18n="settings.themeTitle">Thème de l'interface</h3>
         <div class="theme-selector-grid" id="themeGrid">
             <!-- Les boutons de thème seront insérés dynamiquement par JavaScript -->
         </div>
     </section>
 
     <section class="settingsRooms__section">
-        <h3>Ajouter des sons (fichier mp3)</h3>
+        <h3 data-i18n="settings.addSounds">Ajouter des sons (fichier mp3)</h3>
 
         <div class="settingsRooms__section--container">
             <div
                 id="container-addFile_alarm"
                 class="settingsRooms__section--drop"
             >
-                <button type="submit" id="btn-add_file-endtimer">
+                <button type="submit" id="btn-add_file-endtimer" data-i18n="settings.endTimerSound">
                     Son de fin de timer
                 </button>
                 <img
+                    data-i18n-title="settings.dragAndDrop"
                     title="Glisser, déposer le fichier ici"
                     src="../../../public/img/file-import.svg"
+                    data-i18n-alt="settings.dragAndDrop"
                     alt="Glisser, déposer le fichier"
                 />
                 <div id="file-import1" class="file-import"></div>
@@ -31,12 +33,14 @@
                 id="container-addFile_notification"
                 class="settingsRooms__section--drop"
             >
-                <button type="submit" id="btn-add_file-notification">
+                <button type="submit" id="btn-add_file-notification" data-i18n="settings.notificationSound">
                     Son de notification
                 </button>
                 <img
+                    data-i18n-title="settings.dragAndDrop"
                     title="Glisser, déposer le fichier ici"
                     src="../../../public/img/file-import.svg"
+                    data-i18n-alt="settings.dragAndDrop"
                     alt="Glisser, déposer le fichier"
                 />
                 <div id="file-import2" class="file-import"></div>
@@ -45,12 +49,14 @@
                 id="container-addFile_ambient"
                 class="settingsRooms__section--drop"
             >
-                <button type="submit" id="btn-add_file-ambient">
+                <button type="submit" id="btn-add_file-ambient" data-i18n="settings.ambientSound">
                     Son d'ambiance
                 </button>
                 <img
+                    data-i18n-title="settings.dragAndDrop"
                     title="Glisser, déposer le fichier ici"
                     src="../../../public/img/file-import.svg"
+                    data-i18n-alt="settings.dragAndDrop"
                     alt="Glisser, déposer le fichier"
                 />
                 <div id="file-import3" class="file-import"></div>
@@ -58,32 +64,34 @@
         </div>
     </section>
     <section class="settingsRooms__section">
-        <h3 for="rooms-select">Supprimer un timer</h3>
+        <h3 for="rooms-select" data-i18n="settings.deleteTimer">Supprimer un timer</h3>
         <select name="rooms" id="rooms-select">
-            <option value="">Choisir le timer à supprimer</option>
+            <option value="" data-i18n="settings.chooseTimerToDelete">Choisir le timer à supprimer</option>
         </select>
         <button
             type="button"
             id="params-delete_room"
             class="settingsRooms__section--validate"
+            data-i18n="settings.validate"
         >
             Valider
         </button>
     </section>
     <section class="settingsRooms__section">
-        <h3 for="delete-song">Supprimer un son définitivement</h3>
+        <h3 for="delete-song" data-i18n="settings.deleteSound">Supprimer un son définitivement</h3>
         <select id="delete-song">
-            <option value="">Choisr le son à supprimer</option>
+            <option value="" data-i18n="settings.chooseSoundToDelete">Choisir le son à supprimer</option>
         </select>
         <button
             id="validate-delete_song"
             class="settingsRooms__section--validate"
+            data-i18n="settings.validate"
         >
             Valider
         </button>
     </section>
     <section class="settingsRooms__section">
-        <h3>Préférence du timer</h3>
+        <h3 data-i18n="settings.timerPreference">Préférence du timer</h3>
         <div class="settingsRooms__section--preference">
             <input
                 type="radio"
@@ -91,7 +99,7 @@
                 name="preference-timer"
                 value="true"
             />
-            <label for="with-letters">Avec les lettres (--mn : --s)</label>
+            <label for="with-letters" data-i18n="settings.withLetters">Avec les lettres (--mn : --s)</label>
         </div>
         <div class="settingsRooms__section--preference">
             <input
@@ -100,7 +108,28 @@
                 name="preference-timer"
                 value="false"
             />
-            <label for="without-letters">Sans les lettres (-- : --)</label>
+            <label for="without-letters" data-i18n="settings.withoutLetters">Sans les lettres (-- : --)</label>
+        </div>
+    </section>
+    <section class="settingsRooms__section">
+        <h3 data-i18n="settings.language">Langue de l'application</h3>
+        <div class="settingsRooms__section--preference">
+            <input
+                type="radio"
+                id="lang-fr"
+                name="app-language"
+                value="fr"
+            />
+            <label for="lang-fr" data-i18n="settings.languageFrench">Français</label>
+        </div>
+        <div class="settingsRooms__section--preference">
+            <input
+                type="radio"
+                id="lang-en"
+                name="app-language"
+                value="en"
+            />
+            <label for="lang-en" data-i18n="settings.languageEnglish">Anglais</label>
         </div>
     </section>
     <!-- <div>

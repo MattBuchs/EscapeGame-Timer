@@ -1,0 +1,152 @@
+{
+    "header": {
+        "home": "Home",
+        "addTimer": "Add Timer",
+        "settings": "Settings"
+    },
+    "home": {
+        "title": "Home",
+        "secondWindowInfoTitle": "Help about secondary window"
+    },
+    "addTimer": {
+        "title": "Add Timer",
+        "roomName": "Timer button name:",
+        "roomNamePlaceholder": "e.g., Room 1",
+        "chooseTime": "Choose desired time (hour : minute):",
+        "alarm": "Alarm:",
+        "chooseEndTimerSound": "Choose end timer sound",
+        "notification": "Notification:",
+        "chooseNotificationSound": "Choose notification sound",
+        "ambientSound": "Ambient sound:",
+        "chooseAmbientSound": "Choose ambient sound",
+        "listenEndTimer": "Listen to end timer sound",
+        "listenNotification": "Listen to notification sound",
+        "listenAmbient": "Listen to ambient sound",
+        "stopMusic": "Stop music",
+        "add": "Add"
+    },
+    "settings": {
+        "title": "Settings",
+        "themeTitle": "Interface Theme",
+        "addSounds": "Add sounds (mp3 file)",
+        "endTimerSound": "End timer sound",
+        "notificationSound": "Notification sound",
+        "ambientSound": "Ambient sound",
+        "dragAndDrop": "Drag and drop file here",
+        "deleteTimer": "Delete a timer",
+        "chooseTimerToDelete": "Choose timer to delete",
+        "deleteSound": "Delete a sound permanently",
+        "chooseSoundToDelete": "Choose sound to delete",
+        "validate": "Validate",
+        "timerPreference": "Timer preference",
+        "withLetters": "With letters (--mn : --s)",
+        "withoutLetters": "Without letters (-- : --)",
+        "language": "Application language",
+        "languageFrench": "French",
+        "languageEnglish": "English"
+    },
+    "updateRoom": {
+        "title": "Update Timer",
+        "roomName": "Timer button name:",
+        "roomNamePlaceholder": "e.g., Room 1",
+        "chooseTime": "Choose desired time (hour : minute):",
+        "alarm": "Alarm:",
+        "chooseEndTimerSound": "Choose end timer sound",
+        "notification": "Notification:",
+        "chooseNotificationSound": "Choose notification sound",
+        "ambientSound": "Ambient sound:",
+        "chooseAmbientSound": "Choose ambient sound",
+        "listenEndTimer": "Listen to end timer sound",
+        "listenNotification": "Listen to notification sound",
+        "listenAmbient": "Listen to ambient sound",
+        "stopMusic": "Stop music",
+        "update": "Update",
+        "delete": "Delete"
+    },
+    "room": {
+        "startTimer": "Start timer",
+        "pauseTimer": "Pause timer",
+        "stopTimer": "Stop timer",
+        "addTime": "Add time",
+        "notifications": "Notifications",
+        "phrases": "Phrases",
+        "update": "Update",
+        "addPhrase": "Add a phrase",
+        "phrasePlaceholder": "Enter a phrase...",
+        "add": "Add"
+    },
+    "modal": {
+        "customTheme": {
+            "title": "Create Custom Theme",
+            "name": "Theme name:",
+            "namePlaceholder": "My theme",
+            "colors": "Colors",
+            "primaryColor": "Primary color",
+            "secondaryColor": "Secondary color",
+            "backgroundColor": "Background color",
+            "textColor": "Text color",
+            "accentColor": "Accent color",
+            "save": "Save",
+            "cancel": "Cancel"
+        },
+        "confirmExit": {
+            "title": "Confirmation",
+            "message": "The timer is still running. Are you sure you want to quit?",
+            "confirm": "Quit",
+            "cancel": "Cancel"
+        },
+        "secondWindowInfo": {
+            "title": "Help - Secondary Window",
+            "description": "The secondary window displays the timer in fullscreen for your players.",
+            "features": "Features:",
+            "feature1": "Remaining time display",
+            "feature2": "Dynamic phrases",
+            "feature3": "Synchronized theme changes",
+            "close": "Close"
+        }
+    },
+    "messages": {
+        "success": {
+            "timerAdded": "Timer added successfully",
+            "timerUpdated": "Timer updated successfully",
+            "timerDeleted": "Timer deleted successfully",
+            "soundDeleted": "Sound deleted successfully",
+            "soundUploaded": "Sound uploaded successfully",
+            "phraseAdded": "Phrase added successfully",
+            "phraseDeleted": "Phrase deleted successfully",
+            "themeApplied": "Theme applied successfully",
+            "settingsSaved": "Settings saved",
+            "languageChanged": "Language changed successfully"
+        },
+        "error": {
+            "fillAllFields": "Please fill in all fields",
+            "selectTimer": "Please select a timer",
+            "selectSound": "Please select a sound",
+            "invalidFile": "Invalid file. Please use an MP3 file",
+            "uploadFailed": "File upload failed",
+            "deleteFailed": "Deletion failed",
+            "emptyPhrase": "The phrase cannot be empty",
+            "generic": "An error occurred"
+        }
+    },
+    "common": {
+        "yes": "Yes",
+        "no": "No",
+        "ok": "OK",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "close": "Close",
+        "confirm": "Confirm",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "search": "Search",
+        "filter": "Filter",
+        "sort": "Sort",
+        "loading": "Loading...",
+        "noData": "No data available"
+    }
+}

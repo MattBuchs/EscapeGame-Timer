@@ -59,6 +59,12 @@ function setupIPCFunctions(windows) {
         }
     });
 
+    ipcMain.on("language-changed", (_, locale) => {
+        for (let i = 1; i < windows.length; i++) {
+            windows[i].webContents.send("language-changed", locale);
+        }
+    });
+
     ipcMain.handle("open-file-dialog", async () => {
         const result = await dialog.showOpenDialog({
             properties: ["openFile", "multiSelections"],
