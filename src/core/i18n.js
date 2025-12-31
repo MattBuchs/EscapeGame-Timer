@@ -2,9 +2,12 @@
  * Système de traduction i18n pour EscapeTime
  */
 
-const { ipcRenderer } = require("electron");
-const fs = require("fs");
-const path = require("path");
+const electron = window.require
+    ? window.require("electron")
+    : require("electron");
+const fs = window.require ? window.require("fs") : require("fs");
+const path = window.require ? window.require("path") : require("path");
+const { ipcRenderer } = electron;
 
 class I18n {
     constructor() {
@@ -30,9 +33,10 @@ class I18n {
      */
     loadTranslations() {
         try {
+            // Calculer le chemin relatif depuis le fichier HTML
             const translationsPath = path.join(
                 __dirname,
-                "../locales",
+                "../../locales",
                 `${this.currentLocale}.json`
             );
             const data = fs.readFileSync(translationsPath, "utf8");
@@ -157,11 +161,6 @@ class I18n {
 
 // Instance globale
 const i18n = new I18n();
-
-// Export pour utilisation dans les autres modules
-if (typeof module !== "undefined" && module.exports) {
-    module.exports = i18n;
-}
 
 // Export global pour utilisation dans le navigateur
 if (typeof window !== "undefined") {

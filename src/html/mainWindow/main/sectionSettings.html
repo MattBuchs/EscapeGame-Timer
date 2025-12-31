@@ -17,7 +17,11 @@
                 id="container-addFile_alarm"
                 class="settingsRooms__section--drop"
             >
-                <button type="submit" id="btn-add_file-endtimer" data-i18n="settings.endTimerSound">
+                <button
+                    type="submit"
+                    id="btn-add_file-endtimer"
+                    data-i18n="settings.endTimerSound"
+                >
                     Son de fin de timer
                 </button>
                 <img
@@ -33,7 +37,11 @@
                 id="container-addFile_notification"
                 class="settingsRooms__section--drop"
             >
-                <button type="submit" id="btn-add_file-notification" data-i18n="settings.notificationSound">
+                <button
+                    type="submit"
+                    id="btn-add_file-notification"
+                    data-i18n="settings.notificationSound"
+                >
                     Son de notification
                 </button>
                 <img
@@ -49,7 +57,11 @@
                 id="container-addFile_ambient"
                 class="settingsRooms__section--drop"
             >
-                <button type="submit" id="btn-add_file-ambient" data-i18n="settings.ambientSound">
+                <button
+                    type="submit"
+                    id="btn-add_file-ambient"
+                    data-i18n="settings.ambientSound"
+                >
                     Son d'ambiance
                 </button>
                 <img
@@ -64,9 +76,13 @@
         </div>
     </section>
     <section class="settingsRooms__section">
-        <h3 for="rooms-select" data-i18n="settings.deleteTimer">Supprimer un timer</h3>
+        <h3 for="rooms-select" data-i18n="settings.deleteTimer">
+            Supprimer un timer
+        </h3>
         <select name="rooms" id="rooms-select">
-            <option value="" data-i18n="settings.chooseTimerToDelete">Choisir le timer à supprimer</option>
+            <option value="" data-i18n="settings.chooseTimerToDelete">
+                Choisir le timer à supprimer
+            </option>
         </select>
         <button
             type="button"
@@ -78,9 +94,13 @@
         </button>
     </section>
     <section class="settingsRooms__section">
-        <h3 for="delete-song" data-i18n="settings.deleteSound">Supprimer un son définitivement</h3>
+        <h3 for="delete-song" data-i18n="settings.deleteSound">
+            Supprimer un son définitivement
+        </h3>
         <select id="delete-song">
-            <option value="" data-i18n="settings.chooseSoundToDelete">Choisir le son à supprimer</option>
+            <option value="" data-i18n="settings.chooseSoundToDelete">
+                Choisir le son à supprimer
+            </option>
         </select>
         <button
             id="validate-delete_song"
@@ -99,7 +119,9 @@
                 name="preference-timer"
                 value="true"
             />
-            <label for="with-letters" data-i18n="settings.withLetters">Avec les lettres (--mn : --s)</label>
+            <label for="with-letters" data-i18n="settings.withLetters"
+                >Avec les lettres (--mn : --s)</label
+            >
         </div>
         <div class="settingsRooms__section--preference">
             <input
@@ -108,28 +130,24 @@
                 name="preference-timer"
                 value="false"
             />
-            <label for="without-letters" data-i18n="settings.withoutLetters">Sans les lettres (-- : --)</label>
+            <label for="without-letters" data-i18n="settings.withoutLetters"
+                >Sans les lettres (-- : --)</label
+            >
         </div>
     </section>
     <section class="settingsRooms__section">
         <h3 data-i18n="settings.language">Langue de l'application</h3>
         <div class="settingsRooms__section--preference">
-            <input
-                type="radio"
-                id="lang-fr"
-                name="app-language"
-                value="fr"
-            />
-            <label for="lang-fr" data-i18n="settings.languageFrench">Français</label>
+            <input type="radio" id="lang-fr" name="app-language" value="fr" />
+            <label for="lang-fr" data-i18n="settings.languageFrench"
+                >Français</label
+            >
         </div>
         <div class="settingsRooms__section--preference">
-            <input
-                type="radio"
-                id="lang-en"
-                name="app-language"
-                value="en"
-            />
-            <label for="lang-en" data-i18n="settings.languageEnglish">Anglais</label>
+            <input type="radio" id="lang-en" name="app-language" value="en" />
+            <label for="lang-en" data-i18n="settings.languageEnglish"
+                >Anglais</label
+            >
         </div>
     </section>
     <!-- <div>

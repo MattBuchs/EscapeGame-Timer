@@ -26,22 +26,23 @@ import {
     applyCustomTheme,
 } from "./settings/customThemeEditor.js";
 
-// Import du système i18n
-const i18n = require("../i18n");
-const { initLanguageSelector } = require("./settings/languageSelector.js");
+// Récupérer i18n et initLanguageSelector depuis window (chargés via scripts dans index.html)
+const i18n = window.i18n;
+const initLanguageSelector = window.initLanguageSelector;
 
 // Initialisation du système i18n et traduction de la page
 document.addEventListener("DOMContentLoaded", () => {
-    i18n.translatePage();
-    
-    // Ajouter un observateur pour retraduire la page lors du changement de langue
-    i18n.addObserver(() => {
+    if (i18n) {
         i18n.translatePage();
-    });
-});
 
-// Exposer i18n globalement pour utilisation dans d'autres modules
-window.i18n = i18n;
+        // Ajouter un observateur pour retraduire la page lors du changement de langue
+        i18n.addObserver(() => {
+            i18n.translatePage();
+        });
+    } else {
+        console.error("i18n n'est pas chargé");
+    }
+});
 
 // Initialisation du Timer
 timerObj.init();
@@ -71,7 +72,11 @@ checkFoldersExist();
 initThemeSelector();
 
 // Initialisation du sélecteur de langue
-initLanguageSelector();
+if (initLanguageSelector) {
+    initLanguageSelector();
+} else {
+    console.error("initLanguageSelector n'est pas chargé");
+}
 
 // Appliquer le thème personnalisé si existant
 applyCustomTheme();

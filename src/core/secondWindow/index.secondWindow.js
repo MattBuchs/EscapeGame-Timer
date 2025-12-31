@@ -2,8 +2,8 @@ import "./timer.js";
 import "./messages.js";
 import "./themeHandler.js";
 
-// Import et initialisation du système i18n
-const i18n = require("./i18n");
+// R\u00e9cup\u00e9rer i18n depuis window (charg\u00e9 via script dans secondWindow.html)
+const i18n = window.i18n;
 
 // Traduction initiale de la page
 document.addEventListener("DOMContentLoaded", () => {

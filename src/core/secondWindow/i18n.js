@@ -11,7 +11,7 @@ class I18nSecondWindow {
         this.currentLocale = "fr";
         this.translations = {};
         this.loadLocale();
-        
+
         // Écouter les changements de langue depuis la fenêtre principale
         ipcRenderer.on("language-changed", (event, locale) => {
             this.setLocale(locale);
@@ -142,11 +142,6 @@ class I18nSecondWindow {
 
 // Instance globale
 const i18n = new I18nSecondWindow();
-
-// Export pour utilisation dans les autres modules
-if (typeof module !== "undefined" && module.exports) {
-    module.exports = i18n;
-}
 
 // Export global pour utilisation dans le navigateur
 if (typeof window !== "undefined") {
