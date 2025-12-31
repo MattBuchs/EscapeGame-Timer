@@ -10,14 +10,28 @@ const setupIPCFunctions = require("./src/services/ipcFunctions");
 let windows = [];
 
 const createAppWindows = () => {
-    if (screen.getAllDisplays().length === 1)
-        windows = createWindowsIf1Screen();
-    else windows = createWindows();
-    setupIPCFunctions(windows);
+    // Petit délai pour s'assurer que tous les écrans sont détectés
+    // Particulièrement utile au démarrage de l'OS ou après réveil
+    setTimeout(() => {
+        const displays = screen.getAllDisplays();
+        console.log(
+            "Création des fenêtres avec",
+            displays.length,
+            "écran(s) détecté(s)"
+        );
 
-    windows[0].on("closed", () => {
-        windows.slice(1).forEach((win) => win.close());
-    });
+        if (displays.length === 1) {
+            windows = createWindowsIf1Screen();
+        } else {
+            windows = createWindows();
+        }
+
+        setupIPCFunctions(windows);
+
+        windows[0].on("closed", () => {
+            windows.slice(1).forEach((win) => win.close());
+        });
+    }, 300); // Délai de 300ms pour la détection des écrans
 };
 
 app.whenReady().then(() => {

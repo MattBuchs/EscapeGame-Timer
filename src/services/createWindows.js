@@ -5,32 +5,51 @@ const icon = path.join(__dirname, "../../public/img/AngelsGame.ico");
 function createWindows() {
     const displays = screen.getAllDisplays();
     const mainScreen = screen.getPrimaryDisplay();
-    console.log(displays);
 
-    const windows = displays.map((display, index) => {
-        let window;
+    console.log("Nombre d'écrans détectés:", displays.length);
+    console.log(
+        "Écrans:",
+        displays.map((d) => ({
+            id: d.id,
+            bounds: d.bounds,
+            primary: d.id === mainScreen.id,
+        }))
+    );
 
-        if (index === 0) {
-            window = new BrowserWindow({
-                width: 1200,
-                height: 800,
-                x: mainScreen.bounds.x,
-                y: mainScreen.bounds.y,
-                center: true,
-                icon,
-                webPreferences: {
-                    devTools: true,
-                    nodeIntegration: true,
-                    contextIsolation: false,
-                    enableRemoteModule: true,
-                },
-            });
-        } else {
-            window = new BrowserWindow({
-                width: 1200,
-                height: 800,
-                x: display.bounds.x,
-                y: display.bounds.y,
+    // Fenêtre principale (Game Master) sur l'écran principal
+    const mainWindow = new BrowserWindow({
+        width: 1200,
+        height: 800,
+        x: mainScreen.bounds.x,
+        y: mainScreen.bounds.y,
+        icon,
+        webPreferences: {
+            devTools: true,
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true,
+        },
+    });
+    mainWindow.setMenuBarVisibility(false);
+
+    const windows = [mainWindow];
+
+    // Créer la 2ème fenêtre sur l'écran secondaire si disponible
+    if (displays.length > 1) {
+        // Trouver le premier écran qui n'est PAS l'écran principal
+        const secondaryDisplay = displays.find((d) => d.id !== mainScreen.id);
+
+        if (secondaryDisplay) {
+            console.log(
+                "Création de la 2ème fenêtre sur l'écran secondaire:",
+                secondaryDisplay.bounds
+            );
+
+            const secondWindow = new BrowserWindow({
+                width: secondaryDisplay.bounds.width,
+                height: secondaryDisplay.bounds.height,
+                x: secondaryDisplay.bounds.x,
+                y: secondaryDisplay.bounds.y,
                 icon,
                 fullscreen: true,
                 webPreferences: {
@@ -39,15 +58,16 @@ function createWindows() {
                     contextIsolation: false,
                 },
             });
+            secondWindow.setMenuBarVisibility(false);
+            windows.push(secondWindow);
         }
-
-        window.setMenuBarVisibility(false);
-        return window;
-    });
+    }
 
     windows.forEach((window, index) => {
-        // Maximise la fenêtre dès son ouverture
-        window.maximize();
+        // Maximise uniquement la fenêtre principale
+        if (index === 0) {
+            window.maximize();
+        }
 
         window.loadFile(
             index === 0
