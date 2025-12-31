@@ -60,7 +60,6 @@ const phrasesAutocompleteObj = {
 
         categoryFilter.innerHTML = `
             <option value="all">📋 Toutes les catégories</option>
-            <option value="none">🚫 Sans catégorie</option>
         `;
 
         // Récupérer toutes les catégories uniques
@@ -139,11 +138,7 @@ const phrasesAutocompleteObj = {
         }
 
         // Filtrer par catégorie si sélectionnée
-        if (this.selectedCategoryFilter === "none") {
-            filteredPhrases = filteredPhrases.filter(
-                (p) => !p.category || p.category === ""
-            );
-        } else if (this.selectedCategoryFilter !== "all") {
+        if (this.selectedCategoryFilter !== "all") {
             filteredPhrases = filteredPhrases.filter(
                 (p) => p.category === this.selectedCategoryFilter
             );
@@ -209,10 +204,12 @@ const phrasesAutocompleteObj = {
                     ) {
                         const categoryHeader = document.createElement("div");
                         categoryHeader.className = "phrase-category-header";
-                        categoryHeader.textContent =
-                            categoryId === "_none"
-                                ? "🚫 Sans catégorie"
-                                : categoryId;
+                        if (categoryId === "_none") {
+                            categoryHeader.textContent = "📝 Sans catégorie";
+                        } else {
+                            // Extraire l'icône si présent (format: "🎯 NomCatégorie")
+                            categoryHeader.textContent = categoryId;
+                        }
                         phrasesDropdown.appendChild(categoryHeader);
                     }
 

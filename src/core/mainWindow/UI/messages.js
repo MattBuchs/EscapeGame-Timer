@@ -34,6 +34,9 @@ const messagesObj = {
             ipcRenderer.send("send-message", messageWrited);
             this.message = messageWrited;
 
+            // Afficher la confirmation d'envoi
+            this.showSendConfirmation();
+
             if (!this.isNotificationPush) {
                 this.isNotificationPush = true;
                 notificationMessage.classList.add("notification-message");
@@ -46,6 +49,29 @@ const messagesObj = {
                 }, 5000);
             }
         }
+    },
+
+    showSendConfirmation() {
+        // Trouver le bouton d'envoi
+        const sendButton = formMessage.querySelector('button[type="submit"]');
+        if (!sendButton) return;
+
+        // Créer ou récupérer l'élément de confirmation
+        let checkMark = sendButton.querySelector(".send-check");
+        if (!checkMark) {
+            checkMark = document.createElement("span");
+            checkMark.className = "send-check";
+            checkMark.innerHTML = "✓";
+            sendButton.appendChild(checkMark);
+        }
+
+        // Afficher avec animation
+        checkMark.classList.add("show");
+
+        // Masquer après 2 secondes
+        setTimeout(() => {
+            checkMark.classList.remove("show");
+        }, 2000);
     },
 
     changeValue() {

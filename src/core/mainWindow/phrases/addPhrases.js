@@ -16,11 +16,50 @@ const modalParamsSound = document.querySelector("#modal-params_sound");
 const openParamsSound = document.querySelector("#params-sound");
 const counterMessage = document.querySelector("#counter-add-phrases");
 const categoryDatalist = document.querySelector("#phrase-categories-list");
+const iconButtonsContainer = document.querySelector("#category-icons");
+
+// Icônes disponibles pour les catégories
+const CATEGORY_ICONS = [
+    "💡",
+    "🎯",
+    "⚠️",
+    "🎉",
+    "📖",
+    "⏰",
+    "⭐",
+    "🔥",
+    "💬",
+    "🎮",
+    "🎨",
+    "🎵",
+    "🏆",
+    "🚀",
+    "💰",
+    "🔑",
+    "🎪",
+    "🎭",
+    "🎬",
+    "📱",
+    "💻",
+    "🔒",
+    "🔓",
+    "❓",
+    "✅",
+    "❌",
+    "🎲",
+    "🧩",
+    "🔍",
+    "📍",
+    "🎈",
+    "🌟",
+];
 
 const addPhrasesObj = {
     init() {
         // Initialiser le select des catégories
         this.initCategorySelect();
+        // Initialiser les icônes
+        this.initCategoryIcons();
 
         btnAddPhrases.addEventListener("click", () => {
             openModal(
@@ -68,6 +107,33 @@ const addPhrasesObj = {
             const option = document.createElement("option");
             option.value = cat;
             categoryDatalist.appendChild(option);
+        });
+    },
+
+    initCategoryIcons() {
+        if (!iconButtonsContainer) return;
+
+        iconButtonsContainer.innerHTML = "";
+        CATEGORY_ICONS.forEach((icon) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "category-icon-btn";
+            button.textContent = icon;
+            button.title = "Ajouter cet icône";
+            button.addEventListener("click", () => {
+                if (categoryInput) {
+                    // Ajouter l'icône au début du texte s'il n'y en a pas déjà
+                    const currentValue = categoryInput.value.trim();
+                    // Supprimer l'ancien emoji s'il existe
+                    const textWithoutEmoji = currentValue.replace(
+                        /^[\p{Emoji}]\s*/u,
+                        ""
+                    );
+                    categoryInput.value = `${icon} ${textWithoutEmoji}`.trim();
+                    categoryInput.focus();
+                }
+            });
+            iconButtonsContainer.appendChild(button);
         });
     },
 

@@ -296,6 +296,21 @@ $breakpoint-xl: 1280px;
     }
 }
 
+@keyframes checkPulse {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 // ===== MIXINS =====
 @mixin glass-morphism {
     background: rgba(26, 26, 46, 0.7);

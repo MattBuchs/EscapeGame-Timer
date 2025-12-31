@@ -469,6 +469,8 @@
                 button {
                     flex: 1;
                     min-height: 2.5rem;
+                    position: relative;
+                    overflow: visible;
 
                     &:first-child {
                         background: linear-gradient(
@@ -478,6 +480,33 @@
                         );
                         min-height: 2.8rem;
                         max-height: 2.8rem;
+                    }
+
+                    // Check mark d'envoi
+                    .send-check {
+                        position: absolute;
+                        top: -8px;
+                        right: -8px;
+                        background: $color-success;
+                        color: white;
+                        border-radius: $radius-full;
+                        width: 24px;
+                        height: 24px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 14px;
+                        font-weight: bold;
+                        opacity: 0;
+                        transform: scale(0);
+                        transition: all $transition-base;
+                        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+
+                        &.show {
+                            opacity: 1;
+                            transform: scale(1);
+                            animation: checkPulse 0.5s ease;
+                        }
                     }
                 }
             }
