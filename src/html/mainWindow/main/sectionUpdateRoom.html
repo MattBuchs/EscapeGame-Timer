@@ -1,36 +1,47 @@
 <form id="update-timer_value" class="addTimer updateTimer">
-    <h2 class="addTimer__title">Modifier le Timer</h2>
+    <h2 class="addTimer__title" data-i18n="updateRoom.title">
+        Modifier le Timer
+    </h2>
 
     <div class="addTimer__container">
         <section class="addTimer__container--section">
-            <label for="update-title">Changer le titre du timer</label>
+            <label for="update-title" data-i18n="updateRoom.changeTitle"
+                >Changer le titre du timer</label
+            >
             <input type="text" id="update-title" />
         </section>
 
         <section class="addTimer__container--section">
-            <label for="">Changer le temps du timer</label>
+            <label for="" data-i18n="updateRoom.changeTime"
+                >Changer le temps du timer</label
+            >
             <input type="time" id="update-timer_input" />
         </section>
 
         <section class="addTimer__container--section">
-            <label for="update-alarm_sound-list"
+            <label
+                for="update-alarm_sound-list"
+                data-i18n="updateRoom.changeEndTimerSound"
                 >Modifier le son de fin de timer</label
             >
             <div>
                 <select
                     name="sound"
                     id="update-alarm_sound-list"
+                    data-i18n-title="updateRoom.chooseEndTimerSound"
                     title="Choisir un son de fin de timer"
                 ></select>
                 <button type="button" class="listen-music">
                     <img
                         src="../../../public/img/volume.svg"
+                        data-i18n-alt="updateRoom.listenEndTimer"
                         alt="Ecouter le son de fin de timer"
                     />
                 </button>
                 <button type="button" class="stop-music hidden">
                     <img
                         src="../../../public/img/stop.svg"
+                        data-i18n-alt="updateRoom.stopMusic"
                         alt="Stopper la musique"
                     />
                 </button>
@@ -38,24 +49,29 @@
         </section>
 
         <section class="addTimer__container--section">
-            <label for="update-notification_sound-list"
+            <label
+                for="update-notification_sound-list"
+                data-i18n="updateRoom.changeNotificationSound"
                 >Modifier le son de notification</label
             >
             <div>
                 <select
                     name="sound"
                     id="update-notification_sound-list"
+                    data-i18n-title="updateRoom.chooseNotificationSound"
                     title="Choisir un son de notification"
                 ></select>
                 <button type="button" class="listen-music">
                     <img
                         src="../../../public/img/volume.svg"
+                        data-i18n-alt="updateRoom.listenNotification"
                         alt="Ecouter le son de notification"
                     />
                 </button>
                 <button type="button" class="stop-music hidden">
                     <img
                         src="../../../public/img/stop.svg"
+                        data-i18n-alt="updateRoom.stopMusic"
                         alt="Stopper la musique"
                     />
                 </button>
@@ -63,31 +79,40 @@
         </section>
 
         <section class="addTimer__container--section">
-            <label for="update-ambient_sound-list"
+            <label
+                for="update-ambient_sound-list"
+                data-i18n="updateRoom.changeAmbientSound"
                 >Modifier le son d'ambiance</label
             >
             <div>
                 <select
                     name="sound"
                     id="update-ambient_sound-list"
+                    data-i18n-title="updateRoom.chooseAmbientSound"
                     title="Choisir un son ambiant"
                 ></select>
                 <button type="button" class="listen-music">
                     <img
                         src="../../../public/img/volume.svg"
+                        data-i18n-alt="updateRoom.listenAmbient"
                         alt="Ecouter le son d'ambiance"
                     />
                 </button>
                 <button type="button" class="stop-music hidden">
                     <img
                         src="../../../public/img/stop.svg"
+                        data-i18n-alt="updateRoom.stopMusic"
                         alt="Stopper la musique"
                     />
                 </button>
             </div>
         </section>
 
-        <button type="submit" class="addTimer__container--validate">
+        <button
+            type="submit"
+            class="addTimer__container--validate"
+            data-i18n="updateRoom.validate"
+        >
             Valider
         </button>
     </div>
@@ -95,7 +120,10 @@
 
 <form id="delete-phrase" class="deleteRoom">
     <div>
-        <label class="deleteRoom__label" for="select-delete_phrase"
+        <label
+            class="deleteRoom__label"
+            for="select-delete_phrase"
+            data-i18n="updateRoom.phraseToDelete"
             >Phrase à supprimer :
         </label>
         <select
@@ -103,16 +131,27 @@
             name="delete_phrase"
             id="select-delete_phrase"
         >
-            <option value="">Choisir la phrase à supprimer</option>
+            <option value="" data-i18n="updateRoom.choosePhraseToDelete">
+                Choisir la phrase à supprimer
+            </option>
         </select>
     </div>
 
-    <button type="submit" class="deleteRoom__validate">Valider</button>
+    <button
+        type="submit"
+        class="deleteRoom__validate"
+        data-i18n="updateRoom.validate"
+    >
+        Valider
+    </button>
 </form>
 
 <form id="edit-phrase" class="editPhrase">
     <div>
-        <label class="editPhrase__label" for="select-edit_phrase"
+        <label
+            class="editPhrase__label"
+            for="select-edit_phrase"
+            data-i18n="updateRoom.phraseToEdit"
             >Phrase à modifier :
         </label>
         <select
@@ -120,17 +159,22 @@
             name="edit_phrase"
             id="select-edit_phrase"
         >
-            <option value="">Éditer une phrase existante</option>
+            <option value="" data-i18n="updateRoom.editExistingPhrase">
+                Éditer une phrase existante
+            </option>
         </select>
     </div>
 
     <div id="edit-phrase-form" class="editPhrase__form hidden">
-        <label for="edit-phrase-category">Catégorie :</label>
+        <label for="edit-phrase-category" data-i18n="updateRoom.category"
+            >Catégorie :</label
+        >
         <input
             type="text"
             id="edit-phrase-category"
             class="editPhrase__input"
             list="edit-phrase-categories-list"
+            data-i18n-placeholder="updateRoom.editCategoryPlaceholder"
             placeholder="Modifier la catégorie..."
             autocomplete="off"
         />
@@ -139,15 +183,25 @@
         </datalist>
 
         <div class="editPhrase__icons-container">
-            <label>Icônes disponibles :</label>
+            <label data-i18n="updateRoom.availableIcons"
+                >Icônes disponibles :</label
+            >
             <div id="edit-category-icons" class="editPhrase__icons"></div>
         </div>
 
         <label class="editPhrase__favorite-label">
             <input type="checkbox" id="edit-phrase-favorite" />
-            <span>⭐ Marquer comme favori</span>
+            <span data-i18n="updateRoom.markAsFavorite"
+                >⭐ Marquer comme favori</span
+            >
         </label>
 
-        <button type="submit" class="editPhrase__validate">Enregistrer</button>
+        <button
+            type="submit"
+            class="editPhrase__validate"
+            data-i18n="updateRoom.save"
+        >
+            Enregistrer
+        </button>
     </div>
 </form>

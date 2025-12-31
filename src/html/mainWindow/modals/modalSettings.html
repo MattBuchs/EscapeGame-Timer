@@ -1,13 +1,24 @@
 <div id="modal-params_sound" class="modal hidden">
     <div id="modal-params_sound__content" class="modal__content">
         <button id="close-params_sound" class="modal__content--close">
-            <img src="../../../public/img/close.svg" alt="fermer" />
+            <img
+                src="../../../public/img/close.svg"
+                data-i18n-alt="modal.soundSettings.close"
+                alt="fermer"
+            />
         </button>
 
-        <h2 class="modal__content--titleSound">Paramètre de son</h2>
+        <h2
+            class="modal__content--titleSound"
+            data-i18n="modal.soundSettings.title"
+        >
+            Paramètre de son
+        </h2>
         <div class="modal__content--sound">
             <div>
-                <label for="volume-end_timer"
+                <label
+                    for="volume-end_timer"
+                    data-i18n="modal.soundSettings.endTimerVolume"
                     >Volume du son de l'alarme :</label
                 >
                 <div class="volume">
@@ -22,7 +33,9 @@
                 </div>
             </div>
             <div>
-                <label for="volume-notification"
+                <label
+                    for="volume-notification"
+                    data-i18n="modal.soundSettings.notificationVolume"
                     >Volume du son de notification :</label
                 >
                 <div class="volume">
@@ -37,7 +50,11 @@
                 </div>
             </div>
             <div>
-                <label for="volume-amibent">Volume du son d'ambiance :</label>
+                <label
+                    for="volume-amibent"
+                    data-i18n="modal.soundSettings.ambientVolume"
+                    >Volume du son d'ambiance :</label
+                >
                 <div class="volume">
                     <input
                         type="range"
@@ -50,7 +67,11 @@
                 </div>
             </div>
         </div>
-        <button id="btn-validate_sound" class="modal__content--validate">
+        <button
+            id="btn-validate_sound"
+            class="modal__content--validate"
+            data-i18n="modal.soundSettings.validate"
+        >
             Valider
         </button>
     </div>
@@ -59,20 +80,31 @@
 <div id="modal-add_phrases" class="modal hidden">
     <div id="modal-add_phrases__content" class="modal__content">
         <button id="close-modal_addphrases" class="modal__content--close">
-            <img src="../../../public/img/close.svg" alt="fermer" />
+            <img
+                src="../../../public/img/close.svg"
+                data-i18n-alt="modal.addPhrases.close"
+                alt="fermer"
+            />
         </button>
-        <h2 class="modal__content--titlePhrase">
+        <h2
+            class="modal__content--titlePhrase"
+            data-i18n="modal.addPhrases.title"
+        >
             Ajouter une phrase pour le timer actuel
         </h2>
 
         <div class="modal__content--phrase">
-            <label for="add-phrases">Enregistrer une phrase :</label>
+            <label for="add-phrases" data-i18n="modal.addPhrases.savePhrase"
+                >Enregistrer une phrase :</label
+            >
             <textarea id="add-phrases" maxlength="230"></textarea>
             <p><span id="counter-add-phrases">0</span> / 230</p>
 
             <div class="phrase-options">
                 <div class="phrase-option">
-                    <label for="phrase-category"
+                    <label
+                        for="phrase-category"
+                        data-i18n="modal.addPhrases.categoryOptional"
                         >Catégorie (optionnelle) :</label
                     >
                     <input
@@ -80,6 +112,7 @@
                         id="phrase-category"
                         class="phrase-category-input"
                         list="phrase-categories-list"
+                        data-i18n-placeholder="modal.addPhrases.createOrSelectCategory"
                         placeholder="Créer ou sélectionner une catégorie..."
                         autocomplete="off"
                     />
@@ -87,7 +120,9 @@
                         <!-- Options ajoutées dynamiquement par JS -->
                     </datalist>
                     <div class="category-icons-container">
-                        <label>Icônes disponibles :</label>
+                        <label data-i18n="modal.addPhrases.availableIcons"
+                            >Icônes disponibles :</label
+                        >
                         <div id="category-icons" class="category-icons"></div>
                     </div>
                 </div>
@@ -95,12 +130,18 @@
                 <div class="phrase-option">
                     <label for="phrase-favorite" class="favorite-label">
                         <input type="checkbox" id="phrase-favorite" />
-                        <span>⭐ Marquer comme favori</span>
+                        <span data-i18n="modal.addPhrases.markAsFavorite"
+                            >⭐ Marquer comme favori</span
+                        >
                     </label>
                 </div>
             </div>
         </div>
-        <button id="btn-validate_addphrases" class="modal__content--validate">
+        <button
+            id="btn-validate_addphrases"
+            class="modal__content--validate"
+            data-i18n="modal.addPhrases.validate"
+        >
             Valider
         </button>
     </div>

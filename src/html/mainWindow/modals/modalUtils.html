@@ -1,11 +1,21 @@
 <section id="request-reset" class="modal hidden">
     <div class="modal__confirm">
-        <p>Êtes-vous sûr de vouloir rénitialiser le timer ?</p>
+        <p data-i18n="modal.resetConfirm.message">
+            Êtes-vous sûr de vouloir rénitialiser le timer ?
+        </p>
         <div>
-            <button id="confirm_reset" class="modal__confirm--reset">
+            <button
+                id="confirm_reset"
+                class="modal__confirm--reset"
+                data-i18n="modal.resetConfirm.yes"
+            >
                 Oui
             </button>
-            <button id="cancel_reset" class="modal__confirm--cancel">
+            <button
+                id="cancel_reset"
+                class="modal__confirm--cancel"
+                data-i18n="modal.resetConfirm.no"
+            >
                 Non
             </button>
         </div>
@@ -14,17 +24,28 @@
 
 <section id="modal-check_exit_timer" class="modal hidden">
     <div id="modal-check_exit_timer__content" class="modal__exit">
-        <p class="modal__exit--paragraph">
+        <p class="modal__exit--paragraph" data-i18n="modal.exitConfirm.message">
             Êtes-vous sur de vouloir quitter, le timer et toujours en cours et
             sera donc rénitialiser.
         </p>
 
         <div class="modal__exit--btn">
-            <button id="exit-modal_timer">Quitter</button>
-            <button id="cancel-check_exit_timer">Annuler</button>
+            <button id="exit-modal_timer" data-i18n="modal.exitConfirm.quit">
+                Quitter
+            </button>
+            <button
+                id="cancel-check_exit_timer"
+                data-i18n="modal.exitConfirm.cancel"
+            >
+                Annuler
+            </button>
         </div>
         <button id="close-check_exit_timer" class="modal__exit--close">
-            <img src="../../../public/img/close.svg" alt="Fermer la fenêtre" />
+            <img
+                src="../../../public/img/close.svg"
+                data-i18n-alt="modal.exitConfirm.close"
+                alt="Fermer la fenêtre"
+            />
         </button>
     </div>
 </section>

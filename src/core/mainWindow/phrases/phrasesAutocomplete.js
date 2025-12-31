@@ -205,7 +205,9 @@ const phrasesAutocompleteObj = {
                         const categoryHeader = document.createElement("div");
                         categoryHeader.className = "phrase-category-header";
                         if (categoryId === "_none") {
-                            categoryHeader.textContent = "📝 Sans catégorie";
+                            categoryHeader.textContent = window.i18n
+                                ? window.i18n.t("room.noCategory")
+                                : "📝 Sans catégorie";
                         } else {
                             // Extraire l'icône si présent (format: "🎯 NomCatégorie")
                             categoryHeader.textContent = categoryId;

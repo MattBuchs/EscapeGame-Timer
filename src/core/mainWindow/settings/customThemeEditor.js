@@ -536,11 +536,11 @@ function saveCustomThemeFromEditor() {
  * Réinitialise le thème personnalisé
  */
 function resetCustomTheme() {
-    if (
-        confirm(
-            "Voulez-vous vraiment réinitialiser le thème aux valeurs par défaut ?"
-        )
-    ) {
+    const message = window.i18n
+        ? window.i18n.t("settings.customTheme.resetConfirm")
+        : "Voulez-vous vraiment réinitialiser le thème aux valeurs par défaut ?";
+
+    if (confirm(message)) {
         populateThemeEditor(DEFAULT_CUSTOM_THEME);
     }
 }

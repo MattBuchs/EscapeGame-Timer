@@ -2,15 +2,29 @@
     <div class="timer">
         <div class="timer__top">
             <div class="timer__top--manageTimer">
-                <button id="play" title="Lancer le timer">Commencer</button>
+                <button
+                    id="play"
+                    data-i18n-title="room.startTimerTitle"
+                    title="Lancer le timer"
+                    data-i18n="room.start"
+                >
+                    Commencer
+                </button>
                 <button
                     id="stop"
                     class="hidden"
+                    data-i18n-title="room.pauseTimerTitle"
                     title="Mettre en pause le timer"
+                    data-i18n="room.stop"
                 >
                     Arrêter
                 </button>
-                <button id="reset" title="Réinitialiser le timer">
+                <button
+                    id="reset"
+                    data-i18n-title="room.resetTimerTitle"
+                    title="Réinitialiser le timer"
+                    data-i18n="room.reset"
+                >
                     Réinitialiser
                 </button>
             </div>
@@ -23,14 +37,18 @@
                 <button
                     type="submit"
                     id="btn-notification_sound"
+                    data-i18n-title="room.notificationTitle"
                     title="Lancer le son de la notification"
+                    data-i18n="room.notification"
                 >
                     Notification
                 </button>
                 <button
                     type="submit"
                     id="btn-ambient_sound"
+                    data-i18n-title="room.ambientSoundTitle"
                     title="Lancer le son ambiant"
+                    data-i18n="room.ambientSound"
                 >
                     Son ambiant
                 </button>
@@ -38,6 +56,7 @@
                     type="submit"
                     class="hidden timer__top--sound--stop"
                     id="btn-stop--ambient_sound"
+                    data-i18n="room.stopAmbientSound"
                 >
                     Stopper son ambiant
                 </button>
@@ -48,7 +67,11 @@
             <p id="timer-roomNegative" class="hidden">1h : 0m : 0s</p>
             <p id="timer-room">1h : 0mn : 0s</p>
 
-            <button id="stop-alert" title="Stopper l'alerte">
+            <button
+                id="stop-alert"
+                data-i18n-title="room.stopAlertTitle"
+                title="Stopper l'alerte"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="16"
@@ -78,11 +101,15 @@
                         id="phrases-category-filter"
                         class="phrases-filter-select"
                     >
-                        <option value="all">📋 Toutes les catégories</option>
+                        <option value="all" data-i18n="room.allCategories">
+                            📋 Toutes les catégories
+                        </option>
                     </select>
                     <label class="phrases-favorites-label">
                         <input type="checkbox" id="phrases-favorites-only" />
-                        <span>⭐ Favoris uniquement</span>
+                        <span data-i18n="room.favoritesOnly"
+                            >⭐ Favoris uniquement</span
+                        >
                     </label>
                 </div>
                 <div class="timer__bottom--autocomplete">
@@ -90,6 +117,7 @@
                         type="text"
                         id="phrases-select"
                         class="timer__bottom--select"
+                        data-i18n-placeholder="room.searchPhrasePlaceholder"
                         placeholder="Choisir ou rechercher une phrase..."
                         autocomplete="off"
                     />
@@ -101,6 +129,7 @@
                         type="button"
                         id="clear-phrase-input"
                         class="clear-phrase-btn"
+                        data-i18n-title="room.clearSearchTitle"
                         title="Effacer la recherche"
                     >
                         <svg
@@ -123,10 +152,12 @@
                             <button
                                 id="img-delete"
                                 type="button"
+                                data-i18n-title="room.deleteMessageGMTitle"
                                 title="Effacer message côté Game Master [suppr]"
                             >
                                 <img
                                     src="../../../public/img/delete.svg"
+                                    data-i18n-alt="room.deletePhrase"
                                     alt="Supprimer phrase"
                                     class="img-delete"
                                 />
@@ -134,10 +165,12 @@
                             <button
                                 id="img-back"
                                 type="button"
+                                data-i18n-title="room.getLastMessageTitle"
                                 title="Récupérer le dernier message envoyé"
                             >
                                 <img
                                     src="../../../public/img/back.svg"
+                                    data-i18n-alt="room.getLastMessage"
                                     alt="Récupérer la dernière phrase"
                                     class="img-back"
                                 />
@@ -158,13 +191,17 @@
                         <button
                             type="button"
                             id="btn-clear"
+                            data-i18n-title="room.clearMessagePlayersTitle"
                             title="Effacer message côté Joueurs [shift + suppr]"
+                            data-i18n="room.clearMessage"
                         >
                             Effacer
                         </button>
                         <button
                             type="submit"
+                            data-i18n-title="room.sendMessageTitle"
                             title="Envoyer message aux Joueurs [shift + enter]"
+                            data-i18n="room.send"
                         >
                             Envoyer
                         </button>

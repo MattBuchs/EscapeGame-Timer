@@ -59,19 +59,25 @@ const roomsObj = {
                     `${el.hours > 0 ? el.hours + "h : " : ""}${
                         el.minutes
                     }mn : 0s`,
-                    "Timer : "
+                    window.i18n ? window.i18n.t("home.timerLabel") : "Timer : "
                 );
                 const pNotification = this.createParagraphWithSpan(
                     el.notification_sound,
-                    "Son notification : "
+                    window.i18n
+                        ? window.i18n.t("home.notificationSoundLabel")
+                        : "Son notification : "
                 );
                 const pAmbient = this.createParagraphWithSpan(
                     el.ambient_sound,
-                    "Son ambiant : "
+                    window.i18n
+                        ? window.i18n.t("home.ambientSoundLabel")
+                        : "Son ambiant : "
                 );
                 const pAlarm = this.createParagraphWithSpan(
                     el.end_timer_sound,
-                    "Son timer : "
+                    window.i18n
+                        ? window.i18n.t("home.endTimerSoundLabel")
+                        : "Son timer : "
                 );
 
                 btn.appendChild(pTimer);
@@ -96,9 +102,12 @@ const roomsObj = {
             const btn = document.createElement("button");
 
             div.classList.add("home__container--noRoom");
-            h3.textContent = "Il n'y a pas de timer pour le moment...";
-            p.textContent =
-                "Si vous voulez en créer un, cliquer dans la barre de navigation ou sur ce bouton : ";
+            h3.textContent = window.i18n
+                ? window.i18n.t("home.noTimer")
+                : "Il n'y a pas de timer pour le moment...";
+            p.textContent = window.i18n
+                ? window.i18n.t("home.createTimerPrompt")
+                : "Si vous voulez en créer un, cliquer dans la barre de navigation ou sur ce bouton : ";
             btn.textContent = "+";
 
             btn.addEventListener("click", () => {

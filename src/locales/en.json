@@ -6,7 +6,30 @@
     },
     "home": {
         "title": "Home",
-        "secondWindowInfoTitle": "Help about secondary window"
+        "secondWindowInfoTitle": "Help about secondary window",
+        "timerLabel": "Timer: ",
+        "notificationSoundLabel": "Notification sound: ",
+        "ambientSoundLabel": "Ambient sound: ",
+        "endTimerSoundLabel": "Timer sound: ",
+        "noTimer": "There are no timers at the moment...",
+        "createTimerPrompt": "If you want to create one, click on the navigation bar or on this button: ",
+        "secondWindowModal": {
+            "title": "Secondary Window",
+            "intro": "The secondary window is supposed to open automatically on your second screen.",
+            "wrongScreenTitle": "🖥️ If it doesn't display on the right screen",
+            "step1": "Locate the secondary window. It may be minimized or hidden. The combination",
+            "step1Keys": "Alt + Tab",
+            "step1End": "can help you find it.",
+            "step2": "Once the window is visible and active, press",
+            "step2Key": "F11",
+            "step2End": "to exit fullscreen mode.",
+            "step3": "Click and hold the mouse button on the window's title bar.",
+            "step4": "Drag the window to your second screen.",
+            "step5": "Once positioned, press",
+            "step5Key": "F11",
+            "step5End": "again to reactivate fullscreen mode.",
+            "close": "Close"
+        }
     },
     "addTimer": {
         "title": "Add Timer",
@@ -43,37 +66,62 @@
         "withoutLetters": "Without letters (-- : --)",
         "language": "Application language",
         "languageFrench": "French",
-        "languageEnglish": "English"
+        "languageEnglish": "English",
+        "customTheme": {
+            "resetConfirm": "Do you really want to reset the theme to default values?"
+        }
     },
     "updateRoom": {
         "title": "Update Timer",
-        "roomName": "Timer button name:",
-        "roomNamePlaceholder": "e.g., Room 1",
-        "chooseTime": "Choose desired time (hour : minute):",
-        "alarm": "Alarm:",
+        "changeTitle": "Change timer title",
+        "changeTime": "Change timer time",
+        "changeEndTimerSound": "Change end timer sound",
         "chooseEndTimerSound": "Choose end timer sound",
-        "notification": "Notification:",
+        "changeNotificationSound": "Change notification sound",
         "chooseNotificationSound": "Choose notification sound",
-        "ambientSound": "Ambient sound:",
+        "changeAmbientSound": "Change ambient sound",
         "chooseAmbientSound": "Choose ambient sound",
         "listenEndTimer": "Listen to end timer sound",
         "listenNotification": "Listen to notification sound",
         "listenAmbient": "Listen to ambient sound",
         "stopMusic": "Stop music",
-        "update": "Update",
-        "delete": "Delete"
+        "validate": "Validate",
+        "phraseToDelete": "Phrase to delete:",
+        "choosePhraseToDelete": "Choose phrase to delete",
+        "phraseToEdit": "Phrase to edit:",
+        "editExistingPhrase": "Edit existing phrase",
+        "category": "Category:",
+        "editCategoryPlaceholder": "Edit category...",
+        "availableIcons": "Available icons:",
+        "markAsFavorite": "⭐ Mark as favorite",
+        "save": "Save"
     },
     "room": {
-        "startTimer": "Start timer",
-        "pauseTimer": "Pause timer",
-        "stopTimer": "Stop timer",
-        "addTime": "Add time",
-        "notifications": "Notifications",
-        "phrases": "Phrases",
-        "update": "Update",
-        "addPhrase": "Add a phrase",
-        "phrasePlaceholder": "Enter a phrase...",
-        "add": "Add"
+        "start": "Start",
+        "stop": "Stop",
+        "reset": "Reset",
+        "startTimerTitle": "Start timer",
+        "pauseTimerTitle": "Pause timer",
+        "resetTimerTitle": "Reset timer",
+        "notification": "Notification",
+        "notificationTitle": "Play notification sound",
+        "ambientSound": "Ambient sound",
+        "ambientSoundTitle": "Play ambient sound",
+        "stopAmbientSound": "Stop ambient sound",
+        "stopAlertTitle": "Stop alert",
+        "allCategories": "📋 All categories",
+        "favoritesOnly": "⭐ Favorites only",
+        "searchPhrasePlaceholder": "Choose or search a phrase...",
+        "clearSearchTitle": "Clear search",
+        "deleteMessageGMTitle": "Clear message on Game Master side [delete]",
+        "deletePhrase": "Delete phrase",
+        "getLastMessageTitle": "Get last sent message",
+        "getLastMessage": "Get last phrase",
+        "clearMessagePlayersTitle": "Clear message on Players side [shift + delete]",
+        "clearMessage": "Clear",
+        "sendMessageTitle": "Send message to Players [shift + enter]",
+        "send": "Send",
+        "noCategory": "📝 No category"
     },
     "modal": {
         "customTheme": {
@@ -103,6 +151,35 @@
             "feature2": "Dynamic phrases",
             "feature3": "Synchronized theme changes",
             "close": "Close"
+        },
+        "soundSettings": {
+            "title": "Sound Settings",
+            "endTimerVolume": "Alarm sound volume:",
+            "notificationVolume": "Notification sound volume:",
+            "ambientVolume": "Ambient sound volume:",
+            "validate": "Validate",
+            "close": "Close"
+        },
+        "addPhrases": {
+            "title": "Add a phrase for current timer",
+            "savePhrase": "Save a phrase:",
+            "categoryOptional": "Category (optional):",
+            "createOrSelectCategory": "Create or select a category...",
+            "availableIcons": "Available icons:",
+            "markAsFavorite": "⭐ Mark as favorite",
+            "validate": "Validate",
+            "close": "Close"
+        },
+        "resetConfirm": {
+            "message": "Are you sure you want to reset the timer?",
+            "yes": "Yes",
+            "no": "No"
+        },
+        "exitConfirm": {
+            "message": "Are you sure you want to quit? The timer is still running and will be reset.",
+            "quit": "Quit",
+            "cancel": "Cancel",
+            "close": "Close window"
         }
     },
     "messages": {

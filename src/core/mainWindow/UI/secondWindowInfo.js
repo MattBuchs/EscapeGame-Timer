@@ -23,7 +23,40 @@ function attachInfoButtonListener() {
     infoBtn.addEventListener("click", showSecondWindowInfo);
 }
 
+// Fallback pour les textes français par défaut
+function getDefaultTextFr(key) {
+    const defaults = {
+        "home.secondWindowModal.close": "Fermer",
+        "home.secondWindowModal.title": "Fenêtre secondaire",
+        "home.secondWindowModal.intro":
+            "La fenêtre secondaire est censée s'ouvrir automatiquement sur votre deuxième écran.",
+        "home.secondWindowModal.wrongScreenTitle":
+            "🖥️ Si elle ne s'affiche pas sur le bon écran",
+        "home.secondWindowModal.step1":
+            "Localisez la fenêtre secondaire. Elle peut être minimisée ou cachée. La combinaison",
+        "home.secondWindowModal.step1Keys": "Alt + Tab",
+        "home.secondWindowModal.step1End": "peut vous aider à la retrouver.",
+        "home.secondWindowModal.step2":
+            "Une fois la fenêtre visible et active, appuyez sur",
+        "home.secondWindowModal.step2Key": "F11",
+        "home.secondWindowModal.step2End": "pour quitter le mode plein écran.",
+        "home.secondWindowModal.step3":
+            "Cliquez et maintenez le bouton de la souris sur la barre de titre de la fenêtre.",
+        "home.secondWindowModal.step4":
+            "Faites glisser la fenêtre vers votre deuxième écran.",
+        "home.secondWindowModal.step5":
+            "Une fois positionnée, appuyez de nouveau sur",
+        "home.secondWindowModal.step5Key": "F11",
+        "home.secondWindowModal.step5End":
+            "pour réactiver le mode plein écran.",
+    };
+    return defaults[key] || key;
+}
+
 function showSecondWindowInfo() {
+    const i18n = window.i18n;
+    const t = (key) => (i18n ? i18n.t(key) : getDefaultTextFr(key));
+
     const modal = document.createElement("div");
     modal.className = "modal modal--info";
     modal.style.position = "fixed";
@@ -31,34 +64,41 @@ function showSecondWindowInfo() {
         <div class="modal__overlay"></div>
         <div class="modal__content modal__content--info">
     <button class="modal__content--close" id="btn-close-info">
-        <img src="../../../public/img/close.svg" alt="Fermer" />
+        <img src="../../../public/img/close.svg" alt="${t(
+            "home.secondWindowModal.close"
+        )}" />
     </button>
     
-    <h2>Fenêtre secondaire</h2>
+    <h2>${t("home.secondWindowModal.title")}</h2>
     
     <div class="info-content">
         <p>
-            La fenêtre secondaire est censée s’ouvrir automatiquement sur votre deuxième écran.
+            ${t("home.secondWindowModal.intro")}
         </p>
         
         <div class="info-section">
-            <h3>🖥️ Si elle ne s’affiche pas sur le bon écran</h3>
+            <h3>${t("home.secondWindowModal.wrongScreenTitle")}</h3>
             <ol>
                 <li>
-                    Localisez la fenêtre secondaire. Elle peut être minimisée ou cachée. 
-                    La combinaison <kbd>Alt</kbd> + <kbd>Tab</kbd> peut vous aider à la retrouver.
+                    ${t("home.secondWindowModal.step1")} <kbd>${t(
+        "home.secondWindowModal.step1Keys"
+    )}</kbd> ${t("home.secondWindowModal.step1End")}
                 </li>
                 <li>
-                    Une fois la fenêtre visible et active, appuyez sur <kbd>F11</kbd> pour quitter le mode plein écran.
+                    ${t("home.secondWindowModal.step2")} <kbd>${t(
+        "home.secondWindowModal.step2Key"
+    )}</kbd> ${t("home.secondWindowModal.step2End")}
                 </li>
                 <li>
-                    Cliquez et maintenez le bouton de la souris sur la barre de titre de la fenêtre.
+                    ${t("home.secondWindowModal.step3")}
                 </li>
                 <li>
-                    Faites glisser la fenêtre vers votre deuxième écran.
+                    ${t("home.secondWindowModal.step4")}
                 </li>
                 <li>
-                    Une fois positionnée, appuyez de nouveau sur <kbd>F11</kbd> pour réactiver le mode plein écran.
+                    ${t("home.secondWindowModal.step5")} <kbd>${t(
+        "home.secondWindowModal.step5Key"
+    )}</kbd> ${t("home.secondWindowModal.step5End")}
                 </li>
             </ol>
         </div>

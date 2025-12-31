@@ -6,7 +6,30 @@
     },
     "home": {
         "title": "Accueil",
-        "secondWindowInfoTitle": "Aide sur la fenêtre secondaire"
+        "secondWindowInfoTitle": "Aide sur la fenêtre secondaire",
+        "timerLabel": "Timer : ",
+        "notificationSoundLabel": "Son notification : ",
+        "ambientSoundLabel": "Son ambiant : ",
+        "endTimerSoundLabel": "Son timer : ",
+        "noTimer": "Il n'y a pas de timer pour le moment...",
+        "createTimerPrompt": "Si vous voulez en créer un, cliquer dans la barre de navigation ou sur ce bouton : ",
+        "secondWindowModal": {
+            "title": "Fenêtre secondaire",
+            "intro": "La fenêtre secondaire est censée s'ouvrir automatiquement sur votre deuxième écran.",
+            "wrongScreenTitle": "🖥️ Si elle ne s'affiche pas sur le bon écran",
+            "step1": "Localisez la fenêtre secondaire. Elle peut être minimisée ou cachée. La combinaison",
+            "step1Keys": "Alt + Tab",
+            "step1End": "peut vous aider à la retrouver.",
+            "step2": "Une fois la fenêtre visible et active, appuyez sur",
+            "step2Key": "F11",
+            "step2End": "pour quitter le mode plein écran.",
+            "step3": "Cliquez et maintenez le bouton de la souris sur la barre de titre de la fenêtre.",
+            "step4": "Faites glisser la fenêtre vers votre deuxième écran.",
+            "step5": "Une fois positionnée, appuyez de nouveau sur",
+            "step5Key": "F11",
+            "step5End": "pour réactiver le mode plein écran.",
+            "close": "Fermer"
+        }
     },
     "addTimer": {
         "title": "Ajouter un Timer",
@@ -43,37 +66,62 @@
         "withoutLetters": "Sans les lettres (-- : --)",
         "language": "Langue de l'application",
         "languageFrench": "Français",
-        "languageEnglish": "Anglais"
+        "languageEnglish": "Anglais",
+        "customTheme": {
+            "resetConfirm": "Voulez-vous vraiment réinitialiser le thème aux valeurs par défaut ?"
+        }
     },
     "updateRoom": {
-        "title": "Modifier un Timer",
-        "roomName": "Nom du bouton du timer :",
-        "roomNamePlaceholder": "ex: Salle 1",
-        "chooseTime": "Choisir le temps souhaité (heure : minute) :",
-        "alarm": "Alarme :",
+        "title": "Modifier le Timer",
+        "changeTitle": "Changer le titre du timer",
+        "changeTime": "Changer le temps du timer",
+        "changeEndTimerSound": "Modifier le son de fin de timer",
         "chooseEndTimerSound": "Choisir un son de fin de timer",
-        "notification": "Notification :",
+        "changeNotificationSound": "Modifier le son de notification",
         "chooseNotificationSound": "Choisir un son de notification",
-        "ambientSound": "Son ambiant :",
+        "changeAmbientSound": "Modifier le son d'ambiance",
         "chooseAmbientSound": "Choisir un son ambiant",
         "listenEndTimer": "Ecouter le son de fin de timer",
         "listenNotification": "Ecouter le son de notification",
         "listenAmbient": "Ecouter le son d'ambiance",
         "stopMusic": "Stopper la musique",
-        "update": "Modifier",
-        "delete": "Supprimer"
+        "validate": "Valider",
+        "phraseToDelete": "Phrase à supprimer :",
+        "choosePhraseToDelete": "Choisir la phrase à supprimer",
+        "phraseToEdit": "Phrase à modifier :",
+        "editExistingPhrase": "Éditer une phrase existante",
+        "category": "Catégorie :",
+        "editCategoryPlaceholder": "Modifier la catégorie...",
+        "availableIcons": "Icônes disponibles :",
+        "markAsFavorite": "⭐ Marquer comme favori",
+        "save": "Enregistrer"
     },
     "room": {
-        "startTimer": "Démarrer le timer",
-        "pauseTimer": "Mettre en pause le timer",
-        "stopTimer": "Arrêter le timer",
-        "addTime": "Ajouter du temps",
-        "notifications": "Notifications",
-        "phrases": "Phrases",
-        "update": "Modifier",
-        "addPhrase": "Ajouter une phrase",
-        "phrasePlaceholder": "Entrez une phrase...",
-        "add": "Ajouter"
+        "start": "Commencer",
+        "stop": "Arrêter",
+        "reset": "Réinitialiser",
+        "startTimerTitle": "Lancer le timer",
+        "pauseTimerTitle": "Mettre en pause le timer",
+        "resetTimerTitle": "Réinitialiser le timer",
+        "notification": "Notification",
+        "notificationTitle": "Lancer le son de la notification",
+        "ambientSound": "Son ambiant",
+        "ambientSoundTitle": "Lancer le son ambiant",
+        "stopAmbientSound": "Stopper son ambiant",
+        "stopAlertTitle": "Stopper l'alerte",
+        "allCategories": "📋 Toutes les catégories",
+        "favoritesOnly": "⭐ Favoris uniquement",
+        "searchPhrasePlaceholder": "Choisir ou rechercher une phrase...",
+        "clearSearchTitle": "Effacer la recherche",
+        "deleteMessageGMTitle": "Effacer message côté Game Master [suppr]",
+        "deletePhrase": "Supprimer phrase",
+        "getLastMessageTitle": "Récupérer le dernier message envoyé",
+        "getLastMessage": "Récupérer la dernière phrase",
+        "clearMessagePlayersTitle": "Effacer message côté Joueurs [shift + suppr]",
+        "clearMessage": "Effacer",
+        "sendMessageTitle": "Envoyer message aux Joueurs [shift + enter]",
+        "send": "Envoyer",
+        "noCategory": "📝 Sans catégorie"
     },
     "modal": {
         "customTheme": {
@@ -103,6 +151,35 @@
             "feature2": "Phrases dynamiques",
             "feature3": "Changement de thème synchronisé",
             "close": "Fermer"
+        },
+        "soundSettings": {
+            "title": "Paramètre de son",
+            "endTimerVolume": "Volume du son de l'alarme :",
+            "notificationVolume": "Volume du son de notification :",
+            "ambientVolume": "Volume du son d'ambiance :",
+            "validate": "Valider",
+            "close": "Fermer"
+        },
+        "addPhrases": {
+            "title": "Ajouter une phrase pour le timer actuel",
+            "savePhrase": "Enregistrer une phrase :",
+            "categoryOptional": "Catégorie (optionnelle) :",
+            "createOrSelectCategory": "Créer ou sélectionner une catégorie...",
+            "availableIcons": "Icônes disponibles :",
+            "markAsFavorite": "⭐ Marquer comme favori",
+            "validate": "Valider",
+            "close": "Fermer"
+        },
+        "resetConfirm": {
+            "message": "Êtes-vous sûr de vouloir rénitialiser le timer ?",
+            "yes": "Oui",
+            "no": "Non"
+        },
+        "exitConfirm": {
+            "message": "Êtes-vous sur de vouloir quitter, le timer et toujours en cours et sera donc rénitialiser.",
+            "quit": "Quitter",
+            "cancel": "Annuler",
+            "close": "Fermer la fenêtre"
         }
     },
     "messages": {
