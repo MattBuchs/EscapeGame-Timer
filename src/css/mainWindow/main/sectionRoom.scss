@@ -5,13 +5,20 @@
     min-height: 100vh;
     padding: $spacing-3xl $spacing-xl;
 
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $spacing-md;
+        margin-bottom: $spacing-2xl;
+    }
+
     &__title {
         text-align: center;
         font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
         color: $color-text-primary;
         font-weight: $font-weight-extrabold;
         font-family: $font-family-display;
-        margin-bottom: $spacing-2xl;
         position: relative;
 
         &::after {
@@ -25,6 +32,34 @@
             background: $gradient-primary;
             border-radius: $radius-full;
             box-shadow: $shadow-glow;
+        }
+    }
+
+    &__info-btn {
+        @include button-base;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $color-bg-card;
+        border: 1px solid $color-border;
+        color: $color-text-secondary;
+        transition: all $transition-base;
+        cursor: pointer;
+
+        &:hover {
+            background: $color-bg-card-hover;
+            border-color: $color-primary;
+            color: $color-primary;
+            transform: scale(1.1);
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
         }
     }
 

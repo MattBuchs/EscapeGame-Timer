@@ -61,7 +61,7 @@
         font-weight: 500;
         position: relative;
         z-index: 1;
-        color: $color-text-primary;
+        color: $color-text-secondary;
     }
 
     &:hover {
@@ -130,11 +130,11 @@
     }
 }
 
-.theme-option[data-theme="elegant"] {
+.theme-option[data-theme="light"] {
     &:hover,
     &.active {
-        border-color: #8b5cf6;
-        @include neon-border(#8b5cf6, 0.6);
+        border-color: #3b82f6;
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
     }
 }
 

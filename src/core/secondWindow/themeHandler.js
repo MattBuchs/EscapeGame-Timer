@@ -152,7 +152,7 @@ function applyCustomTheme(theme) {
  */
 function initThemeHandler() {
     // Récupérer et appliquer le thème sauvegardé
-    const savedTheme = localStorage.getItem(STORAGE_KEY) || "neon";
+    const savedTheme = localStorage.getItem(STORAGE_KEY) || "modern";
     applyTheme(savedTheme);
 
     // Écouter les changements de thème via IPC

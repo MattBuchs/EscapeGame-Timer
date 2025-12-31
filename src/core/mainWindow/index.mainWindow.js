@@ -17,6 +17,7 @@ import deleteSongFileObj from "./settings/deleteSongFile.js";
 import manageNavbarObj from "./UI/manageNavbar.js";
 import checkFoldersExist from "./sounds/checkFoldersExist.js";
 import { initThemeSelector } from "./settings/themeSelector.js";
+import { initSecondWindowInfo } from "./UI/secondWindowInfo.js";
 import {
     openCustomThemeEditor,
     closeCustomThemeEditor,
@@ -64,3 +65,6 @@ window.resetCustomTheme = resetCustomTheme;
 // Initialisation des fonctionnalités liées à la navbar
 manageNavbarObj.init();
 manageTabsObj.init();
+
+// Initialisation de l'info pour la fenêtre secondaire
+initSecondWindowInfo();

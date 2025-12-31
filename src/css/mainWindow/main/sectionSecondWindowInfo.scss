@@ -1,0 +1,166 @@
+// ===== INFO MODAL =====
+.modal--info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $z-modal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $transition-base;
+
+    &.active {
+        opacity: 1;
+        pointer-events: auto;
+
+        .modal__content--info {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+    }
+
+    .modal__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 9998;
+    }
+
+    .modal__content--info {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        max-width: 600px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        background: $color-bg-card;
+        border: 1px solid $color-border;
+        border-radius: $radius-lg;
+        padding: $spacing-2xl;
+        z-index: 9999;
+        opacity: 0;
+        transition: all $transition-base;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+        h2 {
+            font-size: $font-size-2xl;
+            font-weight: $font-weight-bold;
+            color: $color-text-primary;
+            margin-bottom: $spacing-xl;
+            text-align: center;
+        }
+    }
+}
+
+.info-content {
+    color: $color-text-primary;
+
+    > p {
+        font-size: $font-size-base;
+        line-height: 1.6;
+        margin-bottom: $spacing-lg;
+        color: $color-text-secondary;
+    }
+
+    strong {
+        color: $color-primary;
+        font-weight: $font-weight-bold;
+    }
+
+    kbd {
+        display: inline-block;
+        padding: $spacing-xs $spacing-sm;
+        margin: 0 $spacing-xs;
+        background: $color-bg-dark;
+        border: 1px solid $color-border;
+        border-radius: $radius-sm;
+        font-family: $font-family-mono;
+        font-size: $font-size-sm;
+        color: $color-text-primary;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2),
+            inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+        font-weight: $font-weight-semibold;
+    }
+}
+
+.info-section {
+    margin: $spacing-xl 0;
+    padding: $spacing-lg;
+    background: $color-bg-input;
+    border-radius: $radius-md;
+    border: 1px solid $color-border;
+
+    h3 {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        color: $color-text-primary;
+        margin-bottom: $spacing-md;
+    }
+
+    p {
+        font-size: $font-size-sm;
+        line-height: 1.6;
+        color: $color-text-secondary;
+
+        strong {
+            color: $color-primary;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    ol {
+        margin: $spacing-md 0;
+        padding-left: $spacing-xl;
+        list-style: decimal;
+
+        li {
+            font-size: $font-size-sm;
+            line-height: 1.8;
+            color: $color-text-secondary;
+            margin-bottom: $spacing-sm;
+
+            &::marker {
+                color: $color-primary;
+                font-weight: $font-weight-bold;
+            }
+        }
+    }
+
+    &--tip {
+        background: linear-gradient(
+            135deg,
+            rgba(99, 102, 241, 0.1),
+            rgba(168, 85, 247, 0.1)
+        );
+        border-color: $color-primary;
+
+        strong {
+            color: $color-primary;
+            font-weight: $font-weight-semibold;
+        }
+
+        kbd {
+            display: inline-block;
+            padding: $spacing-xs $spacing-sm;
+            margin: 0 $spacing-xs;
+            background: $color-bg-dark;
+            border: 1px solid $color-border;
+            border-radius: $radius-sm;
+            font-family: $font-family-mono;
+            font-size: $font-size-sm;
+            color: $color-text-primary;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    }
+}

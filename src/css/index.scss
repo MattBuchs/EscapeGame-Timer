@@ -2,7 +2,7 @@
 @import "./variables-new";
 @import "./themes/theme-neon";
 @import "./themes/theme-neutral";
-@import "./themes/theme-elegant";
+@import "./themes/theme-light";
 @import "./themes/theme-modern";
 @import "./themes/theme-custom";
 @import "./reset.scss";
@@ -15,6 +15,7 @@
 @import "./mainWindow/main/sectionSettings.scss";
 @import "./mainWindow/main/sectionThemeSelector.scss";
 @import "./mainWindow/main/sectionCustomTheme.scss";
+@import "./mainWindow/main/sectionSecondWindowInfo.scss";
 @import "./secondWindow/content.scss";
 
 // ===== GLOBAL STYLES =====

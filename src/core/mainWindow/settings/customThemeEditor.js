@@ -207,7 +207,7 @@ function createCustomThemeModal() {
         <div id="modal-custom-theme" class="modal hidden">
             <div class="modal__content modal__content--theme-editor">
                 <button class="modal__content--close" id="btn-close-theme-editor">
-                    <img src="../../../public/img/cross.png" alt="close" />
+                    <img src="../../../public/img/close.svg" alt="close" />
                 </button>
                 
                 <h2>🎨 Éditeur de Thème Personnalisé</h2>
