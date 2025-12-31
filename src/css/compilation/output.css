@@ -1630,7 +1630,7 @@ table {
 .timer__bottom--autocomplete .phrases-dropdown .phrase-category-header {
   padding: 0.25rem 1rem;
   background: rgba(99, 102, 241, 0.1);
-  color: var(--color-primary);
+  color: var(--color-text-secondary);
   font-size: 0.875rem;
   font-weight: 700;
   border-bottom: 1px solid var(--color-border);
