@@ -1,0 +1,300 @@
+// ===== CUSTOM THEME EDITOR =====
+.modal__content--theme-editor {
+    max-width: 95vw;
+    width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: $spacing-2xl;
+
+    h2 {
+        font-size: $font-size-3xl;
+        margin-bottom: $spacing-xl;
+        text-align: center;
+    }
+}
+
+.theme-editor {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: $spacing-2xl;
+    margin-bottom: $spacing-xl;
+
+    &__preview {
+        position: sticky;
+        top: $spacing-xl;
+        align-self: flex-start;
+
+        h3 {
+            font-size: $font-size-xl;
+            font-weight: $font-weight-bold;
+            margin-bottom: $spacing-lg;
+            color: $color-text-primary;
+        }
+
+        .preview-container {
+            @include card-base;
+            padding: $spacing-2xl;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-lg;
+            background: var(--color-bg-dark);
+
+            &:hover {
+                transform: none;
+            }
+        }
+
+        .preview-bg-info {
+            padding: $spacing-sm $spacing-md;
+            background: var(--color-bg-card);
+            border-radius: 4px;
+            border: 1px solid var(--color-border);
+
+            small {
+                color: var(--color-text-secondary);
+                font-size: $font-size-xs;
+            }
+        }
+
+        .preview-card {
+            @include card-base;
+            padding: $spacing-xl;
+            width: 100%;
+            background: var(--color-bg-card);
+            position: relative;
+
+            &:hover {
+                transform: none;
+            }
+
+            .preview-card-label {
+                position: absolute;
+                top: $spacing-xs;
+                right: $spacing-xs;
+                color: var(--color-text-muted);
+                font-size: $font-size-xs;
+                opacity: 0.7;
+            }
+
+            h4 {
+                font-size: $font-size-xl;
+                font-weight: $font-weight-bold;
+                margin-bottom: $spacing-md;
+                color: var(--color-text-primary);
+            }
+
+            p {
+                margin-bottom: $spacing-sm;
+                line-height: 1.6;
+                color: var(--color-text-primary);
+            }
+
+            .secondary-text {
+                font-size: $font-size-sm;
+                color: var(--color-text-secondary);
+            }
+
+            .preview-button {
+                @include button-base;
+                width: 100%;
+                margin-top: $spacing-md;
+                padding: $spacing-md;
+                font-weight: $font-weight-semibold;
+                background: var(--color-primary);
+                color: white;
+            }
+
+            .preview-input {
+                @include input-base;
+                width: 100%;
+                margin-top: $spacing-md;
+                background: var(--color-bg-input);
+                color: var(--color-text-primary);
+                border: 1px solid var(--color-border);
+            }
+
+            .preview-borders {
+                margin-top: $spacing-md;
+                padding: $spacing-md;
+                border: 2px solid var(--color-border);
+                border-radius: 4px;
+                text-align: center;
+                color: var(--color-text-secondary);
+                font-size: $font-size-sm;
+            }
+        }
+    }
+
+    &__colors {
+        h3 {
+            font-size: $font-size-xl;
+            font-weight: $font-weight-bold;
+            margin-bottom: $spacing-lg;
+            color: $color-text-primary;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: $spacing-md;
+        justify-content: flex-end;
+        padding-top: $spacing-xl;
+        border-top: 1px solid $color-border;
+
+        button {
+            @include button-base;
+            min-width: 140px;
+            padding: $spacing-md $spacing-xl;
+            font-weight: $font-weight-semibold;
+        }
+
+        .btn-reset {
+            background: $color-bg-input;
+            color: $color-text-primary;
+            border: 1px solid $color-border;
+            margin-right: auto;
+
+            &:hover {
+                background: $color-bg-card-hover;
+                border-color: $color-border-light;
+            }
+        }
+
+        .btn-cancel {
+            background: $gradient-error;
+            color: #ffffff;
+
+            &:hover {
+                box-shadow: $shadow-lg, 0 0 20px rgba(239, 68, 68, 0.3);
+            }
+        }
+
+        .btn-save {
+            background: $gradient-success;
+            color: #ffffff;
+            box-shadow: $shadow-md, 0 0 15px $color-success-glow;
+
+            &:hover {
+                box-shadow: $shadow-lg, 0 0 25px $color-success-glow;
+            }
+        }
+    }
+}
+
+.color-group {
+    margin-bottom: $spacing-2xl;
+
+    h4 {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        color: $color-text-primary;
+        margin-bottom: $spacing-lg;
+        padding-bottom: $spacing-sm;
+        border-bottom: 1px solid $color-border;
+    }
+}
+
+.color-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+
+    label {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xs;
+
+        .color-label {
+            font-size: $font-size-base;
+            font-weight: $font-weight-medium;
+            color: $color-text-primary;
+        }
+
+        .color-description {
+            font-size: $font-size-sm;
+            color: $color-text-muted;
+        }
+    }
+}
+
+.color-input-wrapper {
+    display: flex;
+    gap: $spacing-sm;
+    align-items: center;
+
+    input[type="color"] {
+        width: 80px;
+        height: 50px;
+        border: 2px solid $color-border;
+        border-radius: $radius-md;
+        cursor: pointer;
+        transition: all $transition-base;
+
+        &:hover {
+            border-color: $color-primary;
+            box-shadow: 0 0 10px $color-primary-glow;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $color-primary;
+            box-shadow: 0 0 15px $color-primary-glow;
+        }
+    }
+
+    .color-text {
+        @include input-base;
+        flex: 1;
+        height: 50px;
+        font-family: $font-family-mono;
+        font-size: $font-size-base;
+        text-transform: uppercase;
+    }
+}
+
+// ===== RESPONSIVE =====
+@media screen and (max-width: 1200px) {
+    .modal__content--theme-editor {
+        width: 95vw;
+    }
+
+    .theme-editor {
+        grid-template-columns: 1fr;
+
+        &__preview {
+            order: 2;
+        }
+
+        &__colors {
+            order: 1;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .modal__content--theme-editor {
+        padding: $spacing-xl $spacing-md;
+    }
+
+    .theme-editor__actions {
+        flex-direction: column;
+
+        button {
+            width: 100%;
+        }
+
+        .btn-reset {
+            margin-right: 0;
+        }
+    }
+
+    .color-input-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+
+        input[type="color"] {
+            width: 100%;
+        }
+    }
+}

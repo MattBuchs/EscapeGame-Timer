@@ -4,6 +4,7 @@
 @import "./themes/theme-neutral";
 @import "./themes/theme-elegant";
 @import "./themes/theme-modern";
+@import "./themes/theme-custom";
 @import "./reset.scss";
 @import "./mainWindow/header.scss";
 @import "./mainWindow/main/sectionRoom.scss";
@@ -13,6 +14,7 @@
 @import "./mainWindow/main/sectionUpdateRoom.scss";
 @import "./mainWindow/main/sectionSettings.scss";
 @import "./mainWindow/main/sectionThemeSelector.scss";
+@import "./mainWindow/main/sectionCustomTheme.scss";
 @import "./secondWindow/content.scss";
 
 // ===== GLOBAL STYLES =====

@@ -6,10 +6,11 @@
 const { ipcRenderer } = require("electron");
 
 const THEMES = {
-    neon: { name: "Néon", icon: "✨" },
-    neutral: { name: "Neutre", icon: "🌑" },
-    elegant: { name: "Light", icon: "☀️" },
     modern: { name: "Moderne", icon: "🚀" },
+    light: { name: "Light", icon: "☀️" },
+    neutral: { name: "Neutre", icon: "🌑" },
+    neon: { name: "Néon", icon: "✨" },
+    custom: { name: "Personnalisé", icon: "🎨", customizable: true },
 };
 
 const STORAGE_KEY = "escape-game-theme";
@@ -42,6 +43,11 @@ function applyTheme(themeName) {
         return;
     }
 
+    // Si on change pour un thème non-custom, supprimer les styles inline du thème personnalisé
+    if (themeName !== "custom") {
+        clearCustomThemeStyles();
+    }
+
     // Appliquer l'attribut data-theme sur le body
     document.body.setAttribute("data-theme", themeName);
 
@@ -53,6 +59,45 @@ function applyTheme(themeName) {
 
     // Mettre à jour l'UI si elle existe
     updateThemeSelectorUI(themeName);
+}
+
+/**
+ * Supprime les styles CSS inline du thème personnalisé
+ */
+function clearCustomThemeStyles() {
+    const root = document.body;
+    const customProperties = [
+        "--color-primary",
+        "--color-primary-dark",
+        "--color-primary-light",
+        "--color-primary-glow",
+        "--color-secondary",
+        "--color-secondary-dark",
+        "--color-secondary-light",
+        "--color-secondary-glow",
+        "--color-bg-dark",
+        "--color-bg-darker",
+        "--color-bg-card",
+        "--color-bg-card-hover",
+        "--color-bg-input",
+        "--color-bg-section",
+        "--color-bg-section-hover",
+        "--color-bg-glass",
+        "--color-bg-accent",
+        "--color-bg-accent-hover",
+        "--color-bg-overlay",
+        "--color-text-primary",
+        "--color-text-secondary",
+        "--color-text-muted",
+        "--color-border",
+        "--color-border-light",
+        "--color-success",
+        "--color-error",
+        "--color-warning",
+        "--gradient-card",
+    ];
+
+    customProperties.forEach((prop) => root.style.removeProperty(prop));
 }
 
 /**
@@ -98,7 +143,17 @@ function createThemeSelectorUI() {
     themeButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const themeName = button.getAttribute("data-theme");
-            applyTheme(themeName);
+
+            // Si c'est le thème personnalisé, ouvrir l'éditeur
+            if (THEMES[themeName]?.customizable) {
+                if (typeof window.openCustomThemeEditor === "function") {
+                    window.openCustomThemeEditor();
+                } else {
+                    console.error("openCustomThemeEditor n'est pas disponible");
+                }
+            } else {
+                applyTheme(themeName);
+            }
         });
     });
 }

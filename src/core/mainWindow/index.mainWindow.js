@@ -17,6 +17,13 @@ import deleteSongFileObj from "./settings/deleteSongFile.js";
 import manageNavbarObj from "./UI/manageNavbar.js";
 import checkFoldersExist from "./sounds/checkFoldersExist.js";
 import { initThemeSelector } from "./settings/themeSelector.js";
+import {
+    openCustomThemeEditor,
+    closeCustomThemeEditor,
+    saveCustomThemeFromEditor,
+    resetCustomTheme,
+    applyCustomTheme,
+} from "./settings/customThemeEditor.js";
 
 // Initialisation du Timer
 timerObj.init();
@@ -44,6 +51,15 @@ checkFoldersExist();
 
 // Initialisation du sélecteur de thème
 initThemeSelector();
+
+// Appliquer le thème personnalisé si existant
+applyCustomTheme();
+
+// Exposer les fonctions de l'éditeur de thème globalement
+window.openCustomThemeEditor = openCustomThemeEditor;
+window.closeCustomThemeEditor = closeCustomThemeEditor;
+window.saveCustomThemeFromEditor = saveCustomThemeFromEditor;
+window.resetCustomTheme = resetCustomTheme;
 
 // Initialisation des fonctionnalités liées à la navbar
 manageNavbarObj.init();
