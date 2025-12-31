@@ -19,6 +19,12 @@
     --color-bg-card: #334155;
     --color-bg-card-hover: #3d4e63;
     --color-bg-input: #475569;
+    --color-bg-section: rgba(51, 65, 85, 0.3);
+    --color-bg-section-hover: rgba(61, 78, 99, 0.5);
+    --color-bg-glass: rgba(51, 65, 85, 0.7);
+    --color-bg-accent: rgba(100, 116, 139, 0.05);
+    --color-bg-accent-hover: rgba(100, 116, 139, 0.1);
+    --color-bg-overlay: rgba(15, 23, 42, 0.2);
 
     --color-text-primary: #f1f5f9;
     --color-text-secondary: #cbd5e1;
@@ -31,6 +37,8 @@
 
     --color-border: #475569;
     --color-border-light: #64748b;
+
+    --gradient-card: linear-gradient(145deg, #334155 0%, #3d4e63 100%);
 
     // ===== EFFECTS =====
     --shadow-glow: 0 4px 12px rgba(0, 0, 0, 0.3);

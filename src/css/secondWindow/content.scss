@@ -45,11 +45,7 @@
         @include neon-border($color-primary);
         border-radius: $radius-2xl;
         padding: 4vh 6vw;
-        background: linear-gradient(
-            145deg,
-            rgba(26, 26, 46, 0.6),
-            rgba(26, 26, 46, 0.9)
-        );
+        background: linear-gradient(145deg, $color-bg-section, $color-bg-glass);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         box-shadow: $shadow-xl, inset 0 0 60px rgba(99, 102, 241, 0.1);

@@ -146,7 +146,7 @@
                 gap: $spacing-md;
                 margin-top: $spacing-md;
                 padding: $spacing-md;
-                background: rgba(99, 102, 241, 0.05);
+                background: $color-bg-accent;
                 border-radius: $radius-md;
                 border: 1px solid rgba(99, 102, 241, 0.2);
 
@@ -194,14 +194,14 @@
                             flex-wrap: wrap;
                             gap: $spacing-xs;
                             padding: $spacing-sm;
-                            background: rgba(0, 0, 0, 0.2);
+                            background: $color-bg-overlay;
                             border-radius: $radius-sm;
                             max-height: 120px;
                             overflow-y: auto;
                             @include scrollbar-modern;
 
                             .category-icon-btn {
-                                background: rgba(99, 102, 241, 0.1);
+                                background: $color-bg-accent-hover;
                                 border: 1px solid rgba(99, 102, 241, 0.3);
                                 border-radius: $radius-sm;
                                 padding: $spacing-xs;

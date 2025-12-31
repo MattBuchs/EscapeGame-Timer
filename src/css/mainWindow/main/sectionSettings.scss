@@ -89,8 +89,8 @@
             position: relative;
             background: linear-gradient(
                 145deg,
-                rgba(26, 26, 46, 0.3),
-                rgba(26, 26, 46, 0.5)
+                $color-bg-section,
+                $color-bg-section-hover
             );
             transition: all $transition-base;
             padding: $spacing-lg;
@@ -152,12 +152,12 @@
             align-items: center;
             gap: $spacing-md;
             padding: $spacing-md;
-            background: rgba(26, 26, 46, 0.3);
+            background: $color-bg-section;
             border-radius: $radius-md;
             transition: all $transition-base;
 
             &:hover {
-                background: rgba(26, 26, 46, 0.5);
+                background: $color-bg-section-hover;
             }
 
             input[type="checkbox"],
