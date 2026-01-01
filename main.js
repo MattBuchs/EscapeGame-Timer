@@ -1,13 +1,20 @@
 const { app, screen } = require("electron");
-require("electron-reload")(__dirname, { ignored: [/\.json$/] });
+// const isDev = require("electron-is-dev");
+
+// Rechargement automatique uniquement en développement
+// if (isDev) {
+//     require("electron-reload")(__dirname, { ignored: [/\.json$/] });
+// }
 
 const {
     createWindows,
     createWindowsIf1Screen,
 } = require("./src/services/createWindows");
 const setupIPCFunctions = require("./src/services/ipcFunctions");
+// const AutoUpdater = require("./src/services/autoUpdater");
 
 let windows = [];
+// let updater = null;
 
 const createAppWindows = () => {
     // Petit délai pour s'assurer que tous les écrans sont détectés
@@ -31,6 +38,18 @@ const createAppWindows = () => {
         windows[0].on("closed", () => {
             windows.slice(1).forEach((win) => win.close());
         });
+
+        // Auto-updater désactivé pour distribution locale
+        // Pour activer les mises à jour automatiques, décommentez les lignes ci-dessous
+        // et configurez l'URL du serveur dans package.json
+        /*
+        if (!require("electron-is-dev")) {
+            updater = new AutoUpdater(windows[0]);
+            setTimeout(() => {
+                updater.checkForUpdatesAndNotify();
+            }, 5000);
+        }
+        */
     }, 300); // Délai de 300ms pour la détection des écrans
 };
 

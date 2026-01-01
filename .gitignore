@@ -5,3 +5,21 @@ public/sounds/
 src/data/rooms.json
 release-builds
 dist/
+build/
+
+# Electron Builder
+*.exe
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+
+# Environment variables
+.env
+.env.local
+
+# Build artifacts
+*.blockmap
+latest.yml
+latest-mac.yml
+latest-linux.yml

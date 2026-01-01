@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Téléchargez EscapeTime - Le timer professionnel pour escape games"
+        />
+        <title>Télécharger EscapeTime - Timer pour Escape Games</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                padding: 40px 20px;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .hero {
+                background: white;
+                border-radius: 20px;
+                padding: 60px 50px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            h1 {
+                color: #333;
+                margin-bottom: 10px;
+                font-size: 3em;
+            }
+
+            .version-badge {
+                display: inline-block;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 20px;
+                font-size: 0.9em;
+                font-weight: bold;
+                margin-bottom: 30px;
+            }
+
+            .tagline {
+                color: #666;
+                font-size: 1.3em;
+                line-height: 1.6;
+                margin-bottom: 40px;
+            }
+
+            .download-section {
+                background: #f8f9fa;
+                padding: 30px;
+                border-radius: 15px;
+                margin-bottom: 30px;
+            }
+
+            .download-btn {
+                display: inline-block;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px 50px;
+                border-radius: 50px;
+                text-decoration: none;
+                font-size: 1.3em;
+                font-weight: bold;
+                transition: all 0.3s;
+                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            }
+
+            .download-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+            }
+
+            .file-info {
+                color: #888;
+                font-size: 0.9em;
+                margin-top: 15px;
+            }
+
+            .features {
+                background: white;
+                border-radius: 20px;
+                padding: 40px 50px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                margin-bottom: 30px;
+            }
+
+            .features h2 {
+                color: #333;
+                margin-bottom: 30px;
+                text-align: center;
+                font-size: 2em;
+            }
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+                margin-bottom: 30px;
+            }
+
+            .feature-card {
+                text-align: center;
+                padding: 20px;
+            }
+
+            .feature-icon {
+                font-size: 3em;
+                margin-bottom: 15px;
+            }
+
+            .feature-card h3 {
+                color: #333;
+                margin-bottom: 10px;
+                font-size: 1.2em;
+            }
+
+            .feature-card p {
+                color: #666;
+                line-height: 1.6;
+            }
+
+            .requirements {
+                background: white;
+                border-radius: 20px;
+                padding: 40px 50px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                margin-bottom: 30px;
+            }
+
+            .requirements h2 {
+                color: #333;
+                margin-bottom: 30px;
+                text-align: center;
+                font-size: 2em;
+            }
+
+            .req-list {
+                list-style: none;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .req-list li {
+                padding: 12px 0;
+                color: #666;
+                font-size: 1.1em;
+                border-bottom: 1px solid #eee;
+            }
+
+            .req-list li:last-child {
+                border-bottom: none;
+            }
+
+            .installation {
+                background: white;
+                border-radius: 20px;
+                padding: 40px 50px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            }
+
+            .installation h2 {
+                color: #333;
+                margin-bottom: 30px;
+                text-align: center;
+                font-size: 2em;
+            }
+
+            .steps {
+                counter-reset: step;
+                list-style: none;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .steps li {
+                counter-increment: step;
+                padding: 20px 0 20px 60px;
+                position: relative;
+                color: #666;
+                font-size: 1.1em;
+                line-height: 1.6;
+            }
+
+            .steps li::before {
+                content: counter(step);
+                position: absolute;
+                left: 0;
+                top: 15px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 1.2em;
+            }
+
+            .footer {
+                text-align: center;
+                color: white;
+                margin-top: 40px;
+                opacity: 0.9;
+            }
+
+            .footer a {
+                color: white;
+                text-decoration: underline;
+            }
+
+            @media (max-width: 768px) {
+                .hero,
+                .features,
+                .requirements,
+                .installation {
+                    padding: 30px 25px;
+                }
+
+                h1 {
+                    font-size: 2em;
+                }
+
+                .features-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1>🎮 EscapeTime</h1>
+                <div class="version-badge">
+                    Version 1.0.0 • 31 Décembre 2024
+                </div>
+
+                <p class="tagline">
+                    Le timer professionnel conçu spécialement pour les escape
+                    games.<br />
+                    Gérez le temps, la musique et communiquez avec vos joueurs
+                    en toute simplicité.
+                </p>
+
+                <div class="download-section">
+                    <a
+                        href="downloads/EscapeTime Setup 1.0.0.exe"
+                        class="download-btn"
+                    >
+                        ⬇️ Télécharger pour Windows
+                    </a>
+                    <div class="file-info">
+                        Windows 10/11 (64-bit) • Taille : ~150 MB<br />
+                        Installation rapide • Gratuit • Aucune inscription
+                        requise
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="features">
+                <h2>✨ Fonctionnalités</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🖥️</div>
+                        <h3>Double Affichage</h3>
+                        <p>
+                            Une fenêtre pour le Game Master, une pour les
+                            joueurs. Parfait pour les configurations
+                            multi-écrans.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <h3>Timer Flexible</h3>
+                        <p>
+                            Configurez le temps comme vous le souhaitez. Pause,
+                            reprise, réinitialisation en un clic.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎵</div>
+                        <h3>Gestion Audio</h3>
+                        <p>
+                            Sons de fin de timer, notifications et musique
+                            d'ambiance personnalisables.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>Messages Dynamiques</h3>
+                        <p>
+                            Envoyez des phrases et indices directement sur
+                            l'écran des joueurs.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Thèmes Personnalisables</h3>
+                        <p>
+                            Plusieurs thèmes disponibles pour s'adapter à
+                            l'ambiance de votre salle.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3>Multilingue</h3>
+                        <p>Interface disponible en français et en anglais.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Requirements -->
+            <div class="requirements">
+                <h2>📋 Configuration Requise</h2>
+                <ul class="req-list">
+                    <li>✅ Windows 10 ou supérieur (64-bit)</li>
+                    <li>✅ 4 GB de RAM minimum</li>
+                    <li>✅ 200 MB d'espace disque libre</li>
+                    <li>
+                        ✅ 2 écrans recommandés (mais fonctionne avec 1 seul)
+                    </li>
+                    <li>✅ Carte son pour les fonctionnalités audio</li>
+                </ul>
+            </div>
+
+            <!-- Installation Steps -->
+            <div class="installation">
+                <h2>🚀 Installation</h2>
+                <ol class="steps">
+                    <li>
+                        Téléchargez le fichier d'installation en cliquant sur le
+                        bouton ci-dessus
+                    </li>
+                    <li>
+                        Localisez le fichier téléchargé et double-cliquez dessus
+                    </li>
+                    <li>
+                        Suivez les instructions de l'assistant d'installation
+                    </li>
+                    <li>
+                        Choisissez le dossier d'installation (ou gardez celui
+                        par défaut)
+                    </li>
+                    <li>Lancez EscapeTime depuis l'icône sur votre bureau</li>
+                </ol>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>
+                    Besoin d'aide ? Consultez notre
+                    <a href="guide.html">guide d'utilisation</a><br />
+                    Une question ? Contactez-nous :
+                    <a href="mailto:support@votre-email.com"
+                        >support@votre-email.com</a
+                    >
+                </p>
+                <p style="margin-top: 20px; font-size: 0.9em">
+                    © 2024 Matt Buchs - Angel's Game • Tous droits réservés
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

@@ -8,33 +8,78 @@
         "start": "electron .",
         "compile-sass": "sass src/css/index.scss src/css/compilation/output.css",
         "watch-sass": "sass --watch src/css/index.scss:src/css/compilation/output.css",
-        "package": "electron-packager . EscapeTime --platform=win32 --arch=x64 --out=dist --icon=public/img/AngelsGame.ico"
+        "build": "electron-builder --win",
+        "build:dir": "electron-builder --dir",
+        "release": "electron-builder --win --publish never"
     },
     "build": {
-        "appId": "com.matt.escape-time",
+        "appId": "com.angelsgame.escapetime",
         "productName": "EscapeTime",
         "copyright": "Copyright © 2024 Matt Buchs",
-        "icon": "./public/img/AngelsGame.ico",
+        "win": {
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ],
+            "forceCodeSigning": false,
+            "signAndEditExecutable": false
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true,
+            "shortcutName": "EscapeTime",
+            "language": "1036"
+        },
         "files": [
-            "./build/**/*",
-            "./dist/**/*",
-            "./node_modules/**/*",
-            "./public/**/*",
-            "*.js"
+            "**/*",
+            "!**/*.scss",
+            "!src/css/**/*",
+            "src/css/compilation/**/*",
+            "!dist/**/*",
+            "!build/**/*",
+            "!.vscode/**/*",
+            "!*.md",
+            "!.git/**/*",
+            "!.gitignore",
+            "!templates/**/*",
+            "!scripts/**/*",
+            {
+                "from": "node_modules",
+                "filter": [
+                    "**/*",
+                    "!fsevents/**/*"
+                ]
+            }
         ],
         "directories": {
+            "output": "dist",
             "buildResources": "public"
-        }
+        },
+        "extraResources": [],
+        "asar": true,
+        "asarUnpack": []
     },
     "keywords": [],
     "author": "Matt Buchs",
     "license": "ISC",
     "devDependencies": {
         "electron": "^25.5.0",
+        "electron-builder": "^26.0.12",
+        "electron-reload": "^2.0.0-alpha.1",
         "sass": "^1.69.7"
     },
     "dependencies": {
-        "electron-reload": "^2.0.0-alpha.1",
-        "electron-store": "^8.1.0"
+        "electron-is-dev": "^3.0.1",
+        "electron-store": "^8.1.0",
+        "electron-updater": "^6.6.2"
+    },
+    "optionalDependencies": {
+        "fsevents": "^2.3.3"
     }
 }
