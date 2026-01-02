@@ -1,6 +1,11 @@
 const { app, screen } = require("electron");
 // const isDev = require("electron-is-dev");
 
+// Configuration de l'Application User Model ID pour Windows
+if (process.platform === "win32") {
+    app.setAppUserModelId("com.mattbuchs.escapetime");
+}
+
 // Rechargement automatique uniquement en développement
 // if (isDev) {
 //     require("electron-reload")(__dirname, { ignored: [/\.json$/] });

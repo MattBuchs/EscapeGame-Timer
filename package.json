@@ -13,10 +13,12 @@
         "release": "electron-builder --win --publish never"
     },
     "build": {
-        "appId": "com.angelsgame.escapetime",
+        "appId": "com.mattbuchs.escapetime",
         "productName": "EscapeTime",
-        "copyright": "Copyright © 2024 Matt Buchs",
+        "copyright": "Copyright © 2026 Matt Buchs",
+        "icon": "./public/img/AngelsGame.ico",
         "win": {
+            "icon": "./public/img/AngelsGame.ico",
             "target": [
                 {
                     "target": "nsis",
