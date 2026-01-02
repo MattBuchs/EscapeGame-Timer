@@ -61,9 +61,14 @@ function showSecondWindowInfo() {
     modal.className = "modal modal--info";
     modal.style.position = "fixed";
 
-    const closeImgSrc = window.getResourceUrlSync
-        ? window.getResourceUrlSync("public/img/close.svg")
-        : "../../../public/img/close.svg";
+    // Get close image URL (async but will be fixed by resourcePathFixer)
+    let closeImgSrc = "../../../public/img/close.svg";
+    if (window.getPublicUrl) {
+        window.getPublicUrl("img", "close.svg").then((url) => {
+            const img = modal.querySelector(".modal__content--close img");
+            if (img) img.src = url;
+        });
+    }
 
     modal.innerHTML = `
         <div class="modal__overlay"></div>

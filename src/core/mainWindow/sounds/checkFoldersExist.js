@@ -1,22 +1,29 @@
 const fs = require("fs");
-const path = require("path");
+const { ipcRenderer } = require("electron");
 
-const checkAndCreateFolders = () => {
+const checkAndCreateFolders = async () => {
     const folders = [
-        "../../../public/sounds/ambient",
-        "../../../public/sounds/end_timer",
-        "../../../public/sounds/notification",
+        "sounds/ambient",
+        "sounds/end_timer",
+        "sounds/notification",
     ];
 
-    folders.forEach((folder) => {
-        const pathFolder = path.join(__dirname, folder);
+    for (const folder of folders) {
+        try {
+            const folderPath = await ipcRenderer.invoke(
+                "get-public-path",
+                ...folder.split("/")
+            );
 
-        // Vérifier si le dossier existe
-        if (!fs.existsSync(pathFolder)) {
-            // Si le dossier n'existe pas, le créer
-            fs.mkdirSync(pathFolder);
+            // Check if folder exists
+            if (!fs.existsSync(folderPath)) {
+                // Create folder if it doesn't exist
+                fs.mkdirSync(folderPath, { recursive: true });
+            }
+        } catch (error) {
+            console.error(`Error checking/creating folder ${folder}:`, error);
         }
-    });
+    }
 };
 
 export default checkAndCreateFolders;

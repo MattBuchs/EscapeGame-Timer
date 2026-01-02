@@ -1,41 +1,71 @@
 // Fix all resource paths after HTML is loaded
-const path = require("path");
 const { ipcRenderer } = require("electron");
 
-let appPath = null;
+let publicPathCache = {};
 
-async function initAppPath() {
-    if (!appPath) {
-        appPath = await ipcRenderer.invoke("get-app-path");
-    }
-    return appPath;
+async function getPublicUrl(...segments) {
+    return await ipcRenderer.invoke("get-public-url", ...segments);
 }
 
-function getResourceUrlSync(relativePath) {
-    if (!appPath) {
-        console.warn("pathResolver not initialized yet, using relative path");
-        return relativePath;
+function getPublicUrlSync(relativePath) {
+    // Return cached value if available
+    if (publicPathCache[relativePath]) {
+        return publicPathCache[relativePath];
     }
-    const fullPath = path.join(appPath, relativePath).replace(/\\/g, "/");
-    return `file:///${fullPath}`;
+
+    // Fallback for initial render (will be fixed by async call)
+    console.warn("Using relative path (will be fixed):", relativePath);
+    return relativePath;
+}
+
+// Preload common paths
+async function preloadPaths() {
+    const commonPaths = [
+        "img/Logo.png",
+        "img/chevron-right.svg",
+        "img/chevron-left.svg",
+        "img/delete.svg",
+        "img/back.svg",
+        "img/circle-check.svg",
+        "img/volume.svg",
+        "img/stop.svg",
+        "img/file-import.svg",
+        "img/close.svg",
+    ];
+
+    for (const p of commonPaths) {
+        try {
+            publicPathCache[`public/${p}`] = await getPublicUrl(p);
+        } catch (e) {
+            console.error("Failed to preload path:", p, e);
+        }
+    }
 }
 
 async function fixResourcePaths() {
-    await initAppPath();
+    await preloadPaths();
 
     // Fix all img tags
-    document.querySelectorAll("img").forEach((img) => {
+    document.querySelectorAll("img").forEach(async (img) => {
         const src = img.getAttribute("src");
         if (src && src.startsWith("public/")) {
-            img.src = getResourceUrlSync(src);
+            const url =
+                publicPathCache[src] ||
+                (await getPublicUrl(src.replace("public/", "")));
+            if (!publicPathCache[src]) publicPathCache[src] = url;
+            img.src = url;
         }
     });
 
     // Fix all image inputs (file inputs that show image preview)
-    document.querySelectorAll('input[type="image"]').forEach((input) => {
+    document.querySelectorAll('input[type="image"]').forEach(async (input) => {
         const src = input.getAttribute("src");
         if (src && src.startsWith("public/")) {
-            input.src = getResourceUrlSync(src);
+            const url =
+                publicPathCache[src] ||
+                (await getPublicUrl(src.replace("public/", "")));
+            if (!publicPathCache[src]) publicPathCache[src] = url;
+            input.src = url;
         }
     });
 
@@ -48,7 +78,16 @@ async function fixResourcePaths() {
                     if (node.tagName === "IMG") {
                         const src = node.getAttribute("src");
                         if (src && src.startsWith("public/")) {
-                            node.src = getResourceUrlSync(src);
+                            (async () => {
+                                const url =
+                                    publicPathCache[src] ||
+                                    (await getPublicUrl(
+                                        src.replace("public/", "")
+                                    ));
+                                if (!publicPathCache[src])
+                                    publicPathCache[src] = url;
+                                node.src = url;
+                            })();
                         }
                     }
                     // Check children
@@ -56,7 +95,16 @@ async function fixResourcePaths() {
                         node.querySelectorAll("img").forEach((img) => {
                             const src = img.getAttribute("src");
                             if (src && src.startsWith("public/")) {
-                                img.src = getResourceUrlSync(src);
+                                (async () => {
+                                    const url =
+                                        publicPathCache[src] ||
+                                        (await getPublicUrl(
+                                            src.replace("public/", "")
+                                        ));
+                                    if (!publicPathCache[src])
+                                        publicPathCache[src] = url;
+                                    img.src = url;
+                                })();
                             }
                         });
                 }
@@ -79,5 +127,9 @@ if (document.readyState === "loading") {
 
 // Also fix on window load
 window.addEventListener("load", fixResourcePaths);
+
+// Expose helper functions globally
+window.getPublicUrl = getPublicUrl;
+window.getPublicUrlSync = getPublicUrlSync;
 
 module.exports = { fixResourcePaths };

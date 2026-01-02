@@ -1,5 +1,5 @@
 const fs = require("fs");
-const path = require("path");
+const { ipcRenderer } = require("electron");
 import { dataloaded, writeFile } from "../../utils.js";
 import { notification } from "../UI/notification.js";
 
@@ -7,15 +7,29 @@ const selectDeleteSong = document.querySelector("#delete-song");
 const btnDeleteSong = document.querySelector("#validate-delete_song");
 
 const deleteSongFileObj = {
-    alarmSoundsFolder: path.join(__dirname, "../../../public/sounds/end_timer"),
-    ambientSoundsFolder: path.join(__dirname, "../../../public/sounds/ambient"),
-    notificationSoundsFolder: path.join(
-        __dirname,
-        "../../../public/sounds/notification"
-    ),
+    alarmSoundsFolder: null,
+    ambientSoundsFolder: null,
+    notificationSoundsFolder: null,
 
-    init() {
-        this.loadSong();
+    async init() {
+        // Get proper paths from main process
+        this.alarmSoundsFolder = await ipcRenderer.invoke(
+            "get-public-path",
+            "sounds",
+            "end_timer"
+        );
+        this.ambientSoundsFolder = await ipcRenderer.invoke(
+            "get-public-path",
+            "sounds",
+            "ambient"
+        );
+        this.notificationSoundsFolder = await ipcRenderer.invoke(
+            "get-public-path",
+            "sounds",
+            "notification"
+        );
+
+        await this.loadSong();
         btnDeleteSong.addEventListener("click", this.getSoundName.bind(this));
     },
 

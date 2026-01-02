@@ -1,4 +1,4 @@
-const path = require("path");
+const { ipcRenderer } = require("electron");
 import { listSounds, dataloaded, writeFile } from "../../utils.js";
 import { notification } from "../UI/notification.js";
 import { loadRoomsInSettings } from "./deleteRooms.js";
@@ -14,22 +14,37 @@ const notificationSoundList = document.querySelector(
 
 const addRoomObj = {
     isOptionCreatedInAddRoom: false,
-    soundDirectories: [
-        {
-            path: path.join(__dirname, "../../../public/sounds/end_timer"),
-            listId: "#end-timer_sound-list",
-        },
-        {
-            path: path.join(__dirname, "../../../public/sounds/ambient"),
-            listId: "#ambient_sound-list",
-        },
-        {
-            path: path.join(__dirname, "../../../public/sounds/notification"),
-            listId: "#notification_sound-list",
-        },
-    ],
+    soundDirectories: null,
 
-    init() {
+    async init() {
+        // Initialize sound directories with proper paths
+        this.soundDirectories = [
+            {
+                path: await ipcRenderer.invoke(
+                    "get-public-path",
+                    "sounds",
+                    "end_timer"
+                ),
+                listId: "#end-timer_sound-list",
+            },
+            {
+                path: await ipcRenderer.invoke(
+                    "get-public-path",
+                    "sounds",
+                    "ambient"
+                ),
+                listId: "#ambient_sound-list",
+            },
+            {
+                path: await ipcRenderer.invoke(
+                    "get-public-path",
+                    "sounds",
+                    "notification"
+                ),
+                listId: "#notification_sound-list",
+            },
+        ];
+
         formAddRoom.addEventListener("submit", (e) => this.setupForm(e));
         btnAddRoom.addEventListener("click", () => {
             if (!this.isOptionCreatedInAddRoom) {

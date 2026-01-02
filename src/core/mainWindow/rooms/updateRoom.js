@@ -3,7 +3,7 @@ import { notification } from "../UI/notification.js";
 import roomsObj from "./rooms.js";
 import { loadPhrases } from "../phrases/deletePhrases.js";
 import editPhrasesObj from "../phrases/editPhrases.js";
-const path = require("path");
+const { ipcRenderer } = require("electron");
 
 const btnUpdateRoom = document.querySelector("#update-timer");
 const formUpdateTimer = document.querySelector("#update-timer_value");
@@ -19,22 +19,37 @@ const updateNotificationSoundList = document.querySelector(
 
 const updateRoomObj = {
     isOptionCreatedInUpdateRoom: false,
-    soundDirectories: [
-        {
-            path: path.join(__dirname, "../../../public/sounds/end_timer"),
-            listId: "#update-alarm_sound-list",
-        },
-        {
-            path: path.join(__dirname, "../../../public/sounds/ambient"),
-            listId: "#update-ambient_sound-list",
-        },
-        {
-            path: path.join(__dirname, "../../../public/sounds/notification"),
-            listId: "#update-notification_sound-list",
-        },
-    ],
+    soundDirectories: null,
 
-    init() {
+    async init() {
+        // Initialize sound directories with proper paths
+        this.soundDirectories = [
+            {
+                path: await ipcRenderer.invoke(
+                    "get-public-path",
+                    "sounds",
+                    "end_timer"
+                ),
+                listId: "#update-alarm_sound-list",
+            },
+            {
+                path: await ipcRenderer.invoke(
+                    "get-public-path",
+                    "sounds",
+                    "ambient"
+                ),
+                listId: "#update-ambient_sound-list",
+            },
+            {
+                path: await ipcRenderer.invoke(
+                    "get-public-path",
+                    "sounds",
+                    "notification"
+                ),
+                listId: "#update-notification_sound-list",
+            },
+        ];
+
         formUpdateTimer.addEventListener("submit", (e) => this.setupForm(e));
         btnUpdateRoom.addEventListener("click", () => {
             if (!this.isOptionCreatedInUpdateRoom) {

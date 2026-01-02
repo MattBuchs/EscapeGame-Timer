@@ -38,7 +38,6 @@
         },
         "files": [
             "**/*",
-            "public/**/*",
             "!**/*.scss",
             "!src/css/**/*",
             "src/css/compilation/**/*",
@@ -49,21 +48,18 @@
             "!.git/**/*",
             "!.gitignore",
             "!templates/**/*",
-            "!scripts/**/*",
-            {
-                "from": "node_modules",
-                "filter": [
-                    "**/*",
-                    "!fsevents/**/*"
-                ]
-            }
+            "!scripts/**/*"
         ],
         "directories": {
-            "output": "dist",
-            "buildResources": "public"
+            "output": "dist"
         },
         "extraResources": [],
-        "asar": false
+        "asar": true,
+        "asarUnpack": [
+            "**/*.node",
+            "public/**/*",
+            "src/data/**/*"
+        ]
     },
     "keywords": [],
     "author": "Matt Buchs",

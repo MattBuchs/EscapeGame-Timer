@@ -136,30 +136,47 @@ const roomsObj = {
         this.resetHours = room.hours;
         this.resetMinutes = room.minutes;
 
-        if (room.end_timer_sound)
-            endTimerSound.src = window.getResourceUrlSync
-                ? window.getResourceUrlSync(
-                      `public/sounds/end_timer/${room.end_timer_sound}`
-                  )
-                : `../../../public/sounds/end_timer/${room.end_timer_sound}`;
+        if (room.end_timer_sound) {
+            if (window.getPublicUrl) {
+                window
+                    .getPublicUrl("sounds", "end_timer", room.end_timer_sound)
+                    .then((url) => {
+                        endTimerSound.src = url;
+                    });
+            } else {
+                endTimerSound.src = `../../../public/sounds/end_timer/${room.end_timer_sound}`;
+            }
+        }
 
         if (room.notification_sound) {
-            notificationSound.src = window.getResourceUrlSync
-                ? window.getResourceUrlSync(
-                      `public/sounds/notification/${room.notification_sound}`
-                  )
-                : `../../../public/sounds/notification/${room.notification_sound}`;
+            if (window.getPublicUrl) {
+                window
+                    .getPublicUrl(
+                        "sounds",
+                        "notification",
+                        room.notification_sound
+                    )
+                    .then((url) => {
+                        notificationSound.src = url;
+                    });
+            } else {
+                notificationSound.src = `../../../public/sounds/notification/${room.notification_sound}`;
+            }
 
             if (btnNotification.disabled === true)
                 btnNotification.disabled = false;
         } else btnNotification.disabled = true;
 
         if (room.ambient_sound) {
-            ambientSound.src = window.getResourceUrlSync
-                ? window.getResourceUrlSync(
-                      `public/sounds/ambient/${room.ambient_sound}`
-                  )
-                : `../../../public/sounds/ambient/${room.ambient_sound}`;
+            if (window.getPublicUrl) {
+                window
+                    .getPublicUrl("sounds", "ambient", room.ambient_sound)
+                    .then((url) => {
+                        ambientSound.src = url;
+                    });
+            } else {
+                ambientSound.src = `../../../public/sounds/ambient/${room.ambient_sound}`;
+            }
 
             if (btnAmbient.disabled === true) btnAmbient.disabled = false;
         } else btnAmbient.disabled = true;

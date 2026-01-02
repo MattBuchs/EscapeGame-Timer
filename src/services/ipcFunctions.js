@@ -1,11 +1,20 @@
 const { ipcMain, dialog } = require("electron");
 const fs = require("fs");
 const path = require("path");
+const { getPublicPath, getDataPath, pathToFileUrl } = require("./paths");
 
 function setupIPCFunctions(windows) {
-    // Expose app root path for resource loading
-    ipcMain.handle("get-app-path", () => {
-        return path.join(__dirname, "../..");
+    // Expose resource paths for renderer processes
+    ipcMain.handle("get-public-path", (_, ...segments) => {
+        return getPublicPath(...segments);
+    });
+
+    ipcMain.handle("get-public-url", (_, ...segments) => {
+        return pathToFileUrl(getPublicPath(...segments));
+    });
+
+    ipcMain.handle("get-data-path", (_, ...segments) => {
+        return getDataPath(...segments);
     });
 
     ipcMain.on("play-timer", () => {
