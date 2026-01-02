@@ -514,7 +514,14 @@ function saveCustomThemeFromEditor() {
 
     // Appliquer le thème custom
     document.body.setAttribute("data-theme", "custom");
-    localStorage.setItem("escape-game-theme", "custom");
+
+    // Sauvegarder dans settingsManager
+    const settingsManager = window.settingsManager;
+    if (settingsManager) {
+        settingsManager.set("theme", "custom");
+    } else {
+        localStorage.setItem("escape-game-theme", "custom");
+    }
 
     // Envoyer le changement de thème à la seconde fenêtre
     ipcRenderer.send("change-theme", "custom");

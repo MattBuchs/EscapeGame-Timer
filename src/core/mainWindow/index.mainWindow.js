@@ -33,14 +33,36 @@ import {
 const i18n = window.i18n;
 const initLanguageSelector = window.initLanguageSelector;
 
+// Fonction pour initialiser l'application une fois i18n prêt
+async function initApp() {
+    // Attendre que i18n soit prêt
+    if (!i18n.isReady) {
+        await new Promise((resolve) => {
+            window.addEventListener("i18n-ready", resolve, { once: true });
+        });
+    }
+
+    // Traduire la page initiale
+    i18n.translatePage();
+
+    // Ajouter un observateur pour retraduire la page lors du changement de langue
+    i18n.addObserver(() => {
+        i18n.translatePage();
+    });
+
+    // Initialisation du sélecteur de langue
+    if (initLanguageSelector) {
+        initLanguageSelector();
+    } else {
+        console.error("initLanguageSelector n'est pas chargé");
+    }
+}
+
 // Initialisation du système i18n et traduction de la page
 document.addEventListener("DOMContentLoaded", () => {
     if (i18n) {
-        i18n.translatePage();
-
-        // Ajouter un observateur pour retraduire la page lors du changement de langue
-        i18n.addObserver(() => {
-            i18n.translatePage();
+        initApp().catch((err) => {
+            console.error("Erreur lors de l'initialisation de l'app:", err);
         });
     } else {
         console.error("i18n n'est pas chargé");
@@ -74,12 +96,7 @@ checkFoldersExist();
 // Initialisation du sélecteur de thème
 initThemeSelector();
 
-// Initialisation du sélecteur de langue
-if (initLanguageSelector) {
-    initLanguageSelector();
-} else {
-    console.error("initLanguageSelector n'est pas chargé");
-}
+// Initialisation du sélecteur de langue est maintenant dans initApp()
 
 // Appliquer le thème personnalisé si existant
 applyCustomTheme();

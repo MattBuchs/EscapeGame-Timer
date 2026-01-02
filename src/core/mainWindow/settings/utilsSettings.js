@@ -23,8 +23,8 @@ const utilsSettingsObj = {
         // inputColor.addEventListener("input", this.updateColor.bind(this));
 
         inputsRadio.forEach((input) => {
-            input.addEventListener("click", () => {
-                this.updatePreferenceTimer(input);
+            input.addEventListener("click", async () => {
+                await this.updatePreferenceTimer(input);
                 notification(
                     "La préférence du timer à été pris en compte.",
                     "success"
@@ -46,7 +46,7 @@ const utilsSettingsObj = {
     //     containerTimer.style.color = inputColor.value;
     // },
 
-    updatePreferenceTimer(input) {
+    async updatePreferenceTimer(input) {
         let value;
         if (input.value === "true") value = true;
         if (input.value === "false") value = false;
@@ -57,6 +57,12 @@ const utilsSettingsObj = {
         dataloaded.forEach((obj) => {
             obj.isPreferenceTimer = value;
         });
+
+        // Sauvegarder dans settingsManager
+        const settingsManager = window.settingsManager;
+        if (settingsManager) {
+            await settingsManager.set("preferenceTimer", value);
+        }
 
         ipcRenderer.send("update-preference", this.isPreferenceTimer);
 

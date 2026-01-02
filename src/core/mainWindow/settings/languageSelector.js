@@ -50,9 +50,9 @@
      * Change la langue de l'application
      * @param {string} locale - Code de la locale ('fr' ou 'en')
      */
-    function changeLanguage(locale) {
+    async function changeLanguage(locale) {
         const i18n = window.i18n;
-        i18n.setLocale(locale);
+        await i18n.setLocale(locale);
 
         // Recharger toutes les traductions sur la page
         i18n.translatePage();

@@ -20,7 +20,10 @@ const STORAGE_KEY = "escape-game-theme";
  */
 function initThemeSelector() {
     // Récupérer le thème sauvegardé ou utiliser le thème par défaut
-    const savedTheme = localStorage.getItem(STORAGE_KEY) || "neon";
+    const settingsManager = window.settingsManager;
+    const savedTheme = settingsManager
+        ? settingsManager.get("theme")
+        : localStorage.getItem(STORAGE_KEY) || "neon";
 
     // Appliquer le thème immédiatement au body
     document.body.setAttribute("data-theme", savedTheme);
@@ -52,7 +55,12 @@ function applyTheme(themeName) {
     document.body.setAttribute("data-theme", themeName);
 
     // Sauvegarder le choix
-    localStorage.setItem(STORAGE_KEY, themeName);
+    const settingsManager = window.settingsManager;
+    if (settingsManager) {
+        settingsManager.set("theme", themeName);
+    } else {
+        localStorage.setItem(STORAGE_KEY, themeName);
+    }
 
     // Envoyer le changement de thème à la seconde fenêtre via IPC
     ipcRenderer.send("change-theme", themeName);

@@ -34,7 +34,12 @@
             "createDesktopShortcut": true,
             "createStartMenuShortcut": true,
             "shortcutName": "EscapeTime",
-            "language": "1036"
+            "multiLanguageInstaller": true,
+            "installerLanguages": [
+                "en_US",
+                "fr_FR"
+            ],
+            "include": "build/installer.nsh"
         },
         "files": [
             "**/*",

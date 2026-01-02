@@ -17,6 +17,19 @@ function setupIPCFunctions(windows) {
         return getDataPath(...segments);
     });
 
+    // Get installer language preference
+    ipcMain.handle("get-installer-language", () => {
+        try {
+            const langFile = path.join(
+                process.resourcesPath,
+                ".installer-lang"
+            );
+            return langFile;
+        } catch (e) {
+            return null;
+        }
+    });
+
     ipcMain.on("play-timer", () => {
         for (let i = 1; i < windows.length; i++) {
             windows[i].webContents.send("play-timer");
