@@ -1,20 +1,12 @@
-const { BrowserWindow, screen } = require("electron");
+const { BrowserWindow, screen, app } = require("electron");
 const path = require("path");
 const icon = path.join(__dirname, "../../public/img/AngelsGame.ico");
+
+const isDev = !app.isPackaged;
 
 function createWindows() {
     const displays = screen.getAllDisplays();
     const mainScreen = screen.getPrimaryDisplay();
-
-    console.log("Nombre d'écrans détectés:", displays.length);
-    console.log(
-        "Écrans:",
-        displays.map((d) => ({
-            id: d.id,
-            bounds: d.bounds,
-            primary: d.id === mainScreen.id,
-        }))
-    );
 
     // Fenêtre principale (Game Master) sur l'écran principal
     const mainWindow = new BrowserWindow({
@@ -24,10 +16,9 @@ function createWindows() {
         y: mainScreen.bounds.y,
         icon,
         webPreferences: {
-            devTools: true,
+            devTools: isDev,
             nodeIntegration: true,
             contextIsolation: false,
-            enableRemoteModule: true,
         },
     });
     mainWindow.setMenuBarVisibility(false);
@@ -40,11 +31,6 @@ function createWindows() {
         const secondaryDisplay = displays.find((d) => d.id !== mainScreen.id);
 
         if (secondaryDisplay) {
-            console.log(
-                "Création de la 2ème fenêtre sur l'écran secondaire:",
-                secondaryDisplay.bounds
-            );
-
             const secondWindow = new BrowserWindow({
                 width: secondaryDisplay.bounds.width,
                 height: secondaryDisplay.bounds.height,
@@ -53,7 +39,7 @@ function createWindows() {
                 icon,
                 fullscreen: true,
                 webPreferences: {
-                    devTools: true,
+                    devTools: isDev,
                     nodeIntegration: true,
                     contextIsolation: false,
                 },
@@ -76,7 +62,9 @@ function createWindows() {
         );
 
         // Ouvrir les devtools
-        window.webContents.openDevTools();
+        if (isDev) {
+            window.webContents.openDevTools();
+        }
     });
 
     return windows;
@@ -93,10 +81,9 @@ function createWindowsIf1Screen() {
         center: true,
         icon,
         webPreferences: {
-            devTools: true,
+            devTools: isDev,
             nodeIntegration: true,
             contextIsolation: false,
-            enableRemoteModule: true,
         },
     });
 
@@ -108,7 +95,7 @@ function createWindowsIf1Screen() {
         fullscreen: true,
         icon,
         webPreferences: {
-            devTools: true,
+            devTools: isDev,
             nodeIntegration: true,
             contextIsolation: false,
         },
@@ -120,8 +107,10 @@ function createWindowsIf1Screen() {
     window2.setMenuBarVisibility(false);
 
     // Ouvrir les devtools
-    window1.webContents.openDevTools();
-    window2.webContents.openDevTools();
+    if (isDev) {
+        window1.webContents.openDevTools();
+        window2.webContents.openDevTools();
+    }
 
     return [window1, window2];
 }
