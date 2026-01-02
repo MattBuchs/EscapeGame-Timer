@@ -38,6 +38,7 @@
         },
         "files": [
             "**/*",
+            "public/**/*",
             "!**/*.scss",
             "!src/css/**/*",
             "src/css/compilation/**/*",
@@ -62,8 +63,7 @@
             "buildResources": "public"
         },
         "extraResources": [],
-        "asar": true,
-        "asarUnpack": []
+        "asar": false
     },
     "keywords": [],
     "author": "Matt Buchs",

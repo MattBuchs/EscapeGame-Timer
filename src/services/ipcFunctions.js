@@ -3,6 +3,11 @@ const fs = require("fs");
 const path = require("path");
 
 function setupIPCFunctions(windows) {
+    // Expose app root path for resource loading
+    ipcMain.handle("get-app-path", () => {
+        return path.join(__dirname, "../..");
+    });
+
     ipcMain.on("play-timer", () => {
         for (let i = 1; i < windows.length; i++) {
             windows[i].webContents.send("play-timer");

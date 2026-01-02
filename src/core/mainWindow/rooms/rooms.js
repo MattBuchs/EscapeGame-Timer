@@ -137,17 +137,29 @@ const roomsObj = {
         this.resetMinutes = room.minutes;
 
         if (room.end_timer_sound)
-            endTimerSound.src = `../../../public/sounds/end_timer/${room.end_timer_sound}`;
+            endTimerSound.src = window.getResourceUrlSync
+                ? window.getResourceUrlSync(
+                      `public/sounds/end_timer/${room.end_timer_sound}`
+                  )
+                : `../../../public/sounds/end_timer/${room.end_timer_sound}`;
 
         if (room.notification_sound) {
-            notificationSound.src = `../../../public/sounds/notification/${room.notification_sound}`;
+            notificationSound.src = window.getResourceUrlSync
+                ? window.getResourceUrlSync(
+                      `public/sounds/notification/${room.notification_sound}`
+                  )
+                : `../../../public/sounds/notification/${room.notification_sound}`;
 
             if (btnNotification.disabled === true)
                 btnNotification.disabled = false;
         } else btnNotification.disabled = true;
 
         if (room.ambient_sound) {
-            ambientSound.src = `../../../public/sounds/ambient/${room.ambient_sound}`;
+            ambientSound.src = window.getResourceUrlSync
+                ? window.getResourceUrlSync(
+                      `public/sounds/ambient/${room.ambient_sound}`
+                  )
+                : `../../../public/sounds/ambient/${room.ambient_sound}`;
 
             if (btnAmbient.disabled === true) btnAmbient.disabled = false;
         } else btnAmbient.disabled = true;

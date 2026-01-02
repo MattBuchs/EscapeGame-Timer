@@ -60,13 +60,16 @@ function showSecondWindowInfo() {
     const modal = document.createElement("div");
     modal.className = "modal modal--info";
     modal.style.position = "fixed";
+
+    const closeImgSrc = window.getResourceUrlSync
+        ? window.getResourceUrlSync("public/img/close.svg")
+        : "../../../public/img/close.svg";
+
     modal.innerHTML = `
         <div class="modal__overlay"></div>
         <div class="modal__content modal__content--info">
     <button class="modal__content--close" id="btn-close-info">
-        <img src="../../../public/img/close.svg" alt="${t(
-            "home.secondWindowModal.close"
-        )}" />
+        <img src="${closeImgSrc}" alt="${t("home.secondWindowModal.close")}" />
     </button>
     
     <h2>${t("home.secondWindowModal.title")}</h2>

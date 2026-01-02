@@ -18,6 +18,9 @@ import manageNavbarObj from "./UI/manageNavbar.js";
 import checkFoldersExist from "./sounds/checkFoldersExist.js";
 import { initThemeSelector } from "./settings/themeSelector.js";
 import { initSecondWindowInfo } from "./UI/secondWindowInfo.js";
+
+// Fix resource paths for production
+import "../resourcePathFixer.js";
 import {
     openCustomThemeEditor,
     closeCustomThemeEditor,
