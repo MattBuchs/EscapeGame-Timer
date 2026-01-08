@@ -2,7 +2,8 @@
     "header": {
         "home": "Accueil",
         "addTimer": "Ajouter un timer",
-        "settings": "Paramètres"
+        "settings": "Paramètres",
+        "activatePro": "Activer la version PRO"
     },
     "home": {
         "title": "Accueil",
@@ -225,5 +226,35 @@
         "sort": "Trier",
         "loading": "Chargement...",
         "noData": "Aucune donnée disponible"
+    },
+    "license": {
+        "title": "Activer la version PRO",
+        "currentVersion": "Version actuelle",
+        "activate": "Activer votre licence PRO",
+        "enterKey": "Entrez votre clé de licence ci-dessous pour débloquer toutes les fonctionnalités PRO :",
+        "keyPlaceholder": "XXXX-XXXX-XXXX-XXXX",
+        "activateBtn": "Activer",
+        "noKey": "Vous n'avez pas encore de clé de licence ?",
+        "purchase": "Acheter une licence PRO",
+        "free": {
+            "title": "🆓 Version Gratuite",
+            "subtitle": "Pour découvrir EscapeTime",
+            "limit1": "1 seul timer",
+            "limit2": "2 thèmes uniquement (Modern & Light)",
+            "limit3": "5 phrases maximum",
+            "limit4": "Pas de thème personnalisé"
+        },
+        "pro": {
+            "title": "🚀 Version PRO",
+            "subtitle": "La solution complète pour les professionnels",
+            "feature1": "Timers illimités",
+            "feature2": "Tous les thèmes (Neon, Modern, Light, Neutral)",
+            "feature3": "Phrases illimitées",
+            "feature4": "Éditeur de thème personnalisé",
+            "feature5": "Support prioritaire",
+            "feature6": "Mises à jour gratuites à vie",
+            "price": "179€",
+            "period": "Licence perpétuelle"
+        }
     }
 }

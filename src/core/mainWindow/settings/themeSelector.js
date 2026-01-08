@@ -4,6 +4,7 @@
  */
 
 const { ipcRenderer } = require("electron");
+import { notification } from "../UI/notification.js";
 
 const THEMES = {
     modern: { name: "Moderne", icon: "🚀" },
@@ -123,24 +124,32 @@ function createThemeSelectorUI() {
         return;
     }
 
+    const licenseManager = window.licenseManager;
+    const currentTheme = localStorage.getItem(STORAGE_KEY) || "modern";
+
     // Créer les boutons de thème
     const themeButtonsHTML = Object.keys(THEMES)
-        .map(
-            (themeKey) => `
+        .map((themeKey) => {
+            const isLocked = !licenseManager.canUseTheme(themeKey);
+            return `
             <button 
                 class="theme-option ${
-                    localStorage.getItem(STORAGE_KEY) === themeKey
-                        ? "active"
-                        : ""
-                }" 
+                    currentTheme === themeKey ? "active" : ""
+                } ${isLocked ? "locked" : ""}" 
                 data-theme="${themeKey}"
-                title="Appliquer le thème ${THEMES[themeKey].name}"
+                title="${
+                    isLocked
+                        ? `🔒 Version PRO requise`
+                        : `Appliquer le thème ${THEMES[themeKey].name}`
+                }"
+                ${isLocked ? "disabled" : ""}
             >
                 <span class="theme-icon">${THEMES[themeKey].icon}</span>
                 <span class="theme-name">${THEMES[themeKey].name}</span>
+                ${isLocked ? '<span class="pro-badge">PRO</span>' : ""}
             </button>
-        `
-        )
+        `;
+        })
         .join("");
 
     // Insérer les boutons dans la grille
@@ -151,6 +160,15 @@ function createThemeSelectorUI() {
     themeButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const themeName = button.getAttribute("data-theme");
+
+            // Vérifier si le thème est verrouillé
+            if (button.classList.contains("locked")) {
+                notification(
+                    "🔒 Ce thème est réservé à la version PRO. Passez à la version PRO pour débloquer tous les thèmes !",
+                    "error"
+                );
+                return;
+            }
 
             // Si c'est le thème personnalisé, ouvrir l'éditeur
             if (THEMES[themeName]?.customizable) {

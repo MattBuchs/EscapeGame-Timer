@@ -2,7 +2,8 @@
     "header": {
         "home": "Home",
         "addTimer": "Add Timer",
-        "settings": "Settings"
+        "settings": "Settings",
+        "activatePro": "Activate PRO version"
     },
     "home": {
         "title": "Home",
@@ -225,5 +226,35 @@
         "sort": "Sort",
         "loading": "Loading...",
         "noData": "No data available"
+    },
+    "license": {
+        "title": "Activate PRO Version",
+        "currentVersion": "Current Version",
+        "activate": "Activate your PRO license",
+        "enterKey": "Enter your license key below to unlock all PRO features:",
+        "keyPlaceholder": "XXXX-XXXX-XXXX-XXXX",
+        "activateBtn": "Activate",
+        "noKey": "Don't have a license key yet?",
+        "purchase": "Purchase PRO License",
+        "free": {
+            "title": "🆓 Free Version",
+            "subtitle": "To discover EscapeTime",
+            "limit1": "1 timer only",
+            "limit2": "2 themes only (Modern & Light)",
+            "limit3": "5 phrases maximum",
+            "limit4": "No custom theme"
+        },
+        "pro": {
+            "title": "🚀 PRO Version",
+            "subtitle": "The complete solution for professionals",
+            "feature1": "Unlimited timers",
+            "feature2": "All themes (Neon, Modern, Light, Neutral)",
+            "feature3": "Unlimited phrases",
+            "feature4": "Custom theme editor",
+            "feature5": "Priority support",
+            "feature6": "Free lifetime updates",
+            "price": "€179",
+            "period": "Perpetual License"
+        }
     }
 }

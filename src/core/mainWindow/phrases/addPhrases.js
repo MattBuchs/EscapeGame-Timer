@@ -148,6 +148,18 @@ const addPhrasesObj = {
         // Trouve l'index de l'objet avec l'ID donné dans le tableau
         const index = dataloaded.findIndex((obj) => obj.id === roomsObj.roomId);
 
+        // Vérifier la limite de phrases en version gratuite
+        const licenseManager = window.licenseManager;
+        const currentPhrasesCount = dataloaded[index].phrases?.length || 0;
+
+        if (!licenseManager.canAddPhrase(currentPhrasesCount)) {
+            notification(
+                `🔒 Version gratuite : maximum ${licenseManager.getMaxPhrases()} phrases autorisées. Passez à la version PRO pour des phrases illimitées !`,
+                "error"
+            );
+            return;
+        }
+
         // Créer l'objet phrase avec métadonnées
         const category = categoryInput ? categoryInput.value.trim() : "";
         const phraseObj = {

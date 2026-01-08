@@ -14,5 +14,6 @@ loadHtml("container-room", "main/sectionRoom.html");
 loadHtml("container-add_room", "main/sectionAddRoom.html");
 loadHtml("global-settings", "main/sectionSettings.html");
 loadHtml("update-room", "main/sectionUpdateRoom.html");
+loadHtml("license-section", "main/sectionLicense.html");
 loadHtml("modal-settings", "modals/modalSettings.html");
 loadHtml("modal-utils", "modals/modalUtils.html");

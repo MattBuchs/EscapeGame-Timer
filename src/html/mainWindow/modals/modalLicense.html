@@ -1,0 +1,115 @@
+<div class="modal-license" id="modal-license">
+    <div class="modal-license__overlay"></div>
+    <div class="modal-license__content">
+        <button
+            class="modal-license__close"
+            id="close-modal-license"
+            title="Fermer"
+        >
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+            >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+
+        <div class="modal-license__header">
+            <h2 data-i18n="license.title">Activer la version PRO</h2>
+            <div
+                class="license-badge license-badge--current"
+                id="current-license-badge"
+            >
+                <span class="license-badge__icon">✨</span>
+                <span class="license-badge__text" id="license-type-text"
+                    >Version Gratuite</span
+                >
+            </div>
+        </div>
+
+        <div class="modal-license__body">
+            <div class="license-comparison">
+                <div class="license-column license-column--free">
+                    <h3>🆓 Version Gratuite</h3>
+                    <ul>
+                        <li class="limitation">✗ 1 seul timer</li>
+                        <li class="limitation">
+                            ✗ 1 thème uniquement (Moderne)
+                        </li>
+                        <li class="limitation">✗ 5 phrases maximum</li>
+                        <li class="limitation">✗ Pas de sons d'ambiance</li>
+                        <li class="limitation">
+                            ✗ Pas de personnalisation du timer
+                        </li>
+                        <li class="limitation">✗ Pas de thème personnalisé</li>
+                    </ul>
+                </div>
+
+                <div class="license-column license-column--pro">
+                    <h3>🚀 Version PRO</h3>
+                    <ul>
+                        <li class="feature">✓ Timers illimités</li>
+                        <li class="feature">✓ Tous les thèmes disponibles</li>
+                        <li class="feature">✓ Phrases illimitées</li>
+                        <li class="feature">✓ Sons d'ambiance personnalisés</li>
+                        <li class="feature">✓ Personnalisation complète</li>
+                        <li class="feature">✓ Éditeur de thème personnalisé</li>
+                        <li class="feature">✓ Support prioritaire</li>
+                    </ul>
+                    <div class="price">
+                        <span class="price__amount">179€</span>
+                        <span class="price__period">Licence à vie</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="license-activation">
+                <h3 data-i18n="license.activate">Activer votre licence PRO</h3>
+                <p data-i18n="license.enterKey">
+                    Entrez votre clé de licence ci-dessous :
+                </p>
+
+                <div class="license-input-group">
+                    <input
+                        type="text"
+                        id="license-key-input"
+                        placeholder="XXXX-XXXX-XXXX-XXXX"
+                        maxlength="19"
+                        pattern="[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        id="activate-license-btn"
+                        data-i18n="license.activateBtn"
+                    >
+                        Activer
+                    </button>
+                </div>
+
+                <div
+                    class="license-message"
+                    id="license-activation-message"
+                ></div>
+
+                <div class="license-purchase">
+                    <p data-i18n="license.noKey">
+                        Vous n'avez pas de clé de licence ?
+                    </p>
+                    <a
+                        href="#"
+                        class="btn btn-secondary"
+                        id="purchase-license-link"
+                        data-i18n="license.purchase"
+                    >
+                        Acheter une licence PRO
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

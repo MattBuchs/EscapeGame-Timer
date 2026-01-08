@@ -18,6 +18,7 @@ import manageNavbarObj from "./UI/manageNavbar.js";
 import checkFoldersExist from "./sounds/checkFoldersExist.js";
 import { initThemeSelector } from "./settings/themeSelector.js";
 import { initSecondWindowInfo } from "./UI/secondWindowInfo.js";
+import licenseModalObj from "./settings/licenseModal.js";
 
 // Fix resource paths for production
 import "../resourcePathFixer.js";
@@ -67,6 +68,19 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         console.error("i18n n'est pas chargé");
     }
+
+    // Initialiser le licenseManager
+    const licenseManager = window.licenseManager;
+    if (licenseManager) {
+        licenseManager.init().then(() => {
+            console.log("License type:", licenseManager.getLicenseType());
+        });
+    }
+
+    // Initialiser la modal de licence
+    setTimeout(() => {
+        licenseModalObj.init();
+    }, 500);
 });
 
 // Initialisation du Timer

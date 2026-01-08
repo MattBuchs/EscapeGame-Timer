@@ -50,12 +50,32 @@ const addRoomObj = {
             if (!this.isOptionCreatedInAddRoom) {
                 listSounds(this.soundDirectories);
                 this.isOptionCreatedInAddRoom = true;
+
+                // Désactiver les sons d'ambiance en version gratuite
+                const licenseManager = window.licenseManager;
+                if (!licenseManager.canUseFeature("ambientSounds")) {
+                    ambientSoundList.disabled = true;
+                    ambientSoundList.parentElement.style.opacity = "0.5";
+                    ambientSoundList.parentElement.title =
+                        "🔒 Version PRO requise";
+                }
             }
         });
     },
 
     setupForm(e) {
         e.preventDefault();
+
+        // Vérifier la licence
+        const licenseManager = window.licenseManager;
+        if (!licenseManager.canCreateRoom(dataloaded.length)) {
+            return notification(
+                licenseManager.isPro()
+                    ? "Limite de rooms atteinte."
+                    : `Version gratuite : vous ne pouvez créer qu'une seule room. Passez à la version PRO pour débloquer toutes les fonctionnalités !`,
+                "error"
+            );
+        }
 
         let name = document.querySelector("#room_name");
         let time = document.querySelector("#room_times");
