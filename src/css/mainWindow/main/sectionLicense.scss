@@ -312,18 +312,32 @@
         svg {
             width: 18px;
             height: 18px;
+            
+            &.spinner {
+                animation: spin 1s linear infinite;
+            }
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            
+            &:hover {
+                transform: none;
+                box-shadow: none;
+            }
         }
 
         &-primary {
             background: linear-gradient(135deg, #ffc107, #ff9800);
             color: #000;
 
-            &:hover {
+            &:hover:not(:disabled) {
                 transform: translateY(-2px);
                 box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
             }
 
-            &:active {
+            &:active:not(:disabled) {
                 transform: translateY(0);
             }
         }
@@ -333,11 +347,20 @@
             color: var(--text-color);
             border: 2px solid var(--border-color);
 
-            &:hover {
+            &:hover:not(:disabled) {
                 background: var(--bg-primary);
                 border-color: var(--accent-color);
             }
         }
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
 

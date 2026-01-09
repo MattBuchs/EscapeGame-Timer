@@ -1,6 +1,9 @@
 const { app, screen } = require("electron");
 // const isDev = require("electron-is-dev");
 
+// Charger les variables d'environnement depuis .env
+require("dotenv").config();
+
 // Configuration de l'Application User Model ID pour Windows
 if (process.platform === "win32") {
     app.setAppUserModelId("com.mattbuchs.escapetime");

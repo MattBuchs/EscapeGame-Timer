@@ -1,6 +1,7 @@
 import { notification } from "../UI/notification.js";
 
 const licenseKeyInput = document.querySelector("#license-key-input");
+const licenseEmailInput = document.querySelector("#license-email-input");
 const activateLicenseBtn = document.querySelector("#activate-license-btn");
 const licenseMessage = document.querySelector("#license-activation-message");
 const purchaseLink = document.querySelector("#purchase-license-link");
@@ -49,6 +50,14 @@ const licenseModalObj = {
             });
         }
 
+        if (licenseEmailInput) {
+            licenseEmailInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    this.activateLicense();
+                }
+            });
+        }
+
         // Lien d'achat (à personnaliser avec votre URL)
         if (purchaseLink) {
             purchaseLink.addEventListener("click", (e) => {
@@ -83,48 +92,72 @@ const licenseModalObj = {
 
     async activateLicense() {
         const licenseManager = window.licenseManager;
-        if (!licenseManager || !licenseKeyInput) return;
+        if (!licenseManager || !licenseKeyInput || !licenseEmailInput) return;
 
         const key = licenseKeyInput.value.trim();
+        const email = licenseEmailInput.value.trim();
+
+        if (!email) {
+            this.showMessage("Veuillez entrer votre adresse email.", "error");
+            return;
+        }
 
         if (!key) {
             this.showMessage("Veuillez entrer une clé de licence.", "error");
             return;
         }
 
-        // Validation du format
-        if (!licenseManager.validateLicenseKey(key)) {
-            this.showMessage(
-                "Format de clé invalide. Format attendu : XXXX-XXXX-XXXX-XXXX",
-                "error"
-            );
-            return;
+        // Désactiver le bouton pendant la validation
+        if (activateLicenseBtn) {
+            activateLicenseBtn.disabled = true;
+            activateLicenseBtn.innerHTML = `
+                <span>Validation en cours...</span>
+                <svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                </svg>
+            `;
         }
 
-        // Tentative d'activation
-        const success = licenseManager.activatePro(key);
+        try {
+            // Tentative d'activation via l'API
+            const result = await licenseManager.activatePro(key, email);
 
-        if (success) {
+            if (result.success) {
+                this.showMessage(
+                    `✓ Licence ${result.data.plan} activée avec succès ! Toutes les fonctionnalités sont maintenant disponibles.`,
+                    "success"
+                );
+                this.updateLicenseDisplay();
+
+                notification(
+                    `🎉 Licence ${result.data.plan} activée pour ${result.data.email}`,
+                    "success"
+                );
+
+                // Recharger la page après 2 secondes pour appliquer les changements
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            } else {
+                this.showMessage(`✗ ${result.error}`, "error");
+            }
+        } catch (error) {
+            console.error("Error activating license:", error);
             this.showMessage(
-                "✓ Licence activée avec succès ! Toutes les fonctionnalités PRO sont maintenant disponibles.",
-                "success"
-            );
-            this.updateLicenseDisplay();
-
-            notification(
-                "🎉 Licence PRO activée ! Profitez de toutes les fonctionnalités.",
-                "success"
-            );
-
-            // Recharger la page après 2 secondes pour appliquer les changements
-            setTimeout(() => {
-                location.reload();
-            }, 2000);
-        } else {
-            this.showMessage(
-                "✗ Clé de licence invalide. Veuillez vérifier et réessayer.",
+                "✗ Erreur lors de l'activation. Vérifiez votre connexion internet.",
                 "error"
             );
+        } finally {
+            // Réactiver le bouton
+            if (activateLicenseBtn) {
+                activateLicenseBtn.disabled = false;
+                activateLicenseBtn.innerHTML = `
+                    <span>Activer</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                `;
+            }
         }
     },
 

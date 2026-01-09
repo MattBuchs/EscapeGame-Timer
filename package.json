@@ -78,6 +78,7 @@
         "sass": "^1.69.7"
     },
     "dependencies": {
+        "dotenv": "^17.2.3",
         "electron-is-dev": "^3.0.1",
         "electron-store": "^8.1.0",
         "electron-updater": "^6.6.2"

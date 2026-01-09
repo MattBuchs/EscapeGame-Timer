@@ -3888,15 +3888,26 @@ table {
   width: 18px;
   height: 18px;
 }
+.license-input-group .btn svg.spinner {
+  animation: spin 1s linear infinite;
+}
+.license-input-group .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.license-input-group .btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
 .license-input-group .btn-primary {
   background: linear-gradient(135deg, #ffc107, #ff9800);
   color: #000;
 }
-.license-input-group .btn-primary:hover {
+.license-input-group .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
 }
-.license-input-group .btn-primary:active {
+.license-input-group .btn-primary:active:not(:disabled) {
   transform: translateY(0);
 }
 .license-input-group .btn-secondary {
@@ -3904,11 +3915,19 @@ table {
   color: var(--text-color);
   border: 2px solid var(--border-color);
 }
-.license-input-group .btn-secondary:hover {
+.license-input-group .btn-secondary:hover:not(:disabled) {
   background: var(--bg-primary);
   border-color: var(--accent-color);
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 .license-message {
   padding: 1rem 1.5rem;
   border-radius: 12px;

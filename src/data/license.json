@@ -1,5 +1,10 @@
 {
-    "type": "pro",
-    "activatedAt": "2026-01-08T09:46:32.369Z",
-    "key": "GGGG-GGGG-GGGG-GGGG"
+    "type": "business",
+    "activatedAt": "2026-01-09T15:22:33.185Z",
+    "key": "6E02-1B29-I2UR-FEJ1",
+    "plan": "BUSINESS",
+    "email": "mattbuchs25@gmail.com",
+    "remainingUsages": 0,
+    "maxUsages": 1,
+    "signature": "9b2dd8bb2ffeb5c5faf828e883e3e2e5a8e62ab5e879ba860da8d93b800ceaea"
 }

@@ -71,10 +71,16 @@
             <div class="license-activation">
                 <h3 data-i18n="license.activate">Activer votre licence PRO</h3>
                 <p data-i18n="license.enterKey">
-                    Entrez votre clé de licence ci-dessous :
+                    Entrez votre email et votre clé de licence ci-dessous :
                 </p>
 
                 <div class="license-input-group">
+                    <input
+                        type="email"
+                        id="license-email-input"
+                        placeholder="votre@email.com"
+                        required
+                    />
                     <input
                         type="text"
                         id="license-key-input"

@@ -3,11 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../../css/compilation/output.css" />
         <meta
             http-equiv="Content-Security-Policy"
-            content="default-src 'self'; script-src 'self'; img-src 'self' data: file:"
+            content="default-src 'self'; 
+               connect-src 'self' http://localhost:3000 https://matt-buchs.me; 
+               script-src 'self' 'unsafe-inline';"
         />
-        <link rel="stylesheet" href="../../css/compilation/output.css" />
         <title>EscapeTime - Game Master</title>
     </head>
     <body data-theme="neon">

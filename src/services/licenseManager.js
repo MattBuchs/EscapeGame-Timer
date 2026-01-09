@@ -5,10 +5,33 @@
         ? window.require("electron")
         : require("electron");
     const { ipcRenderer } = electron;
+    const os = window.require ? window.require("os") : require("os");
+    const crypto = window.require
+        ? window.require("crypto")
+        : require("crypto");
+
+    let API_URL;
+    let LICENSE_SECRET;
+
+    try {
+        // Construire le chemin absolu vers config.js
+        const configPath = path.join(__dirname, "../../config.js");
+
+        const config = window.require
+            ? window.require(configPath)
+            : require(configPath);
+
+        API_URL = config.API_URL;
+        LICENSE_SECRET = config.LICENSE_SECRET;
+    } catch (error) {
+        console.error("Config file error:", error);
+        console.warn("Config file not found, using default values");
+    }
 
     const LICENSE_TYPES = {
         FREE: "free",
         PRO: "pro",
+        BUSINESS: "business",
     };
 
     const FREE_LIMITS = {
@@ -25,6 +48,69 @@
         constructor() {
             this.license = null;
             this.licensePath = null;
+            this.machineId = null;
+            this.lastVerificationTime = null;
+        }
+
+        /**
+         * Generate a signature for license data to prevent tampering
+         * @param {object} data - License data to sign
+         * @returns {string}
+         */
+        generateSignature(data) {
+            const payload = JSON.stringify({
+                key: data.key,
+                email: data.email,
+                plan: data.plan,
+                activatedAt: data.activatedAt,
+            });
+            return crypto
+                .createHmac("sha256", LICENSE_SECRET)
+                .update(payload)
+                .digest("hex");
+        }
+
+        /**
+         * Verify license signature to detect tampering
+         * @param {object} license - License object with signature
+         * @returns {boolean}
+         */
+        verifySignature(license) {
+            if (!license || !license.signature) return false;
+            try {
+                const expectedSignature = this.generateSignature(license);
+                return crypto.timingSafeEqual(
+                    Buffer.from(expectedSignature),
+                    Buffer.from(license.signature)
+                );
+            } catch (error) {
+                return false;
+            }
+        }
+
+        /**
+         * Get unique machine ID
+         * @returns {string}
+         */
+        getMachineId() {
+            if (this.machineId) return this.machineId;
+
+            // Créer un ID unique basé sur les informations de la machine
+            const machineInfo = {
+                hostname: os.hostname(),
+                platform: os.platform(),
+                arch: os.arch(),
+                cpus: os.cpus()[0]?.model || "unknown",
+            };
+
+            // Générer un hash unique
+            this.machineId = crypto
+                .createHash("sha256")
+                .update(JSON.stringify(machineInfo))
+                .digest("hex")
+                .substring(0, 32);
+
+            return this.machineId;
         }
 
         /**
@@ -43,6 +129,15 @@
                     this.createFreeLicense();
                 } else {
                     this.loadLicense();
+
+                    // Vérifier l'intégrité de la licence (anti-piratage)
+                    if (this.isPro() && !this.verifySignature(this.license)) {
+                        console.warn(
+                            "License signature invalid - license may be tampered"
+                        );
+                        this.createFreeLicense();
+                        return;
+                    }
                 }
             } catch (error) {
                 console.error("Error initializing license manager:", error);
@@ -58,6 +153,9 @@
                 type: LICENSE_TYPES.FREE,
                 activatedAt: new Date().toISOString(),
                 key: null,
+                plan: null,
+                email: null,
+                signature: null,
             };
             this.saveLicense();
         }
@@ -91,23 +189,133 @@
         }
 
         /**
-         * Activate a PRO license with a key
-         * @param {string} licenseKey - The license key to activate
-         * @returns {boolean} - True if activation successful
+         * Verify license online using GET endpoint (doesn't consume usage)
+         * Only used occasionally to check if license is still active
          */
-        activatePro(licenseKey) {
-            // Validation simple du format de la clé
-            if (!this.validateLicenseKey(licenseKey)) {
-                return false;
+        async checkLicenseStatus() {
+            if (!this.license?.key || !this.license?.email)
+                return { valid: true };
+
+            try {
+                const url = new URL(API_URL + "/validate-license");
+                url.searchParams.append("key", this.license.key);
+                url.searchParams.append("email", this.license.email);
+
+                const response = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                if (!response.ok) {
+                    console.warn("License check failed:", response.status);
+                    return { valid: true }; // Don't deactivate on network error
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.warn("Could not check license online:", error);
+                return { valid: true }; // Don't deactivate on network error
+            }
+        }
+
+        /**
+         * Activate a PRO license with a key and email
+         * @param {string} licenseKey - The license key to activate
+         * @param {string} email - The email associated with the license
+         * @returns {Promise<{success: boolean, error?: string, data?: object}>}
+         */
+        async activatePro(licenseKey, email) {
+            // Validation de l'email
+            if (!email || !this.validateEmail(email)) {
+                return {
+                    success: false,
+                    error: "Adresse email invalide",
+                };
             }
 
-            this.license = {
-                type: LICENSE_TYPES.PRO,
-                activatedAt: new Date().toISOString(),
-                key: licenseKey,
-            };
-            this.saveLicense();
-            return true;
+            // Validation simple du format de la clé
+            if (!this.validateLicenseKey(licenseKey)) {
+                return {
+                    success: false,
+                    error: "Format de clé invalide. Format attendu : XXXX-XXXX-XXXX-XXXX",
+                };
+            }
+
+            try {
+                // Valider la clé via l'API (POST consomme une utilisation)
+                const response = await fetch(API_URL + "/validate-license", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        licenseKey: licenseKey,
+                        email: email,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    return {
+                        success: false,
+                        error:
+                            data.error ||
+                            "Erreur lors de la validation de la licence",
+                    };
+                }
+
+                if (!data.valid && !data.success) {
+                    return {
+                        success: false,
+                        error: data.error || "Clé de licence invalide",
+                    };
+                }
+
+                // Déterminer le type de licence selon le plan
+                const plan = data.plan || "PRO";
+                const licenseType =
+                    plan.toUpperCase() === "BUSINESS"
+                        ? LICENSE_TYPES.BUSINESS
+                        : LICENSE_TYPES.PRO;
+
+                // Créer l'objet licence
+                const licenseData = {
+                    type: licenseType,
+                    activatedAt: new Date().toISOString(),
+                    key: licenseKey,
+                    plan: plan,
+                    email: email,
+                    remainingUsages: data.remainingUsages,
+                    maxUsages: data.maxUsages,
+                };
+
+                // Générer une signature pour éviter la modification manuelle
+                licenseData.signature = this.generateSignature(licenseData);
+
+                // Sauvegarder la licence
+                this.license = licenseData;
+                this.saveLicense();
+
+                return {
+                    success: true,
+                    data: {
+                        plan: plan,
+                        email: email,
+                        remainingUsages: data.remainingUsages,
+                        maxUsages: data.maxUsages,
+                    },
+                };
+            } catch (error) {
+                console.error("Error activating license:", error);
+                return {
+                    success: false,
+                    error: "Impossible de vérifier la licence. Vérifiez votre connexion internet.",
+                };
+            }
         }
 
         /**
@@ -122,11 +330,33 @@
         }
 
         /**
+         * Validate email format
+         * @param {string} email - Email to validate
+         * @returns {boolean}
+         */
+        validateEmail(email) {
+            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return pattern.test(email);
+        }
+
+        /**
          * Check if current license is PRO
          * @returns {boolean}
          */
         isPro() {
-            return this.license && this.license.type === LICENSE_TYPES.PRO;
+            return (
+                this.license &&
+                (this.license.type === LICENSE_TYPES.PRO ||
+                    this.license.type === LICENSE_TYPES.BUSINESS)
+            );
+        }
+
+        /**
+         * Check if current license is BUSINESS
+         * @returns {boolean}
+         */
+        isBusiness() {
+            return this.license && this.license.type === LICENSE_TYPES.BUSINESS;
         }
 
         /**
@@ -153,8 +383,13 @@
             return {
                 type: this.getLicenseType(),
                 isPro: this.isPro(),
+                isBusiness: this.isBusiness(),
                 activatedAt: this.license?.activatedAt,
                 limits: this.isFree() ? FREE_LIMITS : null,
+                plan: this.license?.plan,
+                email: this.license?.email,
+                remainingUsages: this.license?.remainingUsages,
+                maxUsages: this.license?.maxUsages,
             };
         }
 

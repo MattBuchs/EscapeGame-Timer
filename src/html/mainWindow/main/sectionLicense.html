@@ -194,11 +194,32 @@
         <div class="license-activation">
             <h3 data-i18n="license.activate">Activer votre licence PRO</h3>
             <p data-i18n="license.enterKey">
-                Entrez votre clé de licence ci-dessous pour débloquer toutes les
-                fonctionnalités PRO :
+                Entrez votre email et votre clé de licence ci-dessous pour
+                débloquer toutes les fonctionnalités PRO :
             </p>
 
             <div class="license-input-group">
+                <div class="license-input-wrapper">
+                    <svg
+                        class="license-input-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        ></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <input
+                        type="email"
+                        id="license-email-input"
+                        placeholder="votre@email.com"
+                        data-i18n-placeholder="license.emailPlaceholder"
+                        required
+                    />
+                </div>
                 <div class="license-input-wrapper">
                     <svg
                         class="license-input-icon"
