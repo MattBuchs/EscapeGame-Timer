@@ -2,6 +2,7 @@ import roomsObj from "../rooms/rooms.js";
 import { openModal, closeModal, dataloaded, writeFile } from "../../utils.js";
 import { notification } from "../UI/notification.js";
 import phrasesAutocompleteObj from "./phrasesAutocomplete.js";
+const dataValidator = require("../../services/dataValidator");
 
 const containerRoom = document.querySelector("#container-room");
 const btnAddPhrases = document.querySelector("#btn-add_phrases");
@@ -148,13 +149,13 @@ const addPhrasesObj = {
         // Trouve l'index de l'objet avec l'ID donné dans le tableau
         const index = dataloaded.findIndex((obj) => obj.id === roomsObj.roomId);
 
-        // Vérifier la limite de phrases en version gratuite
-        const licenseManager = window.licenseManager;
-        const currentPhrasesCount = dataloaded[index].phrases?.length || 0;
-
-        if (!licenseManager.canAddPhrase(currentPhrasesCount)) {
+        // ✅ Vérifier avec le validator
+        if (!dataValidator.canAddPhrase(roomsObj.roomId)) {
+            const licenseManager = window.licenseManager;
+            const maxPhrases =
+                licenseManager?.getFreeFeatures()?.maxPhrases || 5;
             notification(
-                `🔒 Version gratuite : maximum ${licenseManager.getMaxPhrases()} phrases autorisées. Passez à la version PRO pour des phrases illimitées !`,
+                `🔒 Version FREE : maximum ${maxPhrases} phrases autorisées. Passez à la version PRO pour des phrases illimitées !`,
                 "error"
             );
             return;

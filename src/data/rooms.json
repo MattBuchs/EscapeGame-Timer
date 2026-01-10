@@ -1,89 +1,52 @@
 [
-  {
-    "id": "btn-room_1",
-    "name": "Salle 1",
-    "end_timer_sound": "Dark Time.mp3",
-    "notification_sound": "Eagle - Notification ! Sms ! Tone.mp3",
-    "ambient_sound": "Harry Potter - musique ambiance.mp3",
-    "hours": 0,
-    "minutes": 1,
-    "end_timer_volume": 0.32,
-    "notification_volume": 0.35,
-    "ambient_volume": 0.05,
-    "isPreferenceTimer": false,
-    "phrases": [
-      {
-        "text": "Test",
-        "category": null,
-        "favorite": false,
-        "created": "2025-12-30T23:17:29.850Z",
-        "usageCount": 0
-      },
-      {
-        "text": "Wow",
-        "category": null,
-        "favorite": false,
-        "created": "2025-12-30T23:17:29.850Z",
-        "usageCount": 0
-      },
-      {
-        "text": "yrjryjryj",
-        "category": null,
-        "favorite": false,
-        "created": "2025-12-30T23:17:29.850Z",
-        "usageCount": 0
-      },
-      {
-        "text": "Wowowowowwoow",
-        "category": "🎬 Wow",
-        "favorite": true,
-        "created": "2025-12-31T08:39:04.935Z",
-        "usageCount": 0
-      },
-      {
-        "text": "Testrfgfds",
-        "category": "💡 1ère Salle",
-        "favorite": true,
-        "created": "2025-12-31T08:53:28.521Z",
-        "usageCount": 0
-      },
-      {
-        "text": "dfhbdfgbhdgf",
-        "category": "💡 1ère Salle",
-        "favorite": false,
-        "created": "2025-12-31T08:53:42.523Z",
-        "usageCount": 1
-      }
-    ]
-  },
-  {
-    "id": "btn-room_2",
-    "name": "Salle2",
-    "end_timer_sound": "Sherlock Holmes.mp3",
-    "notification_sound": "Message Notification Tone.mp3",
-    "ambient_sound": "Harry Potter - musique ambiance.mp3",
-    "hours": 1,
-    "minutes": 0,
-    "end_timer_volume": 0.5,
-    "notification_volume": 0.5,
-    "ambient_volume": 0.1,
-    "isPreferenceTimer": false,
-    "phrases": [
-      "ethet tehehte tehhteheth tehethetht"
-    ]
-  },
-  {
-    "id": "btn-room_3",
-    "name": " fdbdffb",
-    "end_timer_sound": null,
-    "notification_sound": null,
-    "ambient_sound": null,
-    "hours": 1,
-    "minutes": 24,
-    "end_timer_volume": 0.5,
-    "notification_volume": 0.5,
-    "ambient_volume": 0.2,
-    "isPreferenceTimer": false,
-    "phrases": []
-  }
+    {
+        "id": "btn-room_1",
+        "name": "Salle 1",
+        "end_timer_sound": "Dark Time.mp3",
+        "notification_sound": "Eagle - Notification ! Sms ! Tone.mp3",
+        "ambient_sound": "Harry Potter - musique ambiance.mp3",
+        "hours": 0,
+        "minutes": 1,
+        "end_timer_volume": 0.32,
+        "notification_volume": 0.35,
+        "ambient_volume": 0.05,
+        "isPreferenceTimer": false,
+        "phrases": [
+            {
+                "text": "Test",
+                "category": null,
+                "favorite": false,
+                "created": "2025-12-30T23:17:29.850Z",
+                "usageCount": 0
+            },
+            {
+                "text": "Wow",
+                "category": null,
+                "favorite": false,
+                "created": "2025-12-30T23:17:29.850Z",
+                "usageCount": 0
+            },
+            {
+                "text": "yrjryjryj",
+                "category": null,
+                "favorite": false,
+                "created": "2025-12-30T23:17:29.850Z",
+                "usageCount": 0
+            },
+            {
+                "text": "Wowowowowwoow",
+                "category": "🎬 Wow",
+                "favorite": true,
+                "created": "2025-12-31T08:39:04.935Z",
+                "usageCount": 0
+            },
+            {
+                "text": "Testrfgfds",
+                "category": "💡 1ère Salle",
+                "favorite": true,
+                "created": "2025-12-31T08:53:28.521Z",
+                "usageCount": 0
+            }
+        ]
+    }
 ]

@@ -1,9 +1,8 @@
 {
-    "type": "business",
-    "activatedAt": "2026-01-10T13:49:01.922Z",
-    "key": "fdd92bb8a85adb2332b50e7a7067d554:7c97b32dc13a2370b5bb044c383205b8835933c40d6091a74791c00329d9684c",
-    "plan": "BUSINESS",
-    "email": "mattbuchs25@gmail.com",
-    "licenseSecret": "2a74678986487c0f703fb1ad4e05452b07f4ac57be5881a5c125e52c5f181e7d",
-    "signature": "27e7de2ce4e44deb4a15a0b3ae07c15c373684368121e5828e824f25fc8b9172"
+    "type": "free",
+    "activatedAt": "2026-01-10T14:24:30.926Z",
+    "key": null,
+    "plan": null,
+    "email": null,
+    "signature": null
 }

@@ -1,5 +1,5 @@
 const { ipcRenderer } = require("electron");
-import { displayTimer, dataloaded } from "../../utils.js";
+import utils from "../../utils.js";
 import addPhrasesObj from "../phrases/addPhrases.js";
 import utilsSettingsObj from "../settings/utilsSettings.js";
 
@@ -44,10 +44,10 @@ const roomsObj = {
             });
         }
 
-        if (dataloaded.length > 0) {
-            this.rangeValue = dataloaded;
+        if (utils.dataloaded.length > 0) {
+            this.rangeValue = utils.dataloaded;
 
-            dataloaded.forEach((el) => {
+            utils.dataloaded.forEach((el) => {
                 const btn = document.createElement("button");
                 btn.classList.add("home__container--btn");
 
@@ -181,7 +181,7 @@ const roomsObj = {
             if (btnAmbient.disabled === true) btnAmbient.disabled = false;
         } else btnAmbient.disabled = true;
 
-        displayTimer(
+        utils.displayTimer(
             timer,
             this.hours,
             this.minutes,
@@ -213,8 +213,10 @@ const roomsObj = {
     },
 
     loadOption() {
-        const index = dataloaded.findIndex((obj) => obj.id === this.roomId);
-        addPhrasesObj.loadOption(dataloaded[index]);
+        const index = utils.dataloaded.findIndex(
+            (obj) => obj.id === this.roomId
+        );
+        addPhrasesObj.loadOption(utils.dataloaded[index]);
     },
 
     updateRangeAndSound(idOfRoom) {

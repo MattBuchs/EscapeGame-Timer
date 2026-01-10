@@ -2,6 +2,7 @@ const { ipcRenderer } = require("electron");
 import { listSounds, dataloaded, writeFile } from "../../utils.js";
 import { notification } from "../UI/notification.js";
 import { loadRoomsInSettings } from "./deleteRooms.js";
+const dataValidator = require("../../services/dataValidator");
 
 const btnAddRoom = document.querySelector("#btn-add_room");
 const formAddRoom = document.querySelector("#form-add_room");
@@ -65,6 +66,15 @@ const addRoomObj = {
 
     setupForm(e) {
         e.preventDefault();
+
+        // ✅ Vérifier si on peut ajouter une salle
+        if (!dataValidator.canAddRoom()) {
+            notification(
+                "🔒 Version FREE : Vous ne pouvez créer qu'une seule salle. Passez en version PRO pour créer des salles illimitées.",
+                "error"
+            );
+            return;
+        }
 
         // Vérifier la licence
         const licenseManager = window.licenseManager;

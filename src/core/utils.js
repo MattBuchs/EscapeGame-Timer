@@ -74,22 +74,35 @@ const utils = {
 
     loadData() {
         if (fs.existsSync(this.filePath)) {
+            // Charger les données brutes sans validation au démarrage
+            // La validation se fera après l'initialisation du licenseManager
             const fileContent = fs.readFileSync(this.filePath, "utf8");
-            try {
-                if (fileContent.length > 1) {
-                    this._dataloaded = JSON.parse(fileContent);
-                    return this._dataloaded;
-                }
-            } catch (err) {
-                console.error(
-                    "Erreur lors de la lecture des données JSON existantes :",
-                    err
-                );
-                return null;
+            if (fileContent.length > 1) {
+                this._dataloaded = JSON.parse(fileContent);
             }
+            return this._dataloaded;
         }
 
         return null;
+    },
+
+    /**
+     * Recharger et valider les données avec le validator
+     * À appeler après l'initialisation du licenseManager
+     * @param {object} dataValidator - Instance initialisée du dataValidator
+     */
+    reloadAndValidate(dataValidator) {
+        if (!dataValidator) {
+            return this.loadData();
+        }
+
+        try {
+            this._dataloaded = dataValidator.validateRooms();
+            return this._dataloaded;
+        } catch (error) {
+            console.error("Erreur lors de la validation:", error);
+            return this.loadData();
+        }
     },
 
     get dataloaded() {
@@ -146,5 +159,6 @@ export const {
     dataloaded,
     showLoadingIndicator,
     hideLoadingIndicator,
+    reloadAndValidate,
 } = utils;
 export default utils;

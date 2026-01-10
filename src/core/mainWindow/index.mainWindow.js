@@ -19,6 +19,7 @@ import checkFoldersExist from "./sounds/checkFoldersExist.js";
 import { initThemeSelector } from "./settings/themeSelector.js";
 import { initSecondWindowInfo } from "./UI/secondWindowInfo.js";
 import licenseModalObj from "./settings/licenseModal.js";
+import utils from "../utils.js";
 
 // Fix resource paths for production
 import "../resourcePathFixer.js";
@@ -71,13 +72,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialiser le licenseManager
     const licenseManager = window.licenseManager;
+    const dataValidator = require("../../services/dataValidator");
+
     if (licenseManager) {
         licenseManager.init().then(() => {
-            console.log("License type:", licenseManager.getLicenseType());
+            // Initialiser le validator avec le licenseManager
+            dataValidator.init(licenseManager);
+
+            // Valider et nettoyer les settings
+            dataValidator.validateSettings();
+
+            // Recharger et valider les rooms selon la licence
+            utils.reloadAndValidate(dataValidator);
+
+            // Recharger l'affichage des rooms
+            roomsObj.loadRooms();
         });
     }
 
-    // Initialiser la modal de licence
+    // Initialisation de la modal de licence
     setTimeout(() => {
         licenseModalObj.init();
     }, 500);
@@ -88,7 +101,7 @@ timerObj.init();
 messagesObj.init();
 
 // Initialisation des fonctionnalités liées aux Timers
-roomsObj.init();
+// ⚠️ roomsObj.init() est appelé APRÈS la validation de la licence (voir licenseManager.init().then())
 addRoomObj.init();
 deleteRoomsObj.init();
 updateRoomObj.init();
