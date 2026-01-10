@@ -24,5 +24,12 @@ latest.yml
 latest-mac.yml
 latest-linux.yml
 
+# Obfuscation - Fichiers sensibles à ne pas commit
+*.original.js
+*.dev.js
+*.obfuscated.js
+
 api/
 docs/
+
+test/

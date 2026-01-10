@@ -8,9 +8,14 @@
         "start": "electron .",
         "compile-sass": "sass src/css/index.scss src/css/compilation/output.css",
         "watch-sass": "sass --watch src/css/index.scss:src/css/compilation/output.css",
+        "obfuscate": "node obfuscate.js",
+        "prod-mode": "node scripts/prod-mode.js",
+        "dev-mode": "node scripts/dev-mode.js",
+        "prebuild": "npm run compile-sass && npm run obfuscate && npm run prod-mode",
         "build": "electron-builder --win",
         "build:dir": "electron-builder --dir",
-        "release": "electron-builder --win --publish never"
+        "postbuild": "npm run dev-mode",
+        "release": "npm run prebuild && electron-builder --win --publish never && npm run dev-mode"
     },
     "build": {
         "appId": "com.mattbuchs.escapetime",
@@ -75,6 +80,7 @@
         "electron": "^25.5.0",
         "electron-builder": "^26.0.12",
         "electron-reload": "^2.0.0-alpha.1",
+        "javascript-obfuscator": "^5.1.0",
         "sass": "^1.69.7"
     },
     "dependencies": {

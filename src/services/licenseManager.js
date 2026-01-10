@@ -11,7 +11,6 @@
         : require("crypto");
 
     let API_URL;
-    let LICENSE_SECRET;
 
     try {
         // Construire le chemin absolu vers config.js
@@ -22,7 +21,6 @@
             : require(configPath);
 
         API_URL = config.API_URL;
-        LICENSE_SECRET = config.LICENSE_SECRET;
     } catch (error) {
         console.error("Config file error:", error);
         console.warn("Config file not found, using default values");
@@ -50,6 +48,85 @@
             this.licensePath = null;
             this.machineId = null;
             this.lastVerificationTime = null;
+            this.encryptionKey = null;
+        }
+
+        /**
+         * Get encryption key based on machine ID and licenseSecret unique
+         * @returns {Buffer}
+         */
+        getEncryptionKey() {
+            const machineId = this.getMachineId();
+
+            // Utiliser la licenseSecret unique de la licence
+            const licenseSecret =
+                this.license?.licenseSecret || "default-fallback";
+            const combined = `${licenseSecret}:${machineId}`;
+
+            // Ne pas mettre en cache car licenseSecret peut changer
+            return crypto
+                .createHash("sha256")
+                .update(combined)
+                .digest();
+        }
+
+        /**
+         * Encrypt license key
+         * @param {string} licenseKey - Plain license key
+         * @returns {string} - Encrypted license key (hex)
+         */
+        encryptLicenseKey(licenseKey) {
+            if (!licenseKey) return null;
+
+            try {
+                const key = this.getEncryptionKey();
+                const iv = crypto.randomBytes(16);
+                const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+
+                let encrypted = cipher.update(licenseKey, "utf8", "hex");
+                encrypted += cipher.final("hex");
+
+                // Retourner IV + données chiffrées
+                return iv.toString("hex") + ":" + encrypted;
+            } catch (error) {
+                console.error("Error encrypting license key:", error);
+                return licenseKey; // Fallback
+            }
+        }
+
+        /**
+         * Decrypt license key
+         * @param {string} encryptedKey - Encrypted license key (hex)
+         * @returns {string} - Plain license key
+         */
+        decryptLicenseKey(encryptedKey) {
+            if (!encryptedKey) return null;
+
+            try {
+                // Si la clé ne contient pas ":", c'est une ancienne version non chiffrée
+                if (!encryptedKey.includes(":")) {
+                    return encryptedKey;
+                }
+
+                const key = this.getEncryptionKey();
+                const parts = encryptedKey.split(":");
+                const iv = Buffer.from(parts[0], "hex");
+                const encrypted = parts[1];
+
+                const decipher = crypto.createDecipheriv(
+                    "aes-256-cbc",
+                    key,
+                    iv
+                );
+
+                let decrypted = decipher.update(encrypted, "hex", "utf8");
+                decrypted += decipher.final("utf8");
+
+                return decrypted;
+            } catch (error) {
+                console.error("Error decrypting license key:", error);
+                return null;
+            }
         }
 
         /**
@@ -58,14 +135,22 @@
          * @returns {string}
          */
         generateSignature(data) {
+            // Utiliser la licenseSecret unique de la licence
+            const licenseSecret =
+                data.licenseSecret ||
+                this.license?.licenseSecret ||
+                "default-fallback";
+
+            // Déchiffrer la clé pour la signature
+            const plainKey = this.decryptLicenseKey(data.key);
             const payload = JSON.stringify({
-                key: data.key,
+                key: plainKey,
                 email: data.email,
                 plan: data.plan,
                 activatedAt: data.activatedAt,
             });
             return crypto
-                .createHmac("sha256", LICENSE_SECRET)
+                .createHmac("sha256", licenseSecret)
                 .update(payload)
                 .digest("hex");
         }
@@ -282,22 +367,36 @@
                         ? LICENSE_TYPES.BUSINESS
                         : LICENSE_TYPES.PRO;
 
-                // Créer l'objet licence
+                // ⚠️ IMPORTANT : Récupérer la licenseSecret unique envoyée par le serveur
+                const licenseSecret = data.licenseSecret;
+                if (!licenseSecret) {
+                    return {
+                        success: false,
+                        error: "Le serveur n'a pas renvoyé de secret de licence. Contactez le support.",
+                    };
+                }
+
+                // Créer l'objet licence avec la secret unique
                 const licenseData = {
                     type: licenseType,
                     activatedAt: new Date().toISOString(),
-                    key: licenseKey,
+                    key: licenseKey, // En clair pour la signature
                     plan: plan,
                     email: email,
-                    remainingUsages: data.remainingUsages,
-                    maxUsages: data.maxUsages,
+                    licenseSecret: licenseSecret,
                 };
 
-                // Générer une signature pour éviter la modification manuelle
-                licenseData.signature = this.generateSignature(licenseData);
+                // ⚠️ IMPORTANT : Mettre à jour this.license AVANT de chiffrer
+                // pour que getEncryptionKey() utilise la bonne licenseSecret
+                this.license = licenseData;
+
+                // Générer une signature avec la clé en clair
+                this.license.signature = this.generateSignature(this.license);
+
+                // Maintenant chiffrer la clé
+                this.license.key = this.encryptLicenseKey(licenseKey);
 
                 // Sauvegarder la licence
-                this.license = licenseData;
                 this.saveLicense();
 
                 return {
@@ -305,8 +404,6 @@
                     data: {
                         plan: plan,
                         email: email,
-                        remainingUsages: data.remainingUsages,
-                        maxUsages: data.maxUsages,
                     },
                 };
             } catch (error) {
@@ -390,7 +487,17 @@
                 email: this.license?.email,
                 remainingUsages: this.license?.remainingUsages,
                 maxUsages: this.license?.maxUsages,
+                // Ne PAS exposer la clé déchiffrée
             };
+        }
+
+        /**
+         * Get decrypted license key (internal use only)
+         * @returns {string|null}
+         */
+        getDecryptedLicenseKey() {
+            if (!this.license?.key) return null;
+            return this.decryptLicenseKey(this.license.key);
         }
 
         /**
