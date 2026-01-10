@@ -16,7 +16,10 @@ import dragAndDropObj from "./settings/DragAndDrop.js";
 import deleteSongFileObj from "./settings/deleteSongFile.js";
 import manageNavbarObj from "./UI/manageNavbar.js";
 import checkFoldersExist from "./sounds/checkFoldersExist.js";
-import { initThemeSelector } from "./settings/themeSelector.js";
+import {
+    initThemeSelector,
+    applyInitialTheme,
+} from "./settings/themeSelector.js";
 import { initSecondWindowInfo } from "./UI/secondWindowInfo.js";
 import licenseModalObj from "./settings/licenseModal.js";
 import utils from "../utils.js";
@@ -62,6 +65,9 @@ async function initApp() {
 
 // Initialisation du système i18n et traduction de la page
 document.addEventListener("DOMContentLoaded", () => {
+    // Appliquer le thème sauvegardé immédiatement
+    applyInitialTheme();
+
     if (i18n) {
         initApp().catch((err) => {
             console.error("Erreur lors de l'initialisation de l'app:", err);
@@ -87,6 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Recharger l'affichage des rooms
             roomsObj.loadRooms();
+
+            // Initialiser les fonctionnalités dépendantes de la licence
+            utilsSettingsObj.init();
+            initThemeSelector();
         });
     }
 
@@ -114,19 +124,20 @@ updateSoundObj.init();
 manageSoundObj.init();
 
 // Initialisation des fonctionnalités liées aux paramètres globaux
-utilsSettingsObj.init();
 uploadFilesObj.init();
 dragAndDropObj.init();
 deleteSongFileObj.init();
 checkFoldersExist();
 
-// Initialisation du sélecteur de thème
-initThemeSelector();
+// Appliquer le thème personnalisé uniquement si le thème "custom" est actif
+const settingsManager = window.settingsManager;
+const currentTheme = settingsManager
+    ? settingsManager.get("theme")
+    : localStorage.getItem("escape-game-theme") || "neon";
 
-// Initialisation du sélecteur de langue est maintenant dans initApp()
-
-// Appliquer le thème personnalisé si existant
-applyCustomTheme();
+if (currentTheme === "custom") {
+    applyCustomTheme();
+}
 
 // Exposer les fonctions de l'éditeur de thème globalement
 window.openCustomThemeEditor = openCustomThemeEditor;

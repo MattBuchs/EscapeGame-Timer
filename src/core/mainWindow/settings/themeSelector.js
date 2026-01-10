@@ -17,10 +17,9 @@ const THEMES = {
 const STORAGE_KEY = "escape-game-theme";
 
 /**
- * Initialise le sélecteur de thème
+ * Applique le thème sauvegardé immédiatement (avant init de la licence)
  */
-function initThemeSelector() {
-    // Récupérer le thème sauvegardé ou utiliser le thème par défaut
+function applyInitialTheme() {
     const settingsManager = window.settingsManager;
     const savedTheme = settingsManager
         ? settingsManager.get("theme")
@@ -28,8 +27,13 @@ function initThemeSelector() {
 
     // Appliquer le thème immédiatement au body
     document.body.setAttribute("data-theme", savedTheme);
+}
 
-    // Créer l'interface du sélecteur après le chargement du DOM
+/**
+ * Initialise le sélecteur de thème (après init de la licence)
+ */
+function initThemeSelector() {
+    // Créer l'interface du sélecteur (le thème est déjà appliqué par applyInitialTheme)
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", createThemeSelectorUI);
     } else {
@@ -201,4 +205,4 @@ function updateThemeSelectorUI(activeTheme) {
 }
 
 // Exporter les fonctions en ES6
-export { initThemeSelector, applyTheme, THEMES };
+export { initThemeSelector, applyInitialTheme, applyTheme, THEMES };
