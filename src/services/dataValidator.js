@@ -51,7 +51,7 @@ class DataValidator {
             if (this.licenseManager && this.licenseManager.isFree()) {
                 const limits = FREE_LIMITS;
 
-                // Limite de salles
+                // Limite de salles (filtrage en mémoire uniquement, pas de modification du fichier)
                 if (rooms.length > limits.maxRooms) {
                     rooms = rooms.slice(0, limits.maxRooms);
                 }
@@ -67,9 +67,6 @@ class DataValidator {
                     }
                     return room;
                 });
-
-                // Sauvegarder les données nettoyées
-                this.saveRooms(rooms);
             }
 
             return rooms;
@@ -92,7 +89,7 @@ class DataValidator {
             const fileContent = fs.readFileSync(this.settingsPath, "utf8");
             let settings = JSON.parse(fileContent);
 
-            // Si version FREE, appliquer les restrictions
+            // Si version FREE, appliquer les restrictions (en mémoire uniquement)
             if (this.licenseManager && this.licenseManager.isFree()) {
                 const limits = FREE_LIMITS;
 
@@ -102,69 +99,25 @@ class DataValidator {
                     !limits.allowedThemes.includes(settings.theme) &&
                     settings.theme !== "custom"
                 ) {
-                    console.warn(
-                        `⚠️ Version FREE : Thème "${settings.theme}" non autorisé, basculement vers "modern"`
-                    );
                     settings.theme = "modern";
                 }
 
                 // Désactiver customTheme si non autorisé
                 if (settings.customTheme && !limits.allowCustomTheme) {
-                    console.warn(
-                        "⚠️ Version FREE : Thème personnalisé non autorisé"
-                    );
                     delete settings.customTheme;
                     settings.theme = "modern";
                 }
 
                 // Désactiver preferenceTimer si non autorisé
                 if (settings.preferenceTimer && !limits.allowTimerPreference) {
-                    console.warn(
-                        "⚠️ Version FREE : Préférence timer non autorisée"
-                    );
                     settings.preferenceTimer = false;
                 }
-
-                // Sauvegarder les paramètres nettoyés
-                this.saveSettings(settings);
             }
 
             return settings;
         } catch (error) {
             console.error("Error validating settings:", error);
             return this.getDefaultSettings();
-        }
-    }
-
-    /**
-     * Save cleaned rooms to file
-     * @param {Array} rooms
-     */
-    saveRooms(rooms) {
-        try {
-            fs.writeFileSync(
-                this.roomsPath,
-                JSON.stringify(rooms, null, 4),
-                "utf8"
-            );
-        } catch (error) {
-            console.error("Error saving cleaned rooms:", error);
-        }
-    }
-
-    /**
-     * Save cleaned settings to file
-     * @param {object} settings
-     */
-    saveSettings(settings) {
-        try {
-            fs.writeFileSync(
-                this.settingsPath,
-                JSON.stringify(settings, null, 4),
-                "utf8"
-            );
-        } catch (error) {
-            console.error("Error saving cleaned settings:", error);
         }
     }
 

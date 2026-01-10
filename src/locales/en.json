@@ -236,6 +236,7 @@
         "activateBtn": "Activate",
         "noKey": "Don't have a license key yet?",
         "purchase": "Purchase PRO License",
+        "emailPlaceholder": "Purchase email",
         "free": {
             "title": "🆓 Free Version",
             "subtitle": "To discover EscapeTime",
@@ -253,7 +254,6 @@
             "feature4": "Custom theme editor",
             "feature5": "Priority support",
             "feature6": "Free lifetime updates",
-            "price": "€179",
             "period": "Perpetual License"
         }
     }

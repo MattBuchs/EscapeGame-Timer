@@ -46,7 +46,56 @@
                 "favorite": true,
                 "created": "2025-12-31T08:53:28.521Z",
                 "usageCount": 0
+            },
+            {
+                "text": "dfhbdfgbhdgf",
+                "category": "💡 1ère Salle",
+                "favorite": false,
+                "created": "2025-12-31T08:53:42.523Z",
+                "usageCount": 1
             }
         ]
+    },
+    {
+        "id": "btn-room_2",
+        "name": "Salle2",
+        "end_timer_sound": "Sherlock Holmes.mp3",
+        "notification_sound": "Message Notification Tone.mp3",
+        "ambient_sound": "Harry Potter - musique ambiance.mp3",
+        "hours": 1,
+        "minutes": 0,
+        "end_timer_volume": 0.5,
+        "notification_volume": 0.5,
+        "ambient_volume": 0.1,
+        "isPreferenceTimer": false,
+        "phrases": ["ethet tehehte tehhteheth tehethetht"]
+    },
+    {
+        "id": "btn-room_3",
+        "name": " fdbdffb",
+        "end_timer_sound": null,
+        "notification_sound": "Game Coin - Notification.mp3",
+        "ambient_sound": null,
+        "hours": 1,
+        "minutes": 24,
+        "end_timer_volume": 0.5,
+        "notification_volume": 0.5,
+        "ambient_volume": 0.2,
+        "isPreferenceTimer": false,
+        "phrases": []
+    },
+    {
+        "id": "btn-room_4",
+        "name": "golnkd",
+        "end_timer_sound": null,
+        "notification_sound": null,
+        "ambient_sound": null,
+        "hours": 1,
+        "minutes": 24,
+        "end_timer_volume": 0.5,
+        "notification_volume": 0.5,
+        "ambient_volume": 0.2,
+        "isPreferenceTimer": false,
+        "phrases": []
     }
 ]
