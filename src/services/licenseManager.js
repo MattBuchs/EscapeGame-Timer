@@ -64,10 +64,7 @@
             const combined = `${licenseSecret}:${machineId}`;
 
             // Ne pas mettre en cache car licenseSecret peut changer
-            return crypto
-                .createHash("sha256")
-                .update(combined)
-                .digest();
+            return crypto.createHash("sha256").update(combined).digest();
         }
 
         /**
@@ -434,6 +431,27 @@
         validateEmail(email) {
             const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return pattern.test(email);
+        }
+
+        /**
+         * Deactivate current license and reset to FREE
+         * @returns {Promise<boolean>}
+         */
+        async deactivateLicense() {
+            try {
+                // Réinitialiser à FREE
+                this.license = {
+                    type: LICENSE_TYPES.FREE,
+                };
+
+                // Sauvegarder
+                this.saveLicense();
+
+                return true;
+            } catch (error) {
+                console.error("Error deactivating license:", error);
+                return false;
+            }
         }
 
         /**

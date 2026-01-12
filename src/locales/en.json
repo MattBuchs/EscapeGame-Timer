@@ -3,7 +3,8 @@
         "home": "Home",
         "addTimer": "Add Timer",
         "settings": "Settings",
-        "activatePro": "Activate PRO version"
+        "activatePro": "Activate PRO version",
+        "contact": "Contact"
     },
     "home": {
         "title": "Home",
@@ -256,5 +257,33 @@
             "feature6": "Free lifetime updates",
             "period": "Perpetual License"
         }
+    },
+    "contact": {
+        "title": "Contact & Support",
+        "subtitle": "Need help or want to chat?",
+        "emailTitle": "Email",
+        "emailDesc": "For any questions, suggestions or technical issues",
+        "contactMe": "Contact me",
+        "websiteTitle": "Website",
+        "websiteDesc": "Visit my portfolio and discover my other projects",
+        "visitWebsite": "Visit website",
+        "licenseTitle": "License Management",
+        "licenseDesc": "Want to transfer your PRO license to another computer?",
+        "currentStatus": "Current status",
+        "transferLicense": "Transfer to another PC",
+        "transferInfo": "The transfer will release one usage and reset this installation to FREE version. You can then activate your license on the new PC.",
+        "licenseHelp": "Lost access to your old machine or need help?",
+        "contactSupport": "Contact me for assistance",
+        "modalTransferTitle": "Confirm license transfer",
+        "modalWarning": "Warning: This action will release one usage of your license and reset this installation to FREE version.",
+        "modalInfo": "You will then be able to use your license key on another computer. This operation is irreversible.",
+        "cancel": "Cancel",
+        "confirmTransfer": "Confirm transfer",
+        "processing": "Processing...",
+        "transferSuccess": "License transferred successfully! You can now use it on another PC.",
+        "transferError": "Transfer error. Please contact support.",
+        "errorNoLicense": "No active PRO license",
+        "licenseType": "Type",
+        "licenseEmail": "Email"
     }
 }

@@ -1,0 +1,345 @@
+// ===== CONTACT SECTION =====
+.contact {
+    padding: $spacing-xl;
+    max-width: 900px;
+    margin: 0 auto;
+
+    &__header {
+        margin-bottom: $spacing-2xl;
+        text-align: center;
+    }
+
+    &__title {
+        font-size: $font-size-3xl;
+        font-weight: $font-weight-bold;
+        color: $color-text-primary;
+        margin-bottom: $spacing-md;
+        font-family: $font-family-display;
+    }
+
+    &__subtitle {
+        font-size: $font-size-lg;
+        color: $color-text-secondary;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xl;
+    }
+
+    &__section {
+        background: $color-bg-card;
+        border: 1px solid $color-border;
+        border-radius: $border-radius-lg;
+        padding: $spacing-xl;
+        display: flex;
+        gap: $spacing-lg;
+        transition: all $transition-base;
+
+        &:hover {
+            border-color: $color-primary;
+            box-shadow: 0 4px 20px rgba($color-primary, 0.1);
+        }
+
+        &--license {
+            flex-direction: column;
+            gap: $spacing-md;
+
+            .contact__section-icon {
+                margin-bottom: $spacing-md;
+            }
+
+            .contact__section-content {
+                padding: 0;
+            }
+        }
+    }
+
+    &__section-icon {
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+            135deg,
+            $color-primary,
+            $color-primary-light
+        );
+        border-radius: $border-radius-md;
+
+        svg {
+            width: 30px;
+            height: 30px;
+            stroke: white;
+        }
+    }
+
+    &__section-content {
+        flex: 1;
+        padding-top: $spacing-xs;
+
+        h3 {
+            font-size: $font-size-xl;
+            font-weight: $font-weight-semibold;
+            color: $color-text-primary;
+            margin-bottom: $spacing-sm;
+        }
+
+        p {
+            font-size: $font-size-base;
+            color: $color-text-secondary;
+            margin-bottom: $spacing-lg;
+            line-height: 1.6;
+        }
+    }
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: $spacing-sm;
+        padding: $spacing-sm $spacing-lg;
+        border-radius: $border-radius-md;
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+        cursor: pointer;
+        transition: all $transition-base;
+        border: none;
+
+        a {
+            text-decoration: none;
+        }
+
+        svg {
+            width: 18px;
+            height: 18px;
+            transition: transform $transition-base;
+        }
+
+        &:hover svg {
+            transform: translateX(2px);
+        }
+
+        &--primary {
+            background: $color-primary;
+            color: white;
+
+            &:hover {
+                background: $color-primary-light;
+                box-shadow: 0 4px 12px rgba($color-primary, 0.3);
+            }
+        }
+
+        &--secondary {
+            background: $color-bg-accent;
+            color: $color-text-primary;
+            border: 1px solid $color-border;
+
+            &:hover {
+                background: $color-bg-accent-hover;
+                border-color: $color-primary;
+            }
+        }
+
+        &--warning {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+            width: 100%;
+            justify-content: center;
+            padding: $spacing-md $spacing-lg;
+            margin-bottom: $spacing-md;
+
+            &:hover {
+                box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+                transform: translateY(-2px);
+            }
+
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                transform: none;
+            }
+        }
+
+        &--danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: $spacing-md $spacing-xl;
+
+            &:hover {
+                box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+            }
+        }
+
+        &--link {
+            background: transparent;
+            color: $color-text-primary !important;
+            padding: $spacing-xs $spacing-md;
+            text-decoration: none;
+
+            &:hover {
+                color: $color-primary-light;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    // Supprimer le soulignement des liens
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &__license-info {
+        background: $color-bg-accent;
+        border-radius: $border-radius-md;
+        padding: $spacing-lg;
+        margin: $spacing-lg 0;
+    }
+
+    &__license-status {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        margin-bottom: $spacing-sm;
+        font-size: $font-size-base;
+        color: $color-text-secondary;
+    }
+
+    &__license-badge {
+        padding: $spacing-xs $spacing-md;
+        border-radius: $border-radius-sm;
+        font-weight: $font-weight-semibold;
+        font-size: $font-size-sm;
+
+        &.free {
+            background: rgba(156, 163, 175, 0.2);
+            color: #9ca3af;
+        }
+
+        &.pro {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        &.business {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+        }
+    }
+
+    &__license-email {
+        font-size: $font-size-sm;
+        color: $color-text-secondary;
+        font-family: monospace;
+    }
+
+    &__license-actions {
+        margin: $spacing-lg 0;
+    }
+
+    &__info-box {
+        display: flex;
+        gap: $spacing-md;
+        background: rgba($color-primary, 0.1);
+        border: 1px solid rgba($color-primary, 0.3);
+        border-radius: $border-radius-md;
+        padding: $spacing-md;
+        margin-top: $spacing-md;
+
+        svg {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            stroke: $color-primary;
+            margin-top: 2px;
+        }
+
+        p {
+            margin: 0;
+            font-size: $font-size-sm;
+            color: $color-text-primary;
+            line-height: 1.5;
+        }
+    }
+
+    &__help {
+        margin-top: $spacing-xl;
+        padding-top: $spacing-xl;
+        border-top: 1px solid $color-border;
+        text-align: center;
+
+        p {
+            margin-bottom: $spacing-md;
+            color: $color-text-secondary;
+        }
+    }
+}
+
+// Modal de transfert
+.modal__content--transfer {
+    max-width: 500px;
+
+    .modal__warning {
+        display: flex;
+        gap: $spacing-md;
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: $border-radius-md;
+        padding: $spacing-md;
+        margin-bottom: $spacing-lg;
+
+        svg {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            stroke: #f59e0b;
+        }
+
+        p {
+            margin: 0;
+            font-size: $font-size-sm;
+            color: $color-text-primary;
+            line-height: 1.5;
+        }
+    }
+
+    .modal__info {
+        margin-bottom: $spacing-lg;
+
+        p {
+            font-size: $font-size-sm;
+            color: $color-text-secondary;
+            line-height: 1.5;
+        }
+    }
+
+    .modal__license-details {
+        background: $color-bg-accent;
+        border-radius: $border-radius-md;
+        padding: $spacing-lg;
+        margin-bottom: $spacing-lg;
+        font-family: monospace;
+        font-size: $font-size-sm;
+        color: $color-text-secondary;
+    }
+}
+
+// Animation spinner
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}

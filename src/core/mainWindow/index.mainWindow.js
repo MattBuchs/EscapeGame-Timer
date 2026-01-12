@@ -22,6 +22,7 @@ import {
 } from "./settings/themeSelector.js";
 import { initSecondWindowInfo } from "./UI/secondWindowInfo.js";
 import licenseModalObj from "./settings/licenseModal.js";
+import contactObj from "./contact/contact.js";
 import utils from "../utils.js";
 
 // Fix resource paths for production
@@ -103,12 +104,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialisation de la modal de licence
     setTimeout(() => {
         licenseModalObj.init();
+        contactObj.init();
     }, 500);
 });
 
 // Initialisation du Timer
 timerObj.init();
 messagesObj.init();
+
+// Exposer messagesObj globalement
+window.messagesObj = messagesObj;
 
 // Initialisation des fonctionnalités liées aux Timers
 // ⚠️ roomsObj.init() est appelé APRÈS la validation de la licence (voir licenseManager.init().then())

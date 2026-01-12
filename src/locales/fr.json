@@ -3,7 +3,8 @@
         "home": "Accueil",
         "addTimer": "Ajouter un timer",
         "settings": "Paramètres",
-        "activatePro": "Activer la version PRO"
+        "activatePro": "Activer la version PRO",
+        "contact": "Contact"
     },
     "home": {
         "title": "Accueil",
@@ -256,5 +257,33 @@
             "feature6": "Mises à jour gratuites à vie",
             "period": "Licence perpétuelle"
         }
+    },
+    "contact": {
+        "title": "Contact & Support",
+        "subtitle": "Besoin d'aide ou envie de discuter ?",
+        "emailTitle": "Email",
+        "emailDesc": "Pour toute question, suggestion ou problème technique",
+        "contactMe": "Me contacter",
+        "websiteTitle": "Site Web",
+        "websiteDesc": "Visitez mon portfolio et découvrez mes autres projets",
+        "visitWebsite": "Visiter le site",
+        "licenseTitle": "Gestion de Licence",
+        "licenseDesc": "Vous souhaitez transférer votre licence PRO vers un autre ordinateur ?",
+        "currentStatus": "Statut actuel",
+        "transferLicense": "Transférer vers un autre PC",
+        "transferInfo": "Le transfert libérera une utilisation et réinitialisera cette installation en version FREE. Vous pourrez ensuite activer votre licence sur le nouveau PC.",
+        "licenseHelp": "Vous avez perdu l'accès à votre ancienne machine ou besoin d'aide ?",
+        "contactSupport": "Contactez-moi pour assistance",
+        "modalTransferTitle": "Confirmer le transfert de licence",
+        "modalWarning": "Attention : Cette action va libérer une utilisation de votre licence et réinitialiser cette installation en version FREE.",
+        "modalInfo": "Vous pourrez ensuite utiliser votre clé de licence sur un autre ordinateur. Cette opération est irréversible.",
+        "cancel": "Annuler",
+        "confirmTransfer": "Confirmer le transfert",
+        "processing": "Traitement...",
+        "transferSuccess": "Licence transférée avec succès ! Vous pouvez maintenant l'utiliser sur un autre PC.",
+        "transferError": "Erreur lors du transfert. Veuillez contacter le support.",
+        "errorNoLicense": "Aucune licence PRO active",
+        "licenseType": "Type",
+        "licenseEmail": "Email"
     }
 }
