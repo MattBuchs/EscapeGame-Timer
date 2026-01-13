@@ -177,22 +177,96 @@
         getMachineId() {
             if (this.machineId) return this.machineId;
 
-            // Créer un ID unique basé sur les informations de la machine
-            const machineInfo = {
-                hostname: os.hostname(),
-                platform: os.platform(),
-                arch: os.arch(),
-                cpus: os.cpus()[0]?.model || "unknown",
-            };
+            try {
+                const { execSync } = require("child_process");
 
-            // Générer un hash unique
-            this.machineId = crypto
-                .createHash("sha256")
-                .update(JSON.stringify(machineInfo))
-                .digest("hex")
-                .substring(0, 32);
+                // Créer un ID unique basé sur les informations de la machine
+                const machineInfo = {
+                    hostname: os.hostname(),
+                    platform: os.platform(),
+                    arch: os.arch(),
+                    cpus: os.cpus()[0]?.model || "unknown",
+                    totalMemory: os.totalmem(), // RAM totale (plus unique)
+                };
 
-            return this.machineId;
+                // Ajouter des identifiants système selon la plateforme
+                try {
+                    if (os.platform() === "win32") {
+                        // Windows: UUID BIOS (très unique)
+                        const uuid = execSync("wmic csproduct get UUID", {
+                            encoding: "utf-8",
+                        })
+                            .split("\n")[1]
+                            ?.trim();
+                        if (uuid && uuid !== "UUID") {
+                            machineInfo.systemUUID = uuid;
+                        }
+
+                        // Numéro de série du disque principal
+                        const diskSerial = execSync(
+                            "wmic diskdrive get SerialNumber",
+                            { encoding: "utf-8" }
+                        )
+                            .split("\n")[1]
+                            ?.trim();
+                        if (diskSerial) {
+                            machineInfo.diskSerial = diskSerial;
+                        }
+                    } else if (os.platform() === "darwin") {
+                        // macOS: Hardware UUID
+                        const uuid = execSync(
+                            "ioreg -rd1 -c IOPlatformExpertDevice | grep IOPlatformUUID",
+                            { encoding: "utf-8" }
+                        )
+                            .split("=")[1]
+                            ?.trim()
+                            .replace(/"/g, "");
+                        if (uuid) {
+                            machineInfo.systemUUID = uuid;
+                        }
+                    } else if (os.platform() === "linux") {
+                        // Linux: Machine ID
+                        const machineId = execSync(
+                            "cat /etc/machine-id || cat /var/lib/dbus/machine-id",
+                            { encoding: "utf-8" }
+                        ).trim();
+                        if (machineId) {
+                            machineInfo.systemUUID = machineId;
+                        }
+                    }
+                } catch (cmdError) {
+                    console.warn(
+                        "Could not retrieve system identifiers:",
+                        cmdError.message
+                    );
+                    // Continue avec les infos basiques
+                }
+
+                // Générer un hash SHA-256 unique
+                this.machineId = crypto
+                    .createHash("sha256")
+                    .update(JSON.stringify(machineInfo))
+                    .digest("hex");
+
+                return this.machineId;
+            } catch (error) {
+                console.error("Error generating machineId:", error);
+
+                // Fallback : au moins hostname + timestamp + random
+                const fallbackInfo = {
+                    hostname: os.hostname(),
+                    platform: os.platform(),
+                    random: crypto.randomBytes(16).toString("hex"),
+                    timestamp: Date.now(),
+                };
+
+                this.machineId = crypto
+                    .createHash("sha256")
+                    .update(JSON.stringify(fallbackInfo))
+                    .digest("hex");
+
+                return this.machineId;
+            }
         }
 
         /**
@@ -219,6 +293,33 @@
                         );
                         this.createFreeLicense();
                         return;
+                    }
+
+                    // Vérifier le machineId en ligne (si connexion disponible)
+                    if (this.isPro()) {
+                        const verification = await this.verifyMachineIdOnline();
+
+                        if (verification.shouldDeactivate) {
+                            console.error(
+                                "License deactivated: machineId mismatch"
+                            );
+                            this.createFreeLicense();
+
+                            // Afficher un message et recharger l'app
+                            if (typeof window !== "undefined") {
+                                setTimeout(() => {
+                                    alert(
+                                        "Votre licence a été désactivée car elle est utilisée sur une autre machine.\n\n" +
+                                            "Si vous souhaitez l'utiliser sur cette machine, veuillez d'abord la transférer depuis l'ancienne machine " +
+                                            "via la section Contact > Gestion de licence."
+                                    );
+
+                                    // Recharger l'application pour appliquer les changements
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                            return;
+                        }
                     }
                 }
             } catch (error) {
@@ -304,6 +405,81 @@
         }
 
         /**
+         * Verify machineId with server at startup
+         * Only runs if internet is available, doesn't block if offline
+         * @returns {Promise<{valid: boolean, shouldDeactivate: boolean}>}
+         */
+        async verifyMachineIdOnline() {
+            // Ne vérifier que pour les licences PRO
+            if (!this.isPro() || !this.license?.email) {
+                return { valid: true, shouldDeactivate: false };
+            }
+
+            try {
+                const machineId = this.getMachineId();
+                const licenseKey = this.getDecryptedLicenseKey();
+
+                if (!licenseKey) {
+                    console.warn("No license key to verify");
+                    return { valid: true, shouldDeactivate: false };
+                }
+
+                // Appel à l'API pour vérifier le machineId
+                const url = new URL(API_URL + "/verify-machine");
+                url.searchParams.append("licenseKey", licenseKey);
+                url.searchParams.append("email", this.license.email);
+                url.searchParams.append("machineId", machineId);
+
+                const response = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    // Timeout de 5 secondes pour ne pas bloquer
+                    signal: AbortSignal.timeout(5000),
+                });
+
+                if (!response.ok) {
+                    // Si erreur serveur (500, etc.), ne pas désactiver
+                    if (response.status >= 500) {
+                        console.warn(
+                            "Server error during machineId verification, skipping"
+                        );
+                        return { valid: true, shouldDeactivate: false };
+                    }
+
+                    // Si 403/401, la machine n'est pas autorisée
+                    if (response.status === 403 || response.status === 401) {
+                        console.error(
+                            "MachineId not authorized for this license"
+                        );
+                        return { valid: false, shouldDeactivate: true };
+                    }
+
+                    // Autres erreurs, laisser passer
+                    return { valid: true, shouldDeactivate: false };
+                }
+
+                const data = await response.json();
+
+                if (data.valid === false) {
+                    console.error("MachineId verification failed:", data.error);
+                    return { valid: false, shouldDeactivate: true };
+                }
+
+                return { valid: true, shouldDeactivate: false };
+            } catch (error) {
+                // Erreur réseau (pas de connexion, timeout, etc.)
+                // Ne pas bloquer l'utilisateur
+                console.warn(
+                    "Could not verify machineId (offline or timeout):",
+                    error.message
+                );
+                return { valid: true, shouldDeactivate: false };
+            }
+        }
+
+        /**
          * Activate a PRO license with a key and email
          * @param {string} licenseKey - The license key to activate
          * @param {string} email - The email associated with the license
@@ -327,6 +503,9 @@
             }
 
             try {
+                // Récupérer le machineId pour l'envoyer au serveur
+                const machineId = this.getMachineId();
+
                 // Valider la clé via l'API (POST consomme une utilisation)
                 const response = await fetch(API_URL + "/validate-license", {
                     method: "POST",
@@ -336,6 +515,7 @@
                     body: JSON.stringify({
                         licenseKey: licenseKey,
                         email: email,
+                        machineId, // 🔒 Envoyer le machineId pour stockage
                     }),
                 });
 

@@ -1,5 +1,5 @@
 {
-    "name": "escape-time",
+    "name": "gamemaster-os",
     "version": "1.0.0",
     "description": "Un Timer conçue pour les escape game, ils peuvent gérer le temps de jeu la musique... Il y a 2 fenêtres une pour le maitre du jeu et une pour les joueurs.",
     "main": "main.js",
@@ -18,8 +18,8 @@
         "release": "npm run prebuild && electron-builder --win --publish never && npm run dev-mode"
     },
     "build": {
-        "appId": "com.mattbuchs.escapetime",
-        "productName": "EscapeTime",
+        "appId": "com.mattbuchs.gamemasteros",
+        "productName": "GameMaster OS",
         "copyright": "Copyright © 2026 Matt Buchs",
         "icon": "./public/img/AngelsGame.ico",
         "win": {
@@ -40,7 +40,7 @@
             "allowToChangeInstallationDirectory": true,
             "createDesktopShortcut": true,
             "createStartMenuShortcut": true,
-            "shortcutName": "EscapeTime",
+            "shortcutName": "GameMaster OS",
             "multiLanguageInstaller": true,
             "installerLanguages": [
                 "en_US",

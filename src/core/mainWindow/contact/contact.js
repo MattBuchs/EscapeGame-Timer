@@ -195,9 +195,14 @@ const contactObj = {
         try {
             const licenseInfo = window.licenseManager.getLicenseInfo();
             const licenseKey = window.licenseManager.getDecryptedLicenseKey();
+            const machineId = window.licenseManager.getMachineId();
 
             if (!licenseKey) {
                 throw new Error("Clé de licence introuvable");
+            }
+
+            if (!machineId) {
+                throw new Error("Impossible d'identifier cette machine");
             }
 
             // Importer config pour récupérer l'URL de l'API
@@ -215,6 +220,8 @@ const contactObj = {
                 body: JSON.stringify({
                     licenseKey: licenseKey,
                     email: licenseInfo.email,
+                    machineId: machineId,
+                    timestamp: Date.now(),
                 }),
             });
 

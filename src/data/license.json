@@ -1,3 +1,8 @@
 {
-    "type": "free"
+    "type": "free",
+    "activatedAt": "2026-01-13T20:15:25.698Z",
+    "key": null,
+    "plan": null,
+    "email": null,
+    "signature": null
 }
