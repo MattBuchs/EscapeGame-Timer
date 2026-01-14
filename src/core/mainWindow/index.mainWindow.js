@@ -154,5 +154,10 @@ window.resetCustomTheme = resetCustomTheme;
 manageNavbarObj.init();
 manageTabsObj.init();
 
+// Initialiser l'adaptateur de logo
+if (typeof window.initLogoAdapter === "function") {
+    window.initLogoAdapter();
+}
+
 // Initialisation de l'info pour la fenêtre secondaire
 initSecondWindowInfo();

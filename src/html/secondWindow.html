@@ -13,7 +13,16 @@
     <body data-theme="neon">
         <div class="timer2">
             <section class="timer2__logo">
-                <img src="../../public/img/Logo.png" alt="" />
+                <img
+                    src="../../public/img/logo_gamemaster-og_white.png"
+                    alt=""
+                    class="logo-white"
+                />
+                <img
+                    src="../../public/img/logo_gamemaster-og_black.png"
+                    alt=""
+                    class="logo-black"
+                />
             </section>
             <section class="timer2__middle">
                 <p id="timer-roomNegative" class="hidden">1h : 0m : 0s</p>
@@ -26,6 +35,21 @@
             </section>
         </div>
         <script src="../core/secondWindow/i18n.js"></script>
+        <script src="../core/logoAdapter.js"></script>
+        <script>
+            // Initialiser l'adaptateur de logo quand le DOM est chargé
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", () => {
+                    if (typeof initLogoAdapter === "function") {
+                        initLogoAdapter();
+                    }
+                });
+            } else {
+                if (typeof initLogoAdapter === "function") {
+                    initLogoAdapter();
+                }
+            }
+        </script>
         <script
             type="module"
             src="../core/secondWindow/index.secondWindow.js"

@@ -100,11 +100,6 @@
             if (!encryptedKey) return null;
 
             try {
-                // Si la clé ne contient pas ":", c'est une ancienne version non chiffrée
-                if (!encryptedKey.includes(":")) {
-                    return encryptedKey;
-                }
-
                 const key = this.getEncryptionKey();
                 const parts = encryptedKey.split(":");
                 const iv = Buffer.from(parts[0], "hex");
@@ -129,19 +124,31 @@
         /**
          * Generate a signature for license data to prevent tampering
          * @param {object} data - License data to sign
+         * @param {string} plainKey - Optional plain key (if already decrypted)
          * @returns {string}
          */
-        generateSignature(data) {
+        generateSignature(data, plainKey = null) {
             // Utiliser la licenseSecret unique de la licence
             const licenseSecret =
                 data.licenseSecret ||
                 this.license?.licenseSecret ||
                 "default-fallback";
 
-            // Déchiffrer la clé pour la signature
-            const plainKey = this.decryptLicenseKey(data.key);
+            // Si plainKey fourni, l'utiliser directement
+            // Sinon détecter si la clé est chiffrée (contient ':') ou en clair
+            let keyToUse = plainKey;
+            if (!keyToUse && data.key) {
+                if (data.key.includes(":")) {
+                    // Clé chiffrée, la déchiffrer
+                    keyToUse = this.decryptLicenseKey(data.key);
+                } else {
+                    // Clé en clair
+                    keyToUse = data.key;
+                }
+            }
+
             const payload = JSON.stringify({
-                key: plainKey,
+                key: keyToUse,
                 email: data.email,
                 plan: data.plan,
                 activatedAt: data.activatedAt,
@@ -190,30 +197,48 @@
                 };
 
                 // Ajouter des identifiants système selon la plateforme
-                try {
-                    if (os.platform() === "win32") {
-                        // Windows: UUID BIOS (très unique)
+                if (os.platform() === "win32") {
+                    // Windows: Essayer plusieurs méthodes
+                    try {
                         const uuid = execSync("wmic csproduct get UUID", {
                             encoding: "utf-8",
+                            stdio: ["ignore", "pipe", "ignore"],
                         })
                             .split("\n")[1]
                             ?.trim();
                         if (uuid && uuid !== "UUID") {
                             machineInfo.systemUUID = uuid;
                         }
+                    } catch (e) {
+                        // wmic non disponible, ignorer
+                    }
 
-                        // Numéro de série du disque principal
+                    try {
                         const diskSerial = execSync(
                             "wmic diskdrive get SerialNumber",
-                            { encoding: "utf-8" }
+                            {
+                                encoding: "utf-8",
+                                stdio: ["ignore", "pipe", "ignore"],
+                            }
                         )
                             .split("\n")[1]
                             ?.trim();
-                        if (diskSerial) {
+                        if (diskSerial && diskSerial !== "SerialNumber") {
                             machineInfo.diskSerial = diskSerial;
                         }
-                    } else if (os.platform() === "darwin") {
-                        // macOS: Hardware UUID
+                    } catch (e) {
+                        // wmic non disponible, ignorer
+                    }
+
+                    // Fallback Windows : utiliser le nom d'utilisateur
+                    try {
+                        machineInfo.username = os.userInfo().username;
+                    } catch (e) {
+                        // Ignorer
+                    }
+                } else if (os.platform() === "darwin") {
+                    // macOS: Hardware UUID
+                    try {
                         const uuid = execSync(
                             "ioreg -rd1 -c IOPlatformExpertDevice | grep IOPlatformUUID",
                             { encoding: "utf-8" }
@@ -224,8 +249,12 @@
                         if (uuid) {
                             machineInfo.systemUUID = uuid;
                         }
-                    } else if (os.platform() === "linux") {
-                        // Linux: Machine ID
+                    } catch (e) {
+                        // Ignorer
+                    }
+                } else if (os.platform() === "linux") {
+                    // Linux: Machine ID
+                    try {
                         const machineId = execSync(
                             "cat /etc/machine-id || cat /var/lib/dbus/machine-id",
                             { encoding: "utf-8" }
@@ -233,13 +262,9 @@
                         if (machineId) {
                             machineInfo.systemUUID = machineId;
                         }
+                    } catch (e) {
+                        // Ignorer
                     }
-                } catch (cmdError) {
-                    console.warn(
-                        "Could not retrieve system identifiers:",
-                        cmdError.message
-                    );
-                    // Continue avec les infos basiques
                 }
 
                 // Générer un hash SHA-256 unique
@@ -425,16 +450,17 @@
                 }
 
                 // Appel à l'API pour vérifier le machineId
-                const url = new URL(API_URL + "/verify-machine");
-                url.searchParams.append("licenseKey", licenseKey);
-                url.searchParams.append("email", this.license.email);
-                url.searchParams.append("machineId", machineId);
-
-                const response = await fetch(url, {
-                    method: "GET",
+                const response = await fetch(API_URL + "/verify-machine", {
+                    method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
+                    body: JSON.stringify({
+                        licenseKey: licenseKey,
+                        email: this.license.email,
+                        machineId: machineId,
+                        timestamp: Date.now(),
+                    }),
                     // Timeout de 5 secondes pour ne pas bloquer
                     signal: AbortSignal.timeout(5000),
                 });
@@ -567,8 +593,11 @@
                 // pour que getEncryptionKey() utilise la bonne licenseSecret
                 this.license = licenseData;
 
-                // Générer une signature avec la clé en clair
-                this.license.signature = this.generateSignature(this.license);
+                // Générer une signature avec la clé en clair (passer en paramètre)
+                this.license.signature = this.generateSignature(
+                    this.license,
+                    licenseKey
+                );
 
                 // Maintenant chiffrer la clé
                 this.license.key = this.encryptLicenseKey(licenseKey);

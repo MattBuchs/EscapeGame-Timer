@@ -145,6 +145,13 @@ function applyCustomTheme(theme) {
         theme.colors.bgCard
     } 0%, ${adjustColor(theme.colors.bgCard, 10)} 100%)`;
     root.style.setProperty("--gradient-card", gradient);
+
+    // Déclencher la mise à jour du logo après l'application du thème
+    setTimeout(() => {
+        if (typeof window.updateLogoBasedOnBackground === "function") {
+            window.updateLogoBasedOnBackground();
+        }
+    }, 150);
 }
 
 /**

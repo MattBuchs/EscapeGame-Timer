@@ -1,0 +1,50 @@
+// ============================================
+// LOGOS ADAPTATIFS SELON THÈME
+// ============================================
+
+// Par défaut, masquer le logo noir (thèmes sombres)
+.logo-black {
+    display: none !important;
+}
+
+.logo-white {
+    display: block !important;
+}
+
+// Pour le thème Light : afficher le logo noir, masquer le blanc
+[data-theme="light"] {
+    .logo-black {
+        display: block !important;
+    }
+
+    .logo-white {
+        display: none !important;
+    }
+}
+
+// Pour les logos sur fond principal (secondWindow, sectionRoom)
+body.light-background {
+    .timer2__logo,
+    .timer__top--img {
+        .logo-black {
+            display: block !important;
+        }
+
+        .logo-white {
+            display: none !important;
+        }
+    }
+}
+
+// Pour le logo de la navbar (sur fond de carte)
+body.light-navbar {
+    .header__logo {
+        .logo-black {
+            display: block !important;
+        }
+
+        .logo-white {
+            display: none !important;
+        }
+    }
+}

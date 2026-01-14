@@ -580,6 +580,37 @@ table {
   box-sizing: border-box;
 }
 
+.logo-black {
+  display: none !important;
+}
+
+.logo-white {
+  display: block !important;
+}
+
+[data-theme=light] .logo-black {
+  display: block !important;
+}
+[data-theme=light] .logo-white {
+  display: none !important;
+}
+
+body.light-background .timer2__logo .logo-black,
+body.light-background .timer__top--img .logo-black {
+  display: block !important;
+}
+body.light-background .timer2__logo .logo-white,
+body.light-background .timer__top--img .logo-white {
+  display: none !important;
+}
+
+body.light-navbar .header__logo .logo-black {
+  display: block !important;
+}
+body.light-navbar .header__logo .logo-white {
+  display: none !important;
+}
+
 .header {
   position: relative;
   min-height: 100vh;
