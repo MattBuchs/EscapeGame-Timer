@@ -150,6 +150,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: $shadow-sm, 0 0 15px $color-success-glow;
             font-weight: $font-weight-semibold;
+            margin-top: 0.8rem;
 
             &:hover {
                 box-shadow: $shadow-md, 0 0 25px $color-success-glow;
@@ -159,8 +160,6 @@
         &--preference {
             display: flex;
             align-items: center;
-            gap: $spacing-md;
-            padding: $spacing-md;
             background: $color-bg-section;
             border-radius: $radius-md;
             transition: all $transition-base;
@@ -182,6 +181,9 @@
                 font-size: $font-size-base;
                 color: $color-text-secondary;
                 user-select: none;
+                width: 100%;
+                height: 100%;
+                padding: $spacing-md;
 
                 &:hover {
                     color: $color-text-primary;

@@ -26,7 +26,7 @@ const utilsSettingsObj = {
             inputsRadio.forEach((input) => {
                 input.disabled = true;
                 input.parentElement.style.opacity = "0.5";
-                input.parentElement.title = "🔒 Version PRO requise";
+                input.parentElement.title = "🔒 Version PRO/BUISNESS requise";
             });
         }
 

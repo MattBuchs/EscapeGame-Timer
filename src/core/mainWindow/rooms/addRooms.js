@@ -58,7 +58,7 @@ const addRoomObj = {
                     ambientSoundList.disabled = true;
                     ambientSoundList.parentElement.style.opacity = "0.5";
                     ambientSoundList.parentElement.title =
-                        "🔒 Version PRO requise";
+                        "🔒 Version PRO/BUISNESS requise";
                 }
             }
         });

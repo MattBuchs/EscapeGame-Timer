@@ -142,18 +142,16 @@ function createThemeSelectorUI() {
             <button 
                 class="theme-option ${
                     currentTheme === themeKey ? "active" : ""
-                } ${isLocked ? "locked" : ""}" 
-                data-theme="${themeKey}"
+                }${isLocked ? "locked" : ""}" 
                 title="${
                     isLocked
-                        ? `🔒 Version PRO requise`
+                        ? `🔒 Version PRO/BUISNESS requise`
                         : `Appliquer le thème ${THEMES[themeKey].name}`
                 }"
-                ${isLocked ? "disabled" : ""}
             >
                 <span class="theme-icon">${THEMES[themeKey].icon}</span>
                 <span class="theme-name">${THEMES[themeKey].name}</span>
-                ${isLocked ? '<span class="pro-badge">PRO</span>' : ""}
+                ${isLocked ? '<span class="pro-badge">🔒</span>' : ""}
             </button>
         `;
         })
@@ -171,7 +169,7 @@ function createThemeSelectorUI() {
             // Vérifier si le thème est verrouillé
             if (button.classList.contains("locked")) {
                 notification(
-                    "🔒 Ce thème est réservé à la version PRO. Passez à la version PRO pour débloquer tous les thèmes !",
+                    "🔒 Ce thème est est indisponible. Passez à la version PRO/BUISNESS pour débloquer tous les thèmes !",
                     "error"
                 );
                 return;

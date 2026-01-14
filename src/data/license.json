@@ -1,9 +1,3 @@
 {
-    "type": "pro",
-    "activatedAt": "2026-01-14T09:59:06.088Z",
-    "key": "d809a85eff31c7709aff13e329e39b8f:0be592fc79e6d052dbdae57f46eda6fbd141a5ca0d75e308a09c865543af0b46",
-    "plan": "PRO",
-    "email": "mattbuchs25@gmail.com",
-    "licenseSecret": "2f0d19cf6581af5ce4a98be92eb5798773c25c0cde1acee51ca02c2a3c7b624c",
-    "signature": "14112ba1aea39c0855142593a0493fa0671d1b950253866e397dd242ea8cc367"
+    "type": "free"
 }

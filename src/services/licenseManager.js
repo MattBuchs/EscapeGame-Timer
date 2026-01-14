@@ -49,6 +49,7 @@
             this.machineId = null;
             this.lastVerificationTime = null;
             this.encryptionKey = null;
+            this.initialized = false; // Flag pour éviter l'init multiple
         }
 
         /**
@@ -298,6 +299,11 @@
          * Initialize license manager
          */
         async init() {
+            // Éviter l'initialisation multiple
+            if (this.initialized) {
+                return;
+            }
+
             try {
                 // Get license file path from main process
                 this.licensePath = await ipcRenderer.invoke(
@@ -347,9 +353,13 @@
                         }
                     }
                 }
+
+                // Marquer comme initialisé
+                this.initialized = true;
             } catch (error) {
                 console.error("Error initializing license manager:", error);
                 this.createFreeLicense();
+                this.initialized = true;
             }
         }
 
