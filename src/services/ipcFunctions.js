@@ -154,6 +154,11 @@ function setupIPCFunctions(windows) {
         }
     });
 
+    // Ouvrir une URL externe dans le navigateur par défaut
+    ipcMain.on("open-external-url", (_, url) => {
+        require("electron").shell.openExternal(url);
+    });
+
     ipcMain.handle("get-logo-settings", async () => {
         try {
             const settingsPath = getDataPath("settings.json");
