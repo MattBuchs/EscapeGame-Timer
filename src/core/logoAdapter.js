@@ -71,35 +71,18 @@ function updateLogoBasedOnBackground() {
         bgCard || bgDark || bodyStyle.backgroundColor
     );
 
-    console.log(
-        "Logo Adapter - Fond principal (bgDark):",
-        bgDark,
-        "- Clair?",
-        isDarkBgLight
-    );
-    console.log(
-        "Logo Adapter - Fond carte (bgCard):",
-        bgCard,
-        "- Clair?",
-        isCardBgLight
-    );
-
     // Appliquer les classes appropriées
     if (isDarkBgLight) {
         document.body.classList.add("light-background");
-        console.log("Logo Adapter - Fond principal clair → logo noir");
     } else {
         document.body.classList.remove("light-background");
-        console.log("Logo Adapter - Fond principal sombre → logo blanc");
     }
 
     // Classe spécifique pour la navbar qui utilise bgCard
     if (isCardBgLight) {
         document.body.classList.add("light-navbar");
-        console.log("Logo Adapter - Navbar claire → logo noir");
     } else {
         document.body.classList.remove("light-navbar");
-        console.log("Logo Adapter - Navbar sombre → logo blanc");
     }
 }
 
@@ -107,8 +90,6 @@ function updateLogoBasedOnBackground() {
  * Initialise l'adaptateur de logo
  */
 function initLogoAdapter() {
-    console.log("Logo Adapter - Initialisation");
-
     // Vérifier immédiatement
     updateLogoBasedOnBackground();
 
@@ -119,7 +100,6 @@ function initLogoAdapter() {
                 mutation.type === "attributes" &&
                 mutation.attributeName === "data-theme"
             ) {
-                console.log("Logo Adapter - Changement de thème détecté");
                 // Attendre que les styles CSS soient appliqués
                 setTimeout(updateLogoBasedOnBackground, 100);
             }
@@ -138,9 +118,6 @@ function initLogoAdapter() {
                 mutation.type === "attributes" &&
                 mutation.attributeName === "style"
             ) {
-                console.log(
-                    "Logo Adapter - Changement de style inline détecté"
-                );
                 // Petit délai pour laisser tous les styles s'appliquer
                 setTimeout(updateLogoBasedOnBackground, 100);
             }

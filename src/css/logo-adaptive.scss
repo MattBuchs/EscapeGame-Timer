@@ -48,3 +48,16 @@ body.light-navbar {
         }
     }
 }
+
+// Masquer les logos par défaut quand un logo personnalisé est actif
+// Spécificité élevée pour surcharger toutes les autres règles
+body .logo-custom-active .logo-white,
+body .logo-custom-active .logo-black,
+body.light-background .logo-custom-active .logo-white,
+body.light-background .logo-custom-active .logo-black,
+body.light-navbar .logo-custom-active .logo-white,
+body.light-navbar .logo-custom-active .logo-black,
+[data-theme="light"] .logo-custom-active .logo-white,
+[data-theme="light"] .logo-custom-active .logo-black {
+    display: none !important;
+}

@@ -47,9 +47,17 @@
         margin-bottom: $spacing-2xl;
         border: 1px solid $color-border-light;
         background: $gradient-card;
+        position: relative;
 
         &:hover {
             transform: none;
+        }
+
+        // Badge premium dans la section
+        > .premium-badge {
+            position: absolute;
+            top: $spacing-lg;
+            right: $spacing-lg;
         }
 
         h3 {
@@ -58,6 +66,7 @@
             color: $color-text-primary;
             margin-bottom: $spacing-xl;
             padding-bottom: $spacing-md;
+            padding-right: $spacing-3xl; // Espace pour le badge
             border-bottom: 2px solid $color-border;
             display: flex;
             align-items: center;
@@ -222,4 +231,129 @@
             }
         }
     }
+}
+
+// ===== LOGO SETTINGS =====
+.logo-settings {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2xl;
+
+    &__option {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        padding: $spacing-lg;
+        background: $color-bg-section;
+        border-radius: $radius-md;
+        border: 1px solid $color-border;
+        transition: all $transition-base;
+
+        &:hover {
+            border-color: $color-primary;
+            background: $color-bg-section-hover;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: $color-primary;
+        }
+
+        label {
+            flex: 1;
+            cursor: pointer;
+            font-size: $font-size-base;
+            color: $color-text-primary;
+        }
+    }
+
+    &__custom {
+        padding: $spacing-xl;
+        background: $color-bg-section;
+        border-radius: $radius-lg;
+        border: 1px solid $color-border;
+
+        h4 {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-semibold;
+            color: $color-text-primary;
+            margin-bottom: $spacing-sm;
+        }
+    }
+
+    &__description {
+        color: $color-text-muted;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-xl;
+    }
+
+    &__upload {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-lg;
+    }
+}
+
+.logo-drop-zone {
+    min-height: 150px;
+
+    &.dragover {
+        border-color: $color-primary !important;
+        background: $color-bg-accent !important;
+        transform: scale(1.02);
+    }
+}
+
+.logo-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-lg;
+    padding: $spacing-xl;
+    background: $color-bg-section;
+    border-radius: $radius-md;
+    border: 1px solid $color-border;
+
+    &.hidden {
+        display: none;
+    }
+
+    img {
+        max-width: 200px;
+        max-height: 150px;
+        object-fit: contain;
+        border-radius: $radius-sm;
+        box-shadow: $shadow-md;
+    }
+}
+
+.btn-delete-logo {
+    @include button-base;
+    background: linear-gradient(135deg, $color-error 0%, #c93030 100%);
+    color: white;
+    padding: $spacing-sm $spacing-lg;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+}
+
+.premium-badge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    background: linear-gradient(
+        135deg,
+        $color-primary 0%,
+        $color-secondary 100%
+    );
+    color: white;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    white-space: nowrap;
 }

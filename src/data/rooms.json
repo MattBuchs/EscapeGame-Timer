@@ -111,7 +111,7 @@
     "end_timer_volume": 0.5,
     "notification_volume": 0.5,
     "ambient_volume": 0.2,
-    "isPreferenceTimer": true,
+    "isPreferenceTimer": false,
     "phrases": []
   }
 ]

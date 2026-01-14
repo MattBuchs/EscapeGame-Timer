@@ -11,6 +11,9 @@
 
     <section class="settingsRooms__section">
         <h3 data-i18n="settings.addSounds">Ajouter des sons (fichier mp3)</h3>
+        <span class="premium-badge" data-i18n="settings.proBadge"
+            >🔒 PRO/BUSINESS</span
+        >
 
         <div class="settingsRooms__section--container">
             <div
@@ -112,6 +115,9 @@
     </section>
     <section class="settingsRooms__section">
         <h3 data-i18n="settings.timerPreference">Préférence du timer</h3>
+        <span class="premium-badge" data-i18n="settings.proBadge"
+            >🔒 PRO/BUSINESS</span
+        >
         <div class="settingsRooms__section--preference">
             <input
                 type="radio"
@@ -150,6 +156,79 @@
             >
         </div>
     </section>
+
+    <!-- Personnalisation Logo Seconde Fenêtre (PRO/BUSINESS) -->
+    <section class="settingsRooms__section" id="logo-settings-section">
+        <h3 data-i18n="settings.secondWindowLogo">
+            Logo de la fenêtre secondaire
+        </h3>
+        <div class="logo-settings">
+            <div class="logo-settings__option">
+                <input
+                    type="checkbox"
+                    id="hide-logo-checkbox"
+                    name="hide-logo"
+                />
+                <label for="hide-logo-checkbox" data-i18n="settings.hideLogo"
+                    >Masquer le logo sur la fenêtre secondaire</label
+                >
+                <span class="premium-badge" data-i18n="settings.proBadge"
+                    >🔒 PRO/BUSINESS</span
+                >
+            </div>
+
+            <div class="logo-settings__custom">
+                <h4 data-i18n="settings.customLogoTitle">Logo personnalisé</h4>
+                <p
+                    class="logo-settings__description"
+                    data-i18n="settings.customLogoDescription"
+                >
+                    Ajoutez votre propre logo à afficher sur la fenêtre
+                    secondaire
+                </p>
+
+                <div class="logo-settings__upload">
+                    <div
+                        id="container-custom-logo"
+                        class="settingsRooms__section--drop logo-drop-zone"
+                    >
+                        <button
+                            type="button"
+                            id="btn-upload-custom-logo"
+                            data-i18n="settings.uploadCustomLogo"
+                        >
+                            Importer un logo
+                        </button>
+                        <img
+                            src="../../../public/img/file-import.svg"
+                            alt="Upload"
+                        />
+                        <div id="custom-logo-import" class="file-import"></div>
+                    </div>
+
+                    <div id="custom-logo-preview" class="logo-preview hidden">
+                        <img
+                            id="custom-logo-preview-img"
+                            src=""
+                            alt="Logo preview"
+                        />
+                        <button
+                            type="button"
+                            id="btn-delete-custom-logo"
+                            class="btn-delete-logo"
+                            data-i18n="settings.deleteLogo"
+                        >
+                            🗑️ Supprimer
+                        </button>
+                    </div>
+                </div>
+                <span class="premium-badge" data-i18n="settings.proBadge"
+                    >🔒 PRO/BUSINESS</span
+                >
+            </div>
+        </div>
+    </section>
+
     <!-- <div>
         <label for="update-color">Choisir la couleur des boutons</label>
         <input type="color" id="update-color" />

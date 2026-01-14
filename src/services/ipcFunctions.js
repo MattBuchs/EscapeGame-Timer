@@ -92,8 +92,8 @@ function setupIPCFunctions(windows) {
         }
     });
 
-    ipcMain.handle("open-file-dialog", async () => {
-        const result = await dialog.showOpenDialog({
+    ipcMain.handle("open-file-dialog", async (_, options = {}) => {
+        const defaultOptions = {
             properties: ["openFile", "multiSelections"],
             filters: [
                 {
@@ -101,7 +101,12 @@ function setupIPCFunctions(windows) {
                     extensions: ["mp3", "wav", "ogg", "flac"],
                 },
             ],
-        });
+        };
+
+        // Fusionner avec les options personnalisées
+        const dialogOptions = { ...defaultOptions, ...options };
+
+        const result = await dialog.showOpenDialog(dialogOptions);
 
         if (!result.canceled) {
             const filePaths = result.filePaths;
@@ -127,6 +132,44 @@ function setupIPCFunctions(windows) {
         }
 
         return null;
+    });
+
+    // Logo settings handlers
+    ipcMain.on("update-logo-visibility", (_, isHidden) => {
+        for (let i = 1; i < windows.length; i++) {
+            windows[i].webContents.send("logo-visibility-updated", isHidden);
+        }
+    });
+
+    ipcMain.on("update-custom-logo", (_, logoPath) => {
+        for (let i = 1; i < windows.length; i++) {
+            windows[i].webContents.send("custom-logo-updated", logoPath);
+        }
+    });
+
+    // Recharger la seconde fenêtre
+    ipcMain.on("reload-second-window", () => {
+        for (let i = 1; i < windows.length; i++) {
+            windows[i].webContents.reload();
+        }
+    });
+
+    ipcMain.handle("get-logo-settings", async () => {
+        try {
+            const settingsPath = getDataPath("settings.json");
+            if (fs.existsSync(settingsPath)) {
+                const settingsData = fs.readFileSync(settingsPath, "utf8");
+                const settings = JSON.parse(settingsData);
+                return {
+                    hideSecondWindowLogo:
+                        settings.hideSecondWindowLogo || false,
+                    customLogoPath: settings.customLogoPath || null,
+                };
+            }
+        } catch (error) {
+            console.error("Error loading logo settings:", error);
+        }
+        return { hideSecondWindowLogo: false, customLogoPath: null };
     });
 }
 

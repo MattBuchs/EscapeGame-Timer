@@ -8,6 +8,7 @@ import deleteRoomsObj from "./rooms/deleteRooms.js";
 import updateSoundObj from "./sounds/updateSound.js";
 import addPhrasesObj from "./phrases/addPhrases.js";
 import utilsSettingsObj from "./settings/utilsSettings.js";
+import logoSettingsObj from "./settings/logoSettings.js";
 import manageTabsObj from "./UI/manageTabs.js";
 import updateRoomObj from "./rooms/updateRoom.js";
 import deletePhrasesObj from "./phrases/deletePhrases.js";
@@ -97,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Initialiser les fonctionnalités dépendantes de la licence
             utilsSettingsObj.init();
+            logoSettingsObj.init();
             initThemeSelector();
         });
     }

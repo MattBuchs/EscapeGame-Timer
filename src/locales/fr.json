@@ -69,6 +69,14 @@
         "language": "Langue de l'application",
         "languageFrench": "Français",
         "languageEnglish": "Anglais",
+        "secondWindowLogo": "Logo de la fenêtre secondaire",
+        "hideLogo": "Masquer le logo sur la fenêtre secondaire",
+        "proBadge": "🔒 PRO/BUSINESS",
+        "businessBadge": "🔒 BUSINESS",
+        "customLogoTitle": "Logo personnalisé",
+        "customLogoDescription": "Ajoutez votre propre logo à afficher sur la fenêtre secondaire",
+        "uploadCustomLogo": "Importer un logo",
+        "deleteLogo": "Supprimer",
         "customTheme": {
             "resetConfirm": "Voulez-vous vraiment réinitialiser le thème aux valeurs par défaut ?"
         }

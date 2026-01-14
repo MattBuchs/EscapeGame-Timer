@@ -1,6 +1,7 @@
 import "./timer.js";
 import "./messages.js";
 import "./themeHandler.js";
+import "./logoHandler.js";
 
 // Fix resource paths for production
 import "../resourcePathFixer.js";

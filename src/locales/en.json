@@ -69,6 +69,14 @@
         "language": "Application language",
         "languageFrench": "French",
         "languageEnglish": "English",
+        "secondWindowLogo": "Second window logo",
+        "hideLogo": "Hide logo on second window",
+        "proBadge": "🔒 PRO/BUSINESS",
+        "businessBadge": "🔒 BUSINESS",
+        "customLogoTitle": "Custom logo",
+        "customLogoDescription": "Add your own logo to display on the second window",
+        "uploadCustomLogo": "Upload logo",
+        "deleteLogo": "Delete",
         "customTheme": {
             "resetConfirm": "Do you really want to reset the theme to default values?"
         }
