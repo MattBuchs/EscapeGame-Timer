@@ -107,7 +107,7 @@ const roomsObj = {
                 : "Il n'y a pas de timer pour le moment...";
             p.textContent = window.i18n
                 ? window.i18n.t("home.createTimerPrompt")
-                : "Si vous voulez en créer un, cliquer dans la barre de navigation ou sur ce bouton : ";
+                : "Si vous voulez en créer un, cliquer sur ce bouton : ";
             btn.textContent = "+";
 
             btn.addEventListener("click", () => {

@@ -134,31 +134,41 @@ function createThemeSelectorUI() {
     const licenseManager = window.licenseManager;
     const currentTheme = localStorage.getItem(STORAGE_KEY) || "modern";
 
-    // Créer les boutons de thème
-    const themeButtonsHTML = Object.keys(THEMES)
-        .map((themeKey) => {
-            const isLocked = !licenseManager.canUseTheme(themeKey);
-            return `
-            <button 
-                class="theme-option ${
-                    currentTheme === themeKey ? "active" : ""
-                }${isLocked ? "locked" : ""}" 
-                title="${
-                    isLocked
-                        ? `🔒 Version PRO/BUISNESS requise`
-                        : `Appliquer le thème ${THEMES[themeKey].name}`
-                }"
-            >
-                <span class="theme-icon">${THEMES[themeKey].icon}</span>
-                <span class="theme-name">${THEMES[themeKey].name}</span>
-                ${isLocked ? '<span class="pro-badge">🔒</span>' : ""}
-            </button>
-        `;
-        })
-        .join("");
+    // Vider la grille
+    themeGrid.textContent = "";
 
-    // Insérer les boutons dans la grille
-    themeGrid.innerHTML = themeButtonsHTML;
+    // Créer les boutons de thème de manière sécurisée
+    Object.keys(THEMES).forEach((themeKey) => {
+        const isLocked = !licenseManager.canUseTheme(themeKey);
+
+        const button = document.createElement("button");
+        button.className = `theme-option ${
+            currentTheme === themeKey ? "active" : ""
+        }${isLocked ? " locked" : ""}`;
+        button.title = isLocked
+            ? `🔒 Version PRO/BUSINESS requise`
+            : `Appliquer le thème ${THEMES[themeKey].name}`;
+
+        const iconSpan = document.createElement("span");
+        iconSpan.className = "theme-icon";
+        iconSpan.textContent = THEMES[themeKey].icon;
+
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "theme-name";
+        nameSpan.textContent = THEMES[themeKey].name;
+
+        button.appendChild(iconSpan);
+        button.appendChild(nameSpan);
+
+        if (isLocked) {
+            const proBadge = document.createElement("span");
+            proBadge.className = "pro-badge";
+            proBadge.textContent = "🔒";
+            button.appendChild(proBadge);
+        }
+
+        themeGrid.appendChild(button);
+    });
 
     // Ajouter les event listeners
     const themeButtons = document.querySelectorAll(".theme-option");

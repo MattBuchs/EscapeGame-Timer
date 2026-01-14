@@ -110,12 +110,33 @@ const licenseModalObj = {
         // Désactiver le bouton pendant la validation
         if (activateLicenseBtn) {
             activateLicenseBtn.disabled = true;
-            activateLicenseBtn.innerHTML = `
-                <span>Validation en cours...</span>
-                <svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                </svg>
-            `;
+            activateLicenseBtn.textContent = "";
+
+            const span = document.createElement("span");
+            span.textContent = "Validation en cours...";
+
+            const svg = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "svg"
+            );
+            svg.setAttribute("class", "spinner");
+            svg.setAttribute("viewBox", "0 0 24 24");
+            svg.setAttribute("fill", "none");
+            svg.setAttribute("stroke", "currentColor");
+            svg.setAttribute("stroke-width", "2");
+
+            const circle = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "circle"
+            );
+            circle.setAttribute("cx", "12");
+            circle.setAttribute("cy", "12");
+            circle.setAttribute("r", "10");
+
+            svg.appendChild(circle);
+
+            activateLicenseBtn.appendChild(span);
+            activateLicenseBtn.appendChild(svg);
         }
 
         try {
@@ -151,12 +172,30 @@ const licenseModalObj = {
             // Réactiver le bouton
             if (activateLicenseBtn) {
                 activateLicenseBtn.disabled = false;
-                activateLicenseBtn.innerHTML = `
-                    <span>Activer</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                `;
+                activateLicenseBtn.textContent = "";
+
+                const span = document.createElement("span");
+                span.textContent = "Activer";
+
+                const svg = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "svg"
+                );
+                svg.setAttribute("viewBox", "0 0 24 24");
+                svg.setAttribute("fill", "none");
+                svg.setAttribute("stroke", "currentColor");
+                svg.setAttribute("stroke-width", "2");
+
+                const polyline = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "polyline"
+                );
+                polyline.setAttribute("points", "9 18 15 12 9 6");
+
+                svg.appendChild(polyline);
+
+                activateLicenseBtn.appendChild(span);
+                activateLicenseBtn.appendChild(svg);
             }
         }
     },

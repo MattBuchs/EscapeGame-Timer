@@ -89,7 +89,7 @@ const addPhrasesObj = {
         if (!categoryDatalist) return;
 
         // Vider la datalist
-        categoryDatalist.innerHTML = "";
+        categoryDatalist.textContent = "";
 
         // Récupérer toutes les catégories uniques de toutes les phrases
         const allCategories = new Set();
@@ -114,7 +114,7 @@ const addPhrasesObj = {
     initCategoryIcons() {
         if (!iconButtonsContainer) return;
 
-        iconButtonsContainer.innerHTML = "";
+        iconButtonsContainer.textContent = "";
         CATEGORY_ICONS.forEach((icon) => {
             const button = document.createElement("button");
             button.type = "button";

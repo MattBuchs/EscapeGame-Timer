@@ -112,7 +112,9 @@ class VersionChecker {
 
         // Ajouter une classe pour indiquer qu'une mise à jour est disponible
         this.versionElement.classList.add("update-available");
-        this.versionElement.title = `Nouvelle version ${newVersion} disponible ! Cliquez pour télécharger.`;
+        this.versionElement.title =
+            window.i18n?.t("header.updateAvailable", { version: newVersion }) ||
+            `Nouvelle version ${newVersion} disponible ! Cliquez pour télécharger.`;
 
         // Ajouter un événement de clic pour ouvrir l'URL de téléchargement
         this.versionElement.style.cursor = "pointer";
@@ -123,16 +125,46 @@ class VersionChecker {
         // Afficher une notification visuelle
         const notification = document.createElement("div");
         notification.className = "update-notification";
-        notification.innerHTML = `
-            <div class="update-notification__content">
-                <span class="update-notification__icon">🚀</span>
-                <div class="update-notification__text">
-                    <strong>Nouvelle version disponible !</strong>
-                    <p>Version ${newVersion} est maintenant disponible.</p>
-                </div>
-                <button class="update-notification__close">×</button>
-            </div>
-        `;
+
+        // Créer le contenu de manière sécurisée
+        const content = document.createElement("div");
+        content.className = "update-notification__content";
+
+        const icon = document.createElement("span");
+        icon.className = "update-notification__icon";
+        icon.textContent = "🚀";
+
+        const textDiv = document.createElement("div");
+        textDiv.className = "update-notification__text";
+
+        const strong = document.createElement("strong");
+        strong.textContent =
+            window.i18n?.t("update.newVersionAvailable") ||
+            "Nouvelle version disponible !";
+
+        const p1 = document.createElement("p");
+        p1.textContent =
+            window.i18n?.t("update.versionAvailableText", {
+                version: newVersion,
+            }) || `Version ${newVersion} est maintenant disponible.`;
+
+        const p2 = document.createElement("p");
+        p2.textContent =
+            window.i18n?.t("update.clickToDownload") ||
+            "Clique ici pour télécharger";
+
+        textDiv.appendChild(strong);
+        textDiv.appendChild(p1);
+        textDiv.appendChild(p2);
+
+        const closeBtn = document.createElement("button");
+        closeBtn.className = "update-notification__close";
+        closeBtn.textContent = "×";
+
+        content.appendChild(icon);
+        content.appendChild(textDiv);
+        content.appendChild(closeBtn);
+        notification.appendChild(content);
 
         document.body.appendChild(notification);
 
@@ -140,9 +172,6 @@ class VersionChecker {
         setTimeout(() => notification.classList.add("show"), 100);
 
         // Fermer la notification
-        const closeBtn = notification.querySelector(
-            ".update-notification__close"
-        );
         closeBtn.addEventListener("click", () => {
             notification.classList.remove("show");
             setTimeout(() => notification.remove(), 300);

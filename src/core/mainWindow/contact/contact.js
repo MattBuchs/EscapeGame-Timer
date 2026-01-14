@@ -149,16 +149,36 @@ const contactObj = {
         const licenseInfo = window.licenseManager.getLicenseInfo();
 
         if (transferLicenseDetails) {
-            transferLicenseDetails.innerHTML = `
-                <div><strong>${
-                    window.i18n?.t("contact.licenseType") || "Type"
-                } :</strong> ${(
-                licenseInfo.plan || licenseInfo.type
-            ).toUpperCase()}</div>
-                <div><strong>${
-                    window.i18n?.t("contact.licenseEmail") || "Email"
-                } :</strong> ${licenseInfo.email}</div>
-            `;
+            // Vider le contenu
+            transferLicenseDetails.textContent = "";
+
+            // Créer le div pour le type de licence
+            const typeDiv = document.createElement("div");
+            const typeStrong = document.createElement("strong");
+            typeStrong.textContent = `${
+                window.i18n?.t("contact.licenseType") || "Type"
+            } :`;
+            typeDiv.appendChild(typeStrong);
+            typeDiv.appendChild(
+                document.createTextNode(
+                    ` ${(licenseInfo.plan || licenseInfo.type).toUpperCase()}`
+                )
+            );
+
+            // Créer le div pour l'email
+            const emailDiv = document.createElement("div");
+            const emailStrong = document.createElement("strong");
+            emailStrong.textContent = `${
+                window.i18n?.t("contact.licenseEmail") || "Email"
+            } :`;
+            emailDiv.appendChild(emailStrong);
+            emailDiv.appendChild(
+                document.createTextNode(` ${licenseInfo.email}`)
+            );
+
+            // Ajouter les éléments
+            transferLicenseDetails.appendChild(typeDiv);
+            transferLicenseDetails.appendChild(emailDiv);
         }
 
         modalTransferLicense?.classList.remove("hidden");
@@ -181,15 +201,45 @@ const contactObj = {
         // Désactiver le bouton pendant le traitement
         if (btnConfirmTransfer) {
             btnConfirmTransfer.disabled = true;
-            btnConfirmTransfer.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spinning">
-                    <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
-                    <path d="M12 2a10 10 0 0110 10" stroke-opacity="1"/>
-                </svg>
-                <span>${
-                    window.i18n?.t("contact.processing") || "Traitement..."
-                }</span>
-            `;
+            btnConfirmTransfer.textContent = "";
+
+            // Créer le SVG de chargement
+            const svg = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "svg"
+            );
+            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            svg.setAttribute("viewBox", "0 0 24 24");
+            svg.setAttribute("fill", "none");
+            svg.setAttribute("stroke", "currentColor");
+            svg.setAttribute("stroke-width", "2");
+            svg.setAttribute("class", "spinning");
+
+            const circle = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "circle"
+            );
+            circle.setAttribute("cx", "12");
+            circle.setAttribute("cy", "12");
+            circle.setAttribute("r", "10");
+            circle.setAttribute("stroke-opacity", "0.25");
+
+            const path = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "path"
+            );
+            path.setAttribute("d", "M12 2a10 10 0 0110 10");
+            path.setAttribute("stroke-opacity", "1");
+
+            svg.appendChild(circle);
+            svg.appendChild(path);
+
+            const span = document.createElement("span");
+            span.textContent =
+                window.i18n?.t("contact.processing") || "Traitement...";
+
+            btnConfirmTransfer.appendChild(svg);
+            btnConfirmTransfer.appendChild(span);
         }
 
         try {
@@ -258,15 +308,35 @@ const contactObj = {
             // Réactiver le bouton
             if (btnConfirmTransfer) {
                 btnConfirmTransfer.disabled = false;
-                btnConfirmTransfer.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                    <span data-i18n="contact.confirmTransfer">${
-                        window.i18n?.t("contact.confirmTransfer") ||
-                        "Confirmer le transfert"
-                    }</span>
-                `;
+                btnConfirmTransfer.textContent = "";
+
+                // Créer le SVG de confirmation
+                const svg = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "svg"
+                );
+                svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                svg.setAttribute("viewBox", "0 0 24 24");
+                svg.setAttribute("fill", "none");
+                svg.setAttribute("stroke", "currentColor");
+                svg.setAttribute("stroke-width", "2");
+
+                const polyline = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "polyline"
+                );
+                polyline.setAttribute("points", "20 6 9 17 4 12");
+
+                svg.appendChild(polyline);
+
+                const span = document.createElement("span");
+                span.setAttribute("data-i18n", "contact.confirmTransfer");
+                span.textContent =
+                    window.i18n?.t("contact.confirmTransfer") ||
+                    "Confirmer le transfert";
+
+                btnConfirmTransfer.appendChild(svg);
+                btnConfirmTransfer.appendChild(span);
             }
         }
     },

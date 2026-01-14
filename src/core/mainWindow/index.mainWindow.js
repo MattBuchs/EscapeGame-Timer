@@ -110,31 +110,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
 });
 
-// Initialisation du Timer
-timerObj.init();
-messagesObj.init();
+// Attendre que les sections HTML soient chargées avant d'initialiser les modules qui dépendent du DOM
+window.addEventListener("html-sections-loaded", () => {
+    // Initialisation du Timer
+    timerObj.init();
+    messagesObj.init();
 
-// Exposer messagesObj globalement
-window.messagesObj = messagesObj;
+    // Exposer messagesObj globalement
+    window.messagesObj = messagesObj;
 
-// Initialisation des fonctionnalités liées aux Timers
-// ⚠️ roomsObj.init() est appelé APRÈS la validation de la licence (voir licenseManager.init().then())
-addRoomObj.init();
-deleteRoomsObj.init();
-updateRoomObj.init();
+    // Initialisation des fonctionnalités liées aux Timers
+    // ⚠️ roomsObj.init() est appelé APRÈS la validation de la licence (voir licenseManager.init().then())
+    addRoomObj.init();
+    deleteRoomsObj.init();
+    updateRoomObj.init();
 
-// Initialisation des fonctionnalités liées aux paramètres de la room
-addPhrasesObj.init();
-deletePhrasesObj.init();
-editPhrasesObj.init();
-updateSoundObj.init();
-manageSoundObj.init();
+    // Initialisation des fonctionnalités liées aux paramètres de la room
+    addPhrasesObj.init();
+    deletePhrasesObj.init();
+    editPhrasesObj.init();
+    updateSoundObj.init();
+    manageSoundObj.init();
 
-// Initialisation des fonctionnalités liées aux paramètres globaux
-uploadFilesObj.init();
-dragAndDropObj.init();
-deleteSongFileObj.init();
-checkFoldersExist();
+    // Initialisation des fonctionnalités liées aux paramètres globaux
+    uploadFilesObj.init();
+    dragAndDropObj.init();
+    deleteSongFileObj.init();
+    checkFoldersExist();
+});
 
 // Appliquer le thème personnalisé uniquement si le thème "custom" est actif
 const settingsManager = window.settingsManager;

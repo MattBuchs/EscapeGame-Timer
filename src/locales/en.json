@@ -4,7 +4,13 @@
         "addTimer": "Add Timer",
         "settings": "Settings",
         "activatePro": "Activate PRO version",
-        "contact": "Contact"
+        "contact": "Contact",
+        "updateAvailable": "New version {{version}} available! Click to download."
+    },
+    "update": {
+        "newVersionAvailable": "New version available!",
+        "versionAvailableText": "Version {{version}} is now available.",
+        "clickToDownload": "Click here to download"
     },
     "home": {
         "title": "Home",
@@ -14,7 +20,7 @@
         "ambientSoundLabel": "Ambient sound: ",
         "endTimerSoundLabel": "Timer sound: ",
         "noTimer": "There are no timers at the moment...",
-        "createTimerPrompt": "If you want to create one, click on the navigation bar or on this button: ",
+        "createTimerPrompt": "If you want to create one, click on this button: ",
         "secondWindowModal": {
             "title": "Secondary Window",
             "intro": "The secondary window is supposed to open automatically on your second screen.",
