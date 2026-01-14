@@ -334,8 +334,9 @@ $breakpoint-xl: 1280px;
 }
 
 @mixin neon-border($color: $color-primary, $opacity: 1) {
-    border: var(--neon-border);
-    box-shadow: var(--neon-box-shadow);
+    border: 2px solid $color;
+    box-shadow: 0 0 10px rgba($color, 0.5 * $opacity),
+        inset 0 0 10px rgba($color, 0.2 * $opacity);
 }
 
 @mixin button-base {

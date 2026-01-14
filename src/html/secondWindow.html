@@ -36,20 +36,7 @@
         </div>
         <script src="../core/secondWindow/i18n.js"></script>
         <script src="../core/logoAdapter.js"></script>
-        <script>
-            // Initialiser l'adaptateur de logo quand le DOM est chargé
-            if (document.readyState === "loading") {
-                document.addEventListener("DOMContentLoaded", () => {
-                    if (typeof initLogoAdapter === "function") {
-                        initLogoAdapter();
-                    }
-                });
-            } else {
-                if (typeof initLogoAdapter === "function") {
-                    initLogoAdapter();
-                }
-            }
-        </script>
+        <script src="../core/secondWindow/init.js"></script>
         <script
             type="module"
             src="../core/secondWindow/index.secondWindow.js"

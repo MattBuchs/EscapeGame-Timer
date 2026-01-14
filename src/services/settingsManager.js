@@ -163,9 +163,6 @@
 
             if (migrated) {
                 this.saveSettings();
-                console.log(
-                    "Settings migrated from localStorage to settings.json"
-                );
             }
         }
     }

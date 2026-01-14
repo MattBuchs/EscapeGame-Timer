@@ -146,6 +146,30 @@
     }
 }
 
+.theme-option[data-theme="sunset"] {
+    &:hover,
+    &.active {
+        border-color: #f97316;
+        @include neon-border(#f97316, 0.6);
+    }
+}
+
+.theme-option[data-theme="ocean"] {
+    &:hover,
+    &.active {
+        border-color: #0ea5e9;
+        @include neon-border(#0ea5e9, 0.6);
+    }
+}
+
+.theme-option[data-theme="forest"] {
+    &:hover,
+    &.active {
+        border-color: #22c55e;
+        @include neon-border(#22c55e, 0.6);
+    }
+}
+
 // Animation pour le checkmark
 @keyframes scaleIn {
     0% {

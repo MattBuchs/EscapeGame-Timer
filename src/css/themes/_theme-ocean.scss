@@ -1,0 +1,109 @@
+// ============================================
+// THÈME OCEAN - Profondeurs Marines
+// ============================================
+
+[data-theme="ocean"] {
+    // ===== COLORS =====
+    --color-primary: #0ea5e9;
+    --color-primary-dark: #0284c7;
+    --color-primary-light: #38bdf8;
+    --color-primary-glow: rgba(14, 165, 233, 0.4);
+
+    --color-secondary: #14b8a6;
+    --color-secondary-dark: #0d9488;
+    --color-secondary-light: #2dd4bf;
+    --color-secondary-glow: rgba(20, 184, 166, 0.3);
+
+    --color-bg-dark: #0a1929;
+    --color-bg-darker: #040d15;
+    --color-bg-card: #112740;
+    --color-bg-card-hover: #1a3a52;
+    --color-bg-input: #112740;
+    --color-bg-section: rgba(17, 39, 64, 0.3);
+    --color-bg-section-hover: rgba(26, 58, 82, 0.5);
+    --color-bg-glass: rgba(17, 39, 64, 0.7);
+    --color-bg-accent: rgba(14, 165, 233, 0.05);
+    --color-bg-accent-hover: rgba(14, 165, 233, 0.1);
+    --color-bg-overlay: rgba(4, 13, 21, 0.2);
+
+    --color-text-primary: #e0f2fe;
+    --color-text-secondary: #bae6fd;
+    --color-text-muted: #7dd3fc;
+
+    --color-success: #5eead4;
+    --color-success-glow: rgba(94, 234, 212, 0.3);
+    --color-error: #fb7185;
+    --color-warning: #fbbf24;
+
+    --color-border: #1e3a5f;
+    --color-border-light: #2a5075;
+
+    --gradient-card: linear-gradient(145deg, #112740 0%, #1a3a52 100%);
+
+    // ===== EFFECTS =====
+    --shadow-glow: 0 0 25px var(--color-primary-glow),
+        0 0 50px rgba(14, 165, 233, 0.2);
+    --shadow-glow-cyan: 0 0 20px var(--color-secondary-glow),
+        0 0 40px rgba(20, 184, 166, 0.15);
+
+    // Background gradient overlay - Effet sous-marin
+    &::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(
+                ellipse at 50% 0%,
+                rgba(14, 165, 233, 0.1) 0%,
+                transparent 50%
+            ),
+            radial-gradient(
+                ellipse at 0% 100%,
+                rgba(20, 184, 166, 0.08) 0%,
+                transparent 50%
+            ),
+            radial-gradient(
+                ellipse at 100% 100%,
+                rgba(56, 189, 248, 0.06) 0%,
+                transparent 50%
+            );
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    // Animation de vagues (optionnel)
+    body[data-theme="ocean"]::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            rgba(14, 165, 233, 0.03) 50px,
+            transparent 100px
+        );
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.5;
+    }
+
+    // Boutons avec effet océan
+    .btn-primary {
+        background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
+        border: none;
+        box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+
+        &:hover {
+            box-shadow: 0 6px 25px rgba(14, 165, 233, 0.6),
+                0 0 15px rgba(20, 184, 166, 0.3);
+            transform: translateY(-2px);
+        }
+    }
+
+    // Timer avec lueur océanique
+    .timer2__middle--timer,
+    .timer__top--time {
+        color: var(--color-text-primary);
+        text-shadow: 0 0 25px rgba(14, 165, 233, 0.6),
+            0 0 50px rgba(20, 184, 166, 0.4);
+    }
+}

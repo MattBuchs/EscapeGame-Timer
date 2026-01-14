@@ -80,8 +80,6 @@ function updateCustomLogo(logoPath) {
         const timestamp = new Date().getTime();
         customLogoImg.src = `file://${logoPath}?t=${timestamp}`;
         customLogoImg.style.display = "block";
-
-        console.log("Logo personnalisé appliqué:", logoPath);
     } else {
         // Retirer la classe
         logoSection.classList.remove("logo-custom-active");

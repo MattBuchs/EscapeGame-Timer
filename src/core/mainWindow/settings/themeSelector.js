@@ -11,6 +11,9 @@ const THEMES = {
     light: { name: "Light", icon: "☀️" },
     neutral: { name: "Neutre", icon: "🌑" },
     neon: { name: "Néon", icon: "✨" },
+    sunset: { name: "Sunset", icon: "🌅" },
+    ocean: { name: "Ocean", icon: "🌊" },
+    forest: { name: "Forest", icon: "🌲" },
     custom: { name: "Personnalisé", icon: "🎨", customizable: true },
 };
 

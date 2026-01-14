@@ -29,7 +29,6 @@ const logoSettingsObj = {
         );
 
         const licenseManager = window.licenseManager;
-        console.log("licenseManager dans logoSettingsObj:", licenseManager);
 
         // Charger les paramètres actuels
         this.loadSettings();
@@ -137,8 +136,6 @@ const logoSettingsObj = {
     },
 
     async uploadCustomLogo() {
-        console.log("uploadCustomLogo appelé");
-
         try {
             const result = await ipcRenderer.invoke("open-file-dialog", {
                 title: "Sélectionner un logo",
@@ -151,16 +148,12 @@ const logoSettingsObj = {
                 properties: ["openFile"],
             });
 
-            console.log("Résultat du dialog:", result);
-
             // Le handler retourne un tableau d'objets ou null
             if (!result || result.length === 0) {
-                console.log("Upload annulé ou aucun fichier sélectionné");
                 return;
             }
 
             const sourcePath = result[0].path;
-            console.log("Fichier sélectionné:", sourcePath);
             await this.saveCustomLogo(sourcePath);
         } catch (error) {
             console.error("Erreur dans uploadCustomLogo:", error);
@@ -172,28 +165,19 @@ const logoSettingsObj = {
     },
 
     async saveCustomLogo(sourcePath) {
-        console.log("saveCustomLogo appelé avec:", sourcePath);
-
         try {
             // Copier le logo dans le dossier public/img
             const fileName = `custom-logo${path.extname(sourcePath)}`;
-            console.log("Nom du fichier:", fileName);
-
             const publicPath = await ipcRenderer.invoke("get-public-path");
-            console.log("Public path:", publicPath);
-
             const destPath = path.join(publicPath, "img", fileName);
-            console.log("Destination path:", destPath);
 
             // Copier le fichier
             fs.copyFileSync(sourcePath, destPath);
-            console.log("Fichier copié avec succès");
 
             // Sauvegarder le chemin
             const settingsManager = window.settingsManager;
             if (settingsManager) {
                 await settingsManager.set("customLogoPath", destPath);
-                console.log("Chemin sauvegardé dans settings");
             }
 
             // Afficher la prévisualisation
@@ -218,10 +202,6 @@ const logoSettingsObj = {
     },
 
     showLogoPreview(logoPath) {
-        console.log("showLogoPreview appelé avec:", logoPath);
-        console.log("logoPreview element:", this.logoPreview);
-        console.log("logoPreviewImg element:", this.logoPreviewImg);
-
         if (!this.logoPreview || !this.logoPreviewImg) {
             console.error("Elements de preview manquants");
             return;
@@ -230,13 +210,10 @@ const logoSettingsObj = {
         // Convertir le chemin en URL avec timestamp pour éviter le cache
         const timestamp = new Date().getTime();
         const logoUrl = `file://${logoPath}?t=${timestamp}`;
-        console.log("Logo URL:", logoUrl);
 
         this.logoPreviewImg.src = logoUrl;
         this.logoPreview.classList.remove("hidden");
         this.customLogoContainer.style.display = "none";
-
-        console.log("Preview affiché");
     },
 
     async deleteCustomLogo() {
