@@ -258,18 +258,40 @@
             "limit1": "1 seul timer",
             "limit2": "2 thèmes uniquement (Modern & Light)",
             "limit3": "5 phrases maximum",
-            "limit4": "Pas de thème personnalisé"
+            "limit4": "Pas de thème personnalisé",
+            "period": "Sans limite de durée",
+            "feature1": "Double écran",
+            "feature2": "Gestion audio",
+            "feature3": "Français / Anglais"
         },
         "pro": {
-            "title": "🚀 Version PRO",
-            "subtitle": "La solution complète pour les professionnels",
+            "title": "👑 Version PRO",
+            "subtitle": "Pour un poste maître du jeu",
             "feature1": "Timers illimités",
             "feature2": "Tous les thèmes (Neon, Modern, Light, Neutral)",
             "feature3": "Phrases illimitées",
             "feature4": "Éditeur de thème personnalisé",
             "feature5": "Support prioritaire",
             "feature6": "Mises à jour gratuites à vie",
-            "period": "Licence perpétuelle"
+            "feature7": "Licence perpétuelle",
+            "period": "Paiement unique • Licence perpétuelle",
+            "offer": "Offre valable jusqu'au 1 mars 2026"
+        },
+        "business": {
+            "title": "Entreprise",
+            "subtitle": "Pour 3 postes maître du jeu",
+            "period": "Paiement unique • Multi-postes",
+            "offer": "Offre valable jusqu'au 1 mars 2026",
+            "feature1": "Toutes les fonctionnalités PRO",
+            "feature2": "Installation sur 3 postes",
+            "feature3": "Support prioritaire"
+        },
+        "activated": {
+            "title": "Licence activée avec succès !",
+            "email": "Email",
+            "status": "Statut",
+            "statusActive": "Actif",
+            "message": "Toutes les fonctionnalités sont maintenant disponibles. Profitez pleinement de votre expérience !"
         }
     },
     "contact": {

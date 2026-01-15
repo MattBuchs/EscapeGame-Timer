@@ -14,6 +14,32 @@ const licenseModalObj = {
         if (licenseManager) {
             licenseManager.init().then(() => {
                 this.updateLicenseDisplay();
+                this.updateLicenseBadge();
+            });
+        }
+
+        // Badge de licence dans la page d'accueil
+        const licenseBadge = document.querySelector("#btn-license-badge");
+        if (licenseBadge) {
+            licenseBadge.addEventListener("click", () => {
+                // Naviguer vers la section contact
+                const btnContact = document.querySelector("#btn-contact");
+                if (btnContact) {
+                    btnContact.click();
+                }
+
+                // Scroll vers le formulaire d'activation
+                setTimeout(() => {
+                    const activationSection = document.querySelector(
+                        "#license-activation-section"
+                    );
+                    if (activationSection) {
+                        activationSection.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                        });
+                    }
+                }, 300);
             });
         }
 
@@ -41,6 +67,40 @@ const licenseModalObj = {
             );
         }
 
+        // Boutons d'activation PRO et Business
+        const btnActivatePro = document.querySelector("#btn-activate-pro");
+        const btnActivateBusiness = document.querySelector(
+            "#btn-activate-business"
+        );
+
+        if (btnActivatePro) {
+            btnActivatePro.addEventListener("click", () => {
+                const activationForm = document.querySelector(
+                    "#license-activation-form"
+                );
+                if (activationForm) {
+                    activationForm.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                    });
+                }
+            });
+        }
+
+        if (btnActivateBusiness) {
+            btnActivateBusiness.addEventListener("click", () => {
+                const activationForm = document.querySelector(
+                    "#license-activation-form"
+                );
+                if (activationForm) {
+                    activationForm.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                    });
+                }
+            });
+        }
+
         // Entrée sur Enter
         if (licenseKeyInput) {
             licenseKeyInput.addEventListener("keypress", (e) => {
@@ -66,6 +126,25 @@ const licenseModalObj = {
                 const { shell } = require("electron");
                 shell.openExternal("https://votre-site.com/acheter-escapetime");
             });
+        }
+    },
+
+    updateLicenseBadge() {
+        const licenseManager = window.licenseManager;
+        const badge = document.querySelector("#btn-license-badge");
+        const badgeText = document.querySelector("#license-badge-text");
+
+        if (!licenseManager || !badge || !badgeText) return;
+
+        const licenseInfo = licenseManager.getLicenseInfo();
+
+        if (licenseInfo.isPro) {
+            const plan = licenseInfo.plan || licenseInfo.type || "PRO";
+            badgeText.textContent = `Version ${plan.toUpperCase()}`;
+            badge.classList.add("license-active");
+        } else {
+            badgeText.textContent = "Version Gratuite";
+            badge.classList.remove("license-active");
         }
     },
 

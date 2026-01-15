@@ -232,6 +232,11 @@ img {
     display: none;
 }
 
+.room-label-home {
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+}
+
 // ===== TAB ANIMATIONS =====
 .active {
     background: $gradient-primary;

@@ -235,13 +235,19 @@ const roomsObj = {
         ambientSound.volume = Number(amibentRange.value) / 100;
     },
 
-    createParagraphWithSpan(text, spanText) {
+    createParagraphWithSpan(textValue, textLabel) {
         const p = document.createElement("p");
+        const strong = document.createElement("strong");
         const span = document.createElement("span");
-        span.classList.add("strong");
-        span.textContent = spanText + " ";
+
+        strong.textContent = textLabel;
+        strong.classList.add("room-label-home");
+
+        span.textContent = textValue;
+
+        p.appendChild(strong);
         p.appendChild(span);
-        p.appendChild(document.createTextNode(text ? text : " - "));
+
         return p;
     },
 };

@@ -258,18 +258,40 @@
             "limit1": "1 timer only",
             "limit2": "2 themes only (Modern & Light)",
             "limit3": "5 phrases maximum",
-            "limit4": "No custom theme"
+            "limit4": "No custom theme",
+            "period": "No time limit",
+            "feature1": "Dual screen",
+            "feature2": "Audio management",
+            "feature3": "French / English"
         },
         "pro": {
-            "title": "🚀 PRO Version",
-            "subtitle": "The complete solution for professionals",
+            "title": "👑 PRO Version",
+            "subtitle": "For one game master station",
             "feature1": "Unlimited timers",
             "feature2": "All themes (Neon, Modern, Light, Neutral)",
             "feature3": "Unlimited phrases",
             "feature4": "Custom theme editor",
             "feature5": "Priority support",
             "feature6": "Free lifetime updates",
-            "period": "Perpetual License"
+            "feature7": "Perpetual license",
+            "period": "One-time payment • Perpetual license",
+            "offer": "Offer valid until March 1, 2026"
+        },
+        "business": {
+            "title": "Enterprise",
+            "subtitle": "For 3 game master stations",
+            "period": "One-time payment • Multi-station",
+            "offer": "Offer valid until March 1, 2026",
+            "feature1": "All PRO features",
+            "feature2": "Installation on 3 stations",
+            "feature3": "Priority support"
+        },
+        "activated": {
+            "title": "License successfully activated!",
+            "email": "Email",
+            "status": "Status",
+            "statusActive": "Active",
+            "message": "All features are now available. Enjoy your experience to the fullest!"
         }
     },
     "contact": {
