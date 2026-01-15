@@ -120,7 +120,9 @@ function clearCustomThemeStyles() {
  * Crée l'interface utilisateur du sélecteur de thème
  */
 function createThemeSelectorUI() {
+    console.log("createThemeSelectorUI called");
     const themeGrid = document.querySelector("#themeGrid");
+    console.log("themeGrid element:", themeGrid);
     if (!themeGrid) {
         console.warn("Theme grid non trouvée");
         return;
@@ -132,7 +134,10 @@ function createThemeSelectorUI() {
     }
 
     const licenseManager = window.licenseManager;
-    const currentTheme = localStorage.getItem(STORAGE_KEY) || "modern";
+    const settingsManager = window.settingsManager;
+    const currentTheme = settingsManager
+        ? settingsManager.get("theme") || "modern"
+        : localStorage.getItem(STORAGE_KEY) || "modern";
 
     // Vider la grille
     themeGrid.textContent = "";
@@ -145,6 +150,7 @@ function createThemeSelectorUI() {
         button.className = `theme-option ${
             currentTheme === themeKey ? "active" : ""
         }${isLocked ? " locked" : ""}`;
+        button.setAttribute("data-theme", themeKey);
         button.title = isLocked
             ? `🔒 Version PRO/BUSINESS requise`
             : `Appliquer le thème ${THEMES[themeKey].name}`;

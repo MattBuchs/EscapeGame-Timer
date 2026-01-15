@@ -4,20 +4,40 @@ import { notification } from "../UI/notification.js";
 import { loadRoomsInSettings } from "./deleteRooms.js";
 const dataValidator = require("../../services/dataValidator");
 
-const btnAddRoom = document.querySelector("#btn-add_room");
-const formAddRoom = document.querySelector("#form-add_room");
-const containerBtnRooms = document.querySelector("#container-btn_rooms");
-const endTimerSoundList = document.querySelector("#end-timer_sound-list");
-const ambientSoundList = document.querySelector("#ambient_sound-list");
-const notificationSoundList = document.querySelector(
-    "#notification_sound-list"
-);
-
 const addRoomObj = {
     isOptionCreatedInAddRoom: false,
     soundDirectories: null,
+    btnAddRoom: null,
+    formAddRoom: null,
+    containerBtnRooms: null,
+    endTimerSoundList: null,
+    ambientSoundList: null,
+    notificationSoundList: null,
 
     async init() {
+        console.log("addRooms.init() called");
+        // Sélectionner les éléments DOM
+        this.btnAddRoom = document.querySelector("#btn-add_room");
+        this.formAddRoom = document.querySelector("#form-add_room");
+        this.containerBtnRooms = document.querySelector("#container-btn_rooms");
+        this.endTimerSoundList = document.querySelector(
+            "#end-timer_sound-list"
+        );
+        this.ambientSoundList = document.querySelector("#ambient_sound-list");
+        this.notificationSoundList = document.querySelector(
+            "#notification_sound-list"
+        );
+
+        console.log("addRooms elements:", {
+            btnAddRoom: this.btnAddRoom,
+            formAddRoom: this.formAddRoom,
+            endTimerSoundList: this.endTimerSoundList,
+        });
+
+        if (!this.btnAddRoom || !this.formAddRoom) {
+            console.error("Elements for addRooms not found");
+            return;
+        }
         // Initialize sound directories with proper paths
         this.soundDirectories = [
             {
@@ -46,8 +66,8 @@ const addRoomObj = {
             },
         ];
 
-        formAddRoom.addEventListener("submit", (e) => this.setupForm(e));
-        btnAddRoom.addEventListener("click", () => {
+        this.formAddRoom.addEventListener("submit", (e) => this.setupForm(e));
+        this.btnAddRoom.addEventListener("click", () => {
             if (!this.isOptionCreatedInAddRoom) {
                 listSounds(this.soundDirectories);
                 this.isOptionCreatedInAddRoom = true;
@@ -55,9 +75,9 @@ const addRoomObj = {
                 // Désactiver les sons d'ambiance en version gratuite
                 const licenseManager = window.licenseManager;
                 if (!licenseManager.canUseFeature("ambientSounds")) {
-                    ambientSoundList.disabled = true;
-                    ambientSoundList.parentElement.style.opacity = "0.5";
-                    ambientSoundList.parentElement.title =
+                    this.ambientSoundList.disabled = true;
+                    this.ambientSoundList.parentElement.style.opacity = "0.5";
+                    this.ambientSoundList.parentElement.title =
                         "🔒 Version PRO/BUISNESS requise";
                 }
             }
@@ -89,9 +109,9 @@ const addRoomObj = {
 
         let name = document.querySelector("#room_name");
         let time = document.querySelector("#room_times");
-        const endTimerSound = endTimerSoundList.value || null;
-        const notificationSound = notificationSoundList.value || null;
-        const ambientSound = ambientSoundList.value || null;
+        const endTimerSound = this.endTimerSoundList.value || null;
+        const notificationSound = this.notificationSoundList.value || null;
+        const ambientSound = this.ambientSoundList.value || null;
 
         const hours = time.value.split(":")[0];
         const minutes = time.value.split(":")[1];
@@ -109,11 +129,11 @@ const addRoomObj = {
         }
 
         if (
-            containerBtnRooms.children[0].classList.contains(
+            this.containerBtnRooms.children[0].classList.contains(
                 "home__container--noRoom"
             )
         ) {
-            containerBtnRooms.children[0].remove();
+            this.containerBtnRooms.children[0].remove();
         }
 
         this.addRoomToData({

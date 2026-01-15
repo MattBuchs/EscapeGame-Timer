@@ -35,6 +35,7 @@ function setHTMLContent(element, html) {
 // Compteur pour suivre le chargement de toutes les sections HTML
 let htmlSectionsToLoad = 0;
 let htmlSectionsLoaded = 0;
+window.htmlSectionsReady = false;
 
 function loadHtml(sectionId, fileName) {
     htmlSectionsToLoad++;
@@ -49,7 +50,13 @@ function loadHtml(sectionId, fileName) {
 
             // Si toutes les sections sont chargées, dispatcher un événement
             if (htmlSectionsLoaded === htmlSectionsToLoad) {
-                window.dispatchEvent(new Event("html-sections-loaded"));
+                console.log("All HTML sections loaded, dispatching event...");
+                // Attendre un peu que le DOM soit bien mis à jour
+                setTimeout(() => {
+                    window.htmlSectionsReady = true;
+                    window.dispatchEvent(new Event("html-sections-loaded"));
+                    console.log("html-sections-loaded event dispatched");
+                }, 100);
             }
         }
     };

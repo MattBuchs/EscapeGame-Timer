@@ -2,25 +2,47 @@ const path = require("path");
 import { sounds } from "./loadInput.js";
 import { notification } from "../UI/notification.js";
 
-const btnNotificationSound = document.querySelector("#btn-notification_sound");
-const btnAmbientSound = document.querySelector("#btn-ambient_sound");
-const btnStopAmbientSound = document.querySelector("#btn-stop--ambient_sound");
-const notificationSound = document.querySelector("#notification_sound");
-const ambientSound = document.querySelector("#ambient_sound");
-
 const manageSoundObj = {
     endTimer: null,
+    btnNotificationSound: null,
+    btnAmbientSound: null,
+    btnStopAmbientSound: null,
+    notificationSound: null,
+    ambientSound: null,
 
     init() {
-        btnNotificationSound.addEventListener(
+        console.log("manageSound.init() called");
+        // Sélectionner les éléments DOM
+        this.btnNotificationSound = document.querySelector(
+            "#btn-notification_sound"
+        );
+        this.btnAmbientSound = document.querySelector("#btn-ambient_sound");
+        this.btnStopAmbientSound = document.querySelector(
+            "#btn-stop--ambient_sound"
+        );
+        this.notificationSound = document.querySelector("#notification_sound");
+        this.ambientSound = document.querySelector("#ambient_sound");
+
+        console.log("manageSound elements:", {
+            btnNotificationSound: this.btnNotificationSound,
+            btnAmbientSound: this.btnAmbientSound,
+            notificationSound: this.notificationSound,
+        });
+
+        if (!this.btnNotificationSound || !this.btnAmbientSound) {
+            console.error("Elements for manageSound not found");
+            return;
+        }
+
+        this.btnNotificationSound.addEventListener(
             "click",
             this.startNotificationSound.bind(this)
         );
-        btnAmbientSound.addEventListener(
+        this.btnAmbientSound.addEventListener(
             "click",
             this.startAmbientSound.bind(this)
         );
-        btnStopAmbientSound.addEventListener(
+        this.btnStopAmbientSound.addEventListener(
             "click",
             this.stopAmbientSoundInRoom.bind(this)
         );
@@ -37,21 +59,21 @@ const manageSoundObj = {
     },
 
     startNotificationSound() {
-        notificationSound.play();
+        this.notificationSound.play();
 
-        if (notificationSound.duration > 6) {
+        if (this.notificationSound.duration > 6) {
             setTimeout(() => {
-                notificationSound.pause();
-                notificationSound.currentTime = 0;
+                this.notificationSound.pause();
+                this.notificationSound.currentTime = 0;
             }, 6000);
         }
     },
 
     startAmbientSound() {
-        ambientSound.play();
+        this.ambientSound.play();
 
         // Loop the sound
-        ambientSound.addEventListener(
+        this.ambientSound.addEventListener(
             "ended",
             function () {
                 this.currentTime = 0;
@@ -60,16 +82,16 @@ const manageSoundObj = {
             false
         );
 
-        btnStopAmbientSound.classList.remove("hidden");
-        btnAmbientSound.classList.add("hidden");
+        this.btnStopAmbientSound.classList.remove("hidden");
+        this.btnAmbientSound.classList.add("hidden");
     },
 
     stopAmbientSoundInRoom() {
-        ambientSound.pause();
-        ambientSound.currentTime = 0;
+        this.ambientSound.pause();
+        this.ambientSound.currentTime = 0;
 
-        btnStopAmbientSound.classList.add("hidden");
-        btnAmbientSound.classList.remove("hidden");
+        this.btnStopAmbientSound.classList.add("hidden");
+        this.btnAmbientSound.classList.remove("hidden");
     },
 
     startSound(audioName, soundList, btnStopMusic, btnListenMusic) {

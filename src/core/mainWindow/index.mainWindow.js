@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
             // Initialiser les fonctionnalités dépendantes de la licence
             utilsSettingsObj.init();
             logoSettingsObj.init();
-            initThemeSelector();
         });
     }
 
@@ -110,8 +109,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
 });
 
-// Attendre que les sections HTML soient chargées avant d'initialiser les modules qui dépendent du DOM
-window.addEventListener("html-sections-loaded", () => {
+// Fonction pour initialiser les modules dépendants du DOM
+function initDOMDependentModules() {
+    console.log("Initializing DOM-dependent modules...");
+
+    // Initialiser le thème selector
+    initThemeSelector();
+
     // Initialisation du Timer
     timerObj.init();
     messagesObj.init();
@@ -137,7 +141,16 @@ window.addEventListener("html-sections-loaded", () => {
     dragAndDropObj.init();
     deleteSongFileObj.init();
     checkFoldersExist();
-});
+}
+
+// Attendre que les sections HTML soient chargées avant d'initialiser les modules qui dépendent du DOM
+if (window.htmlSectionsReady) {
+    console.log("HTML sections already loaded, initializing immediately...");
+    initDOMDependentModules();
+} else {
+    console.log("Waiting for html-sections-loaded event...");
+    window.addEventListener("html-sections-loaded", initDOMDependentModules);
+}
 
 // Appliquer le thème personnalisé uniquement si le thème "custom" est actif
 const settingsManager = window.settingsManager;
