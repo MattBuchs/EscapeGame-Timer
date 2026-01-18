@@ -51,11 +51,13 @@
         position: relative;
         @include neon-border($color-primary);
         border-radius: $radius-2xl;
-        padding: 4vh 6vw;
+        padding: 4vh 2vw;
         background: linear-gradient(145deg, $color-bg-section, $color-bg-glass);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        box-shadow: $shadow-lg, inset 0 0 60px rgba(99, 102, 241, 0.1);
+        box-shadow:
+            $shadow-lg,
+            inset 0 0 60px rgba(99, 102, 241, 0.1);
         z-index: 1;
 
         &--timer {
@@ -67,9 +69,13 @@
             font-family: $font-family-mono;
             font-weight: $font-weight-extrabold;
             letter-spacing: 0.05em;
-            text-shadow: 0 0 40px $color-primary-glow,
-                0 0 80px rgba(99, 102, 241, 0.4), 0 4px 8px rgba(0, 0, 0, 0.5);
+            text-shadow:
+                0 0 40px $color-primary-glow,
+                0 0 80px rgba(99, 102, 241, 0.4),
+                0 4px 8px rgba(0, 0, 0, 0.5);
             line-height: 1;
+            text-wrap: nowrap;
+            letter-spacing: 0;
         }
     }
 
