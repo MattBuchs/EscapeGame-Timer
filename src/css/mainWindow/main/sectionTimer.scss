@@ -13,7 +13,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    margin: 4rem auto;
     animation: fadeIn $transition-base;
 
     button {
@@ -58,8 +58,7 @@
         }
 
         &--img {
-            width: 10rem;
-            height: 10rem;
+            width: 16rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,7 +132,7 @@
         box-shadow: $shadow-lg, inset 0 0 40px rgba(99, 102, 241, 0.1);
 
         p {
-            font-size: clamp(3rem, 8vw, 8rem);
+            font-size: clamp(3rem, 8vw, 7.6rem);
             color: $color-text-primary;
             font-family: $font-family-mono;
             font-weight: $font-weight-bold;
@@ -531,7 +530,7 @@
             padding: $spacing-xl $spacing-md;
 
             p {
-                font-size: clamp(2rem, 10vw, 4rem);
+                font-size: clamp(2rem, 10vw, 3rem);
             }
         }
 
@@ -545,6 +544,12 @@
     }
 
     @media screen and (max-width: 600px) {
+        &__middle {
+            p {
+                font-size: clamp(2rem, 6vw, 2rem);
+            }
+        }
+
         &__bottom--container {
             flex-direction: column;
 

@@ -237,6 +237,12 @@ img {
     color: $color-text-primary;
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator {
+    background-color: #f1f1f1;
+    border-radius: $radius-sm;
+    cursor: pointer;
+}
+
 // ===== TAB ANIMATIONS =====
 .active {
     background: $gradient-primary;

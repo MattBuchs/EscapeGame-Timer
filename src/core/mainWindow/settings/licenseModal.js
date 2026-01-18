@@ -122,9 +122,10 @@ const licenseModalObj = {
         if (purchaseLink) {
             purchaseLink.addEventListener("click", (e) => {
                 e.preventDefault();
-                // TODO: Ouvrir la page d'achat dans le navigateur
                 const { shell } = require("electron");
-                shell.openExternal("https://votre-site.com/acheter-escapetime");
+                shell.openExternal(
+                    "http://localhost:3000/gamemaster-os#pricing"
+                );
             });
         }
     },

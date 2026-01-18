@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: -3%;
     min-height: 100vh;
     padding: 3vh $spacing-xl;
     background: $color-bg-dark;
@@ -26,7 +27,7 @@
     }
 
     &__logo {
-        width: clamp(100px, 15vw, 200px);
+        width: clamp(100px, 20vw, 25rem);
         height: auto;
         margin-bottom: 3vh;
         position: relative;
@@ -61,7 +62,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: clamp(4rem, 12vw, 12rem);
+            font-size: clamp(4rem, 10.5vw, 25rem);
             color: $color-text-primary;
             font-family: $font-family-mono;
             font-weight: $font-weight-extrabold;
@@ -74,8 +75,8 @@
 
     &__message {
         @include glass-morphism;
-        width: min(90%, 800px);
-        min-height: 200px;
+        width: min(70%, 80%);
+        min-height: 250px;
         margin-top: 4vh;
         border-radius: $radius-xl;
         border: 1px solid $color-border-light;
@@ -85,7 +86,7 @@
 
         p {
             font-family: $font-family-primary;
-            font-size: clamp($font-size-lg, 3vw, $font-size-2xl);
+            font-size: clamp(2rem, 1.8vw, 4rem);
             color: $color-text-primary;
             padding: $spacing-2xl;
             line-height: 1.6;
@@ -136,12 +137,26 @@
 }
 
 // ===== RESPONSIVE ADJUSTMENTS =====
+@media screen and (max-width: 1120px) {
+    .timer2 {
+        &__middle {
+            &--timer {
+                font-size: clamp(4rem, 10vw, 25rem);
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 768px) {
     .timer2 {
         padding: 2vh $spacing-md;
 
         &__middle {
             padding: 3vh 4vw;
+
+            &--timer {
+                font-size: clamp(2rem, 10vw, 12rem);
+            }
         }
 
         &__message p {

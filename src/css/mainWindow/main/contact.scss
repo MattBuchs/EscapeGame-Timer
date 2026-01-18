@@ -126,6 +126,11 @@
             background: $color-primary;
             color: white;
 
+            &-license {
+                padding: 0.6rem 0;
+                justify-content: center;
+            }
+
             &:hover {
                 background: $color-primary-light;
                 box-shadow: 0 4px 12px rgba($color-primary, 0.3);
@@ -367,10 +372,6 @@
         outline: none;
         border-color: $color-primary;
         box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
-    }
-
-    &:valid {
-        border-color: #22c55e;
     }
 }
 

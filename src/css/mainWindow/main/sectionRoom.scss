@@ -26,13 +26,17 @@
         display: flex;
         align-items: center;
         gap: $spacing-sm;
-        padding: $spacing-sm $spacing-lg;
+        padding: $spacing-sm $spacing-md;
         border-radius: $radius-full;
         background: rgba(99, 102, 241, 0.1);
         border: 2px solid $color-primary;
         color: $color-text-primary;
         font-weight: $font-weight-semibold;
-        font-size: $font-size-sm;
+        font-size: 0.7rem;
+        position: absolute;
+        bottom: 0.6rem;
+        left: 5.2rem;
+        z-index: 9999;
         cursor: pointer;
         transition: all $transition-base;
 

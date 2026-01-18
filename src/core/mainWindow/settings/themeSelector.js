@@ -149,8 +149,7 @@ function createThemeSelectorUI() {
         const button = document.createElement("button");
         button.className = `theme-option ${
             currentTheme === themeKey ? "active" : ""
-        }${isLocked ? " locked" : ""}`;
-        button.setAttribute("data-theme", themeKey);
+        }${isLocked ? "locked" : ""}`;
         button.title = isLocked
             ? `🔒 Version PRO/BUSINESS requise`
             : `Appliquer le thème ${THEMES[themeKey].name}`;
