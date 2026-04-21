@@ -1,95 +1,95 @@
 {
-    "name": "gamemaster-os",
-    "version": "1.0.0",
-    "description": "Un Timer conçue pour les escape game, ils peuvent gérer le temps de jeu la musique... Il y a 2 fenêtres une pour le maitre du jeu et une pour les joueurs.",
-    "main": "main.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "electron .",
-        "compile-sass": "sass src/css/index.scss src/css/compilation/output.css",
-        "watch-sass": "sass --watch src/css/index.scss:src/css/compilation/output.css",
-        "obfuscate": "node obfuscate.js",
-        "prod-mode": "node scripts/prod-mode.js",
-        "dev-mode": "node scripts/dev-mode.js",
-        "prebuild": "npm run compile-sass && npm run obfuscate && npm run prod-mode",
-        "build": "electron-builder --win",
-        "build:dir": "electron-builder --dir",
-        "postbuild": "npm run dev-mode",
-        "release": "npm run prebuild && electron-builder --win --publish never && npm run dev-mode"
-    },
-    "build": {
-        "appId": "com.mattbuchs.gamemasteros",
-        "productName": "GameMaster OS",
-        "copyright": "Copyright © 2026 Matt Buchs",
-        "icon": "./public/img/AngelsGame.ico",
-        "win": {
-            "icon": "./public/img/AngelsGame.ico",
-            "target": [
-                {
-                    "target": "nsis",
-                    "arch": [
-                        "x64"
-                    ]
-                }
-            ],
-            "forceCodeSigning": false,
-            "signAndEditExecutable": false
-        },
-        "nsis": {
-            "oneClick": false,
-            "allowToChangeInstallationDirectory": true,
-            "createDesktopShortcut": true,
-            "createStartMenuShortcut": true,
-            "shortcutName": "GameMaster OS",
-            "multiLanguageInstaller": true,
-            "installerLanguages": [
-                "en_US",
-                "fr_FR"
-            ],
-            "include": "build/installer.nsh"
-        },
-        "files": [
-            "**/*",
-            "!**/*.scss",
-            "!src/css/**/*",
-            "src/css/compilation/**/*",
-            "!dist/**/*",
-            "!build/**/*",
-            "!.vscode/**/*",
-            "!*.md",
-            "!.git/**/*",
-            "!.gitignore",
-            "!templates/**/*",
-            "!scripts/**/*"
-        ],
-        "directories": {
-            "output": "dist"
-        },
-        "extraResources": [],
-        "asar": true,
-        "asarUnpack": [
-            "**/*.node",
-            "public/**/*",
-            "src/data/**/*"
-        ]
-    },
-    "keywords": [],
-    "author": "Matt Buchs",
-    "license": "ISC",
-    "devDependencies": {
-        "electron": "^25.5.0",
-        "electron-builder": "^26.0.12",
-        "electron-reload": "^2.0.0-alpha.1",
-        "javascript-obfuscator": "^5.1.0",
-        "sass": "^1.69.7"
-    },
-    "dependencies": {
-        "dotenv": "^17.2.3",
-        "electron-is-dev": "^3.0.1",
-        "electron-store": "^8.1.0",
-        "electron-updater": "^6.6.2"
-    },
-    "optionalDependencies": {
-        "fsevents": "^2.3.3"
-    }
+	"name": "gamemaster-os",
+	"version": "2.0.0",
+	"description": "Un Timer conçue pour les escape game, ils peuvent gérer le temps de jeu la musique... Il y a 2 fenêtres une pour le maitre du jeu et une pour les joueurs.",
+	"main": "main.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "electron .",
+		"compile-sass": "sass src/css/index.scss src/css/compilation/output.css",
+		"watch-sass": "sass --watch src/css/index.scss:src/css/compilation/output.css",
+		"obfuscate": "node obfuscate.js",
+		"prod-mode": "node scripts/prod-mode.js",
+		"dev-mode": "node scripts/dev-mode.js",
+		"prebuild": "npm run compile-sass && npm run obfuscate && npm run prod-mode",
+		"build": "electron-builder --win",
+		"build:dir": "electron-builder --dir",
+		"postbuild": "npm run dev-mode",
+		"release": "npm run prebuild && electron-builder --win --publish never && npm run dev-mode"
+	},
+	"build": {
+		"appId": "com.mattbuchs.gamemasteros",
+		"productName": "GameMaster OS",
+		"copyright": "Copyright © 2026 Matt Buchs",
+		"icon": "./public/img/AngelsGame.ico",
+		"win": {
+			"icon": "./public/img/AngelsGame.ico",
+			"target": [
+				{
+					"target": "nsis",
+					"arch": [
+						"x64"
+					]
+				}
+			],
+			"forceCodeSigning": false,
+			"signAndEditExecutable": false
+		},
+		"nsis": {
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": true,
+			"createDesktopShortcut": true,
+			"createStartMenuShortcut": true,
+			"shortcutName": "GameMaster OS",
+			"multiLanguageInstaller": true,
+			"installerLanguages": [
+				"en_US",
+				"fr_FR"
+			],
+			"include": "build/installer.nsh"
+		},
+		"files": [
+			"**/*",
+			"!**/*.scss",
+			"!src/css/**/*",
+			"src/css/compilation/**/*",
+			"!dist/**/*",
+			"!build/**/*",
+			"!.vscode/**/*",
+			"!*.md",
+			"!.git/**/*",
+			"!.gitignore",
+			"!templates/**/*",
+			"!scripts/**/*"
+		],
+		"directories": {
+			"output": "dist"
+		},
+		"extraResources": [],
+		"asar": true,
+		"asarUnpack": [
+			"**/*.node",
+			"public/**/*",
+			"src/data/**/*"
+		]
+	},
+	"keywords": [],
+	"author": "Matt Buchs",
+	"license": "ISC",
+	"devDependencies": {
+		"electron": "^25.5.0",
+		"electron-builder": "^26.0.12",
+		"electron-reload": "^2.0.0-alpha.1",
+		"javascript-obfuscator": "^5.1.0",
+		"sass": "^1.69.7"
+	},
+	"dependencies": {
+		"dotenv": "^17.2.3",
+		"electron-is-dev": "^3.0.1",
+		"electron-store": "^8.1.0",
+		"electron-updater": "^6.6.2"
+	},
+	"optionalDependencies": {
+		"fsevents": "^2.3.3"
+	}
 }

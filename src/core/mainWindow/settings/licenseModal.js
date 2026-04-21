@@ -22,6 +22,8 @@ const licenseModalObj = {
         const licenseBadge = document.querySelector("#btn-license-badge");
         if (licenseBadge) {
             licenseBadge.addEventListener("click", () => {
+                console.log("TESTTT");
+
                 // Naviguer vers la section contact
                 const btnContact = document.querySelector("#btn-contact");
                 if (btnContact) {

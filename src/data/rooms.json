@@ -4,7 +4,7 @@
     "name": "Room 1",
     "end_timer_sound": "Dark Time.mp3",
     "notification_sound": "Bird Notification Tone - sms tone.mp3",
-    "ambient_sound": "Harry Potter - musique ambiance.mp3",
+    "ambient_sound": "birds-ambiance.mp3",
     "hours": 23,
     "minutes": 44,
     "end_timer_volume": 0.5,
