@@ -1,6 +1,6 @@
 {
 	"name": "gamemaster-os",
-	"version": "1.1",
+	"version": "1.1.0",
 	"description": "Un Timer conçue pour les escape game, ils peuvent gérer le temps de jeu la musique... Il y a 2 fenêtres une pour le maitre du jeu et une pour les joueurs.",
 	"main": "main.js",
 	"scripts": {
@@ -21,9 +21,9 @@
 		"appId": "com.mattbuchs.gamemasteros",
 		"productName": "GameMaster OS",
 		"copyright": "Copyright © 2026 Matt Buchs",
-		"icon": "./public/img/logo_gamemaster-og_white.ico",
+		"icon": "./public/img/logo-256.png",
 		"win": {
-			"icon": "./public/img/logo_gamemaster-og_white.ico",
+			"icon": "./public/img/logo-256.png",
 			"target": [
 				{
 					"target": "nsis",
