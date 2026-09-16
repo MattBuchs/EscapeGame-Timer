@@ -12,6 +12,6 @@ module.exports = {
 	LICENSE_SECRET: process.env.LICENSE_SECRET,
 
 	// Autres configurations...
-	APP_VERSION: "2.0.0",
+	APP_VERSION: "1.1",
 	APP_NAME: "GameMaster OS",
 };

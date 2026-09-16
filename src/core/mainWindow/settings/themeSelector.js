@@ -7,41 +7,50 @@ const { ipcRenderer } = require("electron");
 import { notification } from "../UI/notification.js";
 
 const THEMES = {
-    modern: { name: "Moderne", icon: "🚀" },
-    light: { name: "Light", icon: "☀️" },
-    neutral: { name: "Neutre", icon: "🌑" },
-    neon: { name: "Néon", icon: "✨" },
-    sunset: { name: "Sunset", icon: "🌅" },
-    ocean: { name: "Ocean", icon: "🌊" },
-    forest: { name: "Forest", icon: "🌲" },
-    custom: { name: "Personnalisé", icon: "🎨", customizable: true },
+	modern: { name: "Moderne", icon: "🚀" },
+	light: { name: "Light", icon: "☀️" },
+	neutral: { name: "Neutre", icon: "🌑" },
+	neon: { name: "Néon", icon: "✨" },
+	sunset: { name: "Sunset", icon: "🌅" },
+	ocean: { name: "Ocean", icon: "🌊" },
+	forest: { name: "Forest", icon: "🌲" },
+	custom: { name: "Personnalisé", icon: "🎨", customizable: true },
 };
 
 const STORAGE_KEY = "escape-game-theme";
+
+function normalizeTheme(themeName) {
+	return THEMES[themeName] ? themeName : "modern";
+}
 
 /**
  * Applique le thème sauvegardé immédiatement (avant init de la licence)
  */
 function applyInitialTheme() {
-    const settingsManager = window.settingsManager;
-    const savedTheme = settingsManager
-        ? settingsManager.get("theme")
-        : localStorage.getItem(STORAGE_KEY) || "neon";
+	const settingsManager = window.settingsManager;
+	const savedTheme = normalizeTheme(
+		settingsManager
+			? settingsManager.get("theme")
+			: localStorage.getItem(STORAGE_KEY) || "modern",
+	);
 
-    // Appliquer le thème immédiatement au body
-    document.body.setAttribute("data-theme", savedTheme);
+	// Appliquer le thème immédiatement au body
+	document.body.setAttribute("data-theme", savedTheme);
 }
 
 /**
  * Initialise le sélecteur de thème (après init de la licence)
  */
 function initThemeSelector() {
-    // Créer l'interface du sélecteur (le thème est déjà appliqué par applyInitialTheme)
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", createThemeSelectorUI);
-    } else {
-        createThemeSelectorUI();
-    }
+	// Créer l'interface du sélecteur (le thème est déjà appliqué par applyInitialTheme)
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", createThemeSelectorUI);
+	} else {
+		createThemeSelectorUI();
+	}
+
+	// Rafraîchir l'UI après l'initialisation de la licence
+	window.addEventListener("license-initialized", refreshThemeSelectorUI);
 }
 
 /**
@@ -49,159 +58,157 @@ function initThemeSelector() {
  * @param {string} themeName - Nom du thème à appliquer
  */
 function applyTheme(themeName) {
-    if (!THEMES[themeName]) {
-        console.error(`Thème inconnu: ${themeName}`);
-        return;
-    }
+	themeName = normalizeTheme(themeName);
 
-    // Si on change pour un thème non-custom, supprimer les styles inline du thème personnalisé
-    if (themeName !== "custom") {
-        clearCustomThemeStyles();
-    }
+	if (!THEMES[themeName]) {
+		console.error(`Thème inconnu: ${themeName}`);
+		return;
+	}
 
-    // Appliquer l'attribut data-theme sur le body
-    document.body.setAttribute("data-theme", themeName);
+	// Si on change pour un thème non-custom, supprimer les styles inline du thème personnalisé
+	if (themeName !== "custom") {
+		clearCustomThemeStyles();
+	}
 
-    // Sauvegarder le choix
-    const settingsManager = window.settingsManager;
-    if (settingsManager) {
-        settingsManager.set("theme", themeName);
-    } else {
-        localStorage.setItem(STORAGE_KEY, themeName);
-    }
+	// Appliquer l'attribut data-theme sur le body
+	document.body.setAttribute("data-theme", themeName);
 
-    // Envoyer le changement de thème à la seconde fenêtre via IPC
-    ipcRenderer.send("change-theme", themeName);
+	// Sauvegarder le choix
+	const settingsManager = window.settingsManager;
+	if (settingsManager) {
+		settingsManager.set("theme", themeName);
+	} else {
+		localStorage.setItem(STORAGE_KEY, themeName);
+	}
 
-    // Mettre à jour l'UI si elle existe
-    updateThemeSelectorUI(themeName);
+	// Envoyer le changement de thème à la seconde fenêtre via IPC
+	ipcRenderer.send("change-theme", themeName);
+
+	// Mettre à jour l'UI si elle existe
+	updateThemeSelectorUI(themeName);
 }
 
 /**
  * Supprime les styles CSS inline du thème personnalisé
  */
 function clearCustomThemeStyles() {
-    const root = document.body;
-    const customProperties = [
-        "--color-primary",
-        "--color-primary-dark",
-        "--color-primary-light",
-        "--color-primary-glow",
-        "--color-secondary",
-        "--color-secondary-dark",
-        "--color-secondary-light",
-        "--color-secondary-glow",
-        "--color-bg-dark",
-        "--color-bg-darker",
-        "--color-bg-card",
-        "--color-bg-card-hover",
-        "--color-bg-input",
-        "--color-bg-section",
-        "--color-bg-section-hover",
-        "--color-bg-glass",
-        "--color-bg-accent",
-        "--color-bg-accent-hover",
-        "--color-bg-overlay",
-        "--color-text-primary",
-        "--color-text-secondary",
-        "--color-text-muted",
-        "--color-border",
-        "--color-border-light",
-        "--color-success",
-        "--color-error",
-        "--color-warning",
-        "--gradient-card",
-    ];
+	const root = document.body;
+	const customProperties = [
+		"--color-primary",
+		"--color-primary-dark",
+		"--color-primary-light",
+		"--color-primary-glow",
+		"--color-secondary",
+		"--color-secondary-dark",
+		"--color-secondary-light",
+		"--color-secondary-glow",
+		"--color-bg-dark",
+		"--color-bg-darker",
+		"--color-bg-card",
+		"--color-bg-card-hover",
+		"--color-bg-input",
+		"--color-bg-section",
+		"--color-bg-section-hover",
+		"--color-bg-glass",
+		"--color-bg-accent",
+		"--color-bg-accent-hover",
+		"--color-bg-overlay",
+		"--color-text-primary",
+		"--color-text-secondary",
+		"--color-text-muted",
+		"--color-border",
+		"--color-border-light",
+		"--color-success",
+		"--color-error",
+		"--color-warning",
+		"--gradient-card",
+	];
 
-    customProperties.forEach((prop) => root.style.removeProperty(prop));
+	customProperties.forEach((prop) => root.style.removeProperty(prop));
 }
 
 /**
  * Crée l'interface utilisateur du sélecteur de thème
  */
 function createThemeSelectorUI() {
-    console.log("createThemeSelectorUI called");
-    const themeGrid = document.querySelector("#themeGrid");
-    console.log("themeGrid element:", themeGrid);
-    if (!themeGrid) {
-        console.warn("Theme grid non trouvée");
-        return;
-    }
+	const themeGrid = document.querySelector("#themeGrid");
+	if (!themeGrid) {
+		console.warn("Theme grid non trouvée");
+		return;
+	}
 
-    // Vérifier si les boutons existent déjà
-    if (themeGrid.querySelector(".theme-option")) {
-        return;
-    }
+	const licenseManager = window.licenseManager;
+	const settingsManager = window.settingsManager;
+	const currentTheme = normalizeTheme(
+		settingsManager
+			? settingsManager.get("theme") || "modern"
+			: localStorage.getItem(STORAGE_KEY) || "modern",
+	);
 
-    const licenseManager = window.licenseManager;
-    const settingsManager = window.settingsManager;
-    const currentTheme = settingsManager
-        ? settingsManager.get("theme") || "modern"
-        : localStorage.getItem(STORAGE_KEY) || "modern";
+	// Vider la grille
+	themeGrid.textContent = "";
 
-    // Vider la grille
-    themeGrid.textContent = "";
+	// Créer les boutons de thème de manière sécurisée
+	Object.keys(THEMES).forEach((themeKey) => {
+		const isLocked = !licenseManager.canUseTheme(themeKey);
 
-    // Créer les boutons de thème de manière sécurisée
-    Object.keys(THEMES).forEach((themeKey) => {
-        const isLocked = !licenseManager.canUseTheme(themeKey);
+		const button = document.createElement("button");
+		button.setAttribute("data-theme", themeKey);
+		button.className = `theme-option ${
+			currentTheme === themeKey ? "active" : ""
+		}${isLocked ? "locked" : ""}`;
+		button.title = isLocked
+			? `🔒 Version PRO/BUSINESS requise`
+			: `Appliquer le thème ${THEMES[themeKey].name}`;
 
-        const button = document.createElement("button");
-        button.className = `theme-option ${
-            currentTheme === themeKey ? "active" : ""
-        }${isLocked ? "locked" : ""}`;
-        button.title = isLocked
-            ? `🔒 Version PRO/BUSINESS requise`
-            : `Appliquer le thème ${THEMES[themeKey].name}`;
+		const iconSpan = document.createElement("span");
+		iconSpan.className = "theme-icon";
+		iconSpan.textContent = THEMES[themeKey].icon;
 
-        const iconSpan = document.createElement("span");
-        iconSpan.className = "theme-icon";
-        iconSpan.textContent = THEMES[themeKey].icon;
+		const nameSpan = document.createElement("span");
+		nameSpan.className = "theme-name";
+		nameSpan.textContent = THEMES[themeKey].name;
 
-        const nameSpan = document.createElement("span");
-        nameSpan.className = "theme-name";
-        nameSpan.textContent = THEMES[themeKey].name;
+		button.appendChild(iconSpan);
+		button.appendChild(nameSpan);
 
-        button.appendChild(iconSpan);
-        button.appendChild(nameSpan);
+		if (isLocked) {
+			const proBadge = document.createElement("span");
+			proBadge.className = "pro-badge";
+			proBadge.textContent = "🔒";
+			button.appendChild(proBadge);
+		}
 
-        if (isLocked) {
-            const proBadge = document.createElement("span");
-            proBadge.className = "pro-badge";
-            proBadge.textContent = "🔒";
-            button.appendChild(proBadge);
-        }
+		themeGrid.appendChild(button);
+	});
 
-        themeGrid.appendChild(button);
-    });
+	// Ajouter les event listeners
+	const themeButtons = document.querySelectorAll(".theme-option");
+	themeButtons.forEach((button) => {
+		button.addEventListener("click", () => {
+			const themeName = button.getAttribute("data-theme");
 
-    // Ajouter les event listeners
-    const themeButtons = document.querySelectorAll(".theme-option");
-    themeButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            const themeName = button.getAttribute("data-theme");
+			// Vérifier si le thème est verrouillé
+			if (button.classList.contains("locked")) {
+				notification(
+					"🔒 Ce thème est est indisponible. Passez à la version PRO/BUISNESS pour débloquer tous les thèmes !",
+					"error",
+				);
+				return;
+			}
 
-            // Vérifier si le thème est verrouillé
-            if (button.classList.contains("locked")) {
-                notification(
-                    "🔒 Ce thème est est indisponible. Passez à la version PRO/BUISNESS pour débloquer tous les thèmes !",
-                    "error"
-                );
-                return;
-            }
-
-            // Si c'est le thème personnalisé, ouvrir l'éditeur
-            if (THEMES[themeName]?.customizable) {
-                if (typeof window.openCustomThemeEditor === "function") {
-                    window.openCustomThemeEditor();
-                } else {
-                    console.error("openCustomThemeEditor n'est pas disponible");
-                }
-            } else {
-                applyTheme(themeName);
-            }
-        });
-    });
+			// Si c'est le thème personnalisé, ouvrir l'éditeur
+			if (THEMES[themeName]?.customizable) {
+				if (typeof window.openCustomThemeEditor === "function") {
+					window.openCustomThemeEditor();
+				} else {
+					console.error("openCustomThemeEditor n'est pas disponible");
+				}
+			} else {
+				applyTheme(themeName);
+			}
+		});
+	});
 }
 
 /**
@@ -209,16 +216,33 @@ function createThemeSelectorUI() {
  * @param {string} activeTheme - Nom du thème actif
  */
 function updateThemeSelectorUI(activeTheme) {
-    const buttons = document.querySelectorAll(".theme-option");
-    buttons.forEach((button) => {
-        const themeName = button.getAttribute("data-theme");
-        if (themeName === activeTheme) {
-            button.classList.add("active");
-        } else {
-            button.classList.remove("active");
-        }
-    });
+	const buttons = document.querySelectorAll(".theme-option");
+	buttons.forEach((button) => {
+		const themeName = button.getAttribute("data-theme");
+		if (themeName === activeTheme) {
+			button.classList.add("active");
+		} else {
+			button.classList.remove("active");
+		}
+	});
+}
+
+function refreshThemeSelectorUI() {
+	createThemeSelectorUI();
+	const settingsManager = window.settingsManager;
+	const currentTheme = normalizeTheme(
+		settingsManager
+			? settingsManager.get("theme") || "modern"
+			: localStorage.getItem(STORAGE_KEY) || "modern",
+	);
+	updateThemeSelectorUI(currentTheme);
 }
 
 // Exporter les fonctions en ES6
-export { initThemeSelector, applyInitialTheme, applyTheme, THEMES };
+export {
+	applyInitialTheme,
+	applyTheme,
+	initThemeSelector,
+	refreshThemeSelectorUI,
+	THEMES,
+};
