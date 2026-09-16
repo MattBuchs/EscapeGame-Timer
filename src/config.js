@@ -4,6 +4,8 @@
 
 require("dotenv").config();
 
+const pkg = require("../package.json");
+
 const DEFAULT_API_URL = "https://matt-buchs.me/api";
 const DEFAULT_LICENSE_SECRET = "gamemaster-os-local-signature-v1";
 
@@ -17,7 +19,7 @@ module.exports = {
 	// Clé secrète pour la signature locale
 	LICENSE_SECRET: licenseSecret,
 
-	// Autres configurations...
-	APP_VERSION: "1.1.0",
+	// Version de l'application : source unique depuis package.json
+	APP_VERSION: pkg.version || "1.0.0",
 	APP_NAME: "EscapeTime",
 };
