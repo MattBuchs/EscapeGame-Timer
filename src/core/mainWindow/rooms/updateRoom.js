@@ -56,6 +56,17 @@ const updateRoomObj = {
 				listSounds(this.soundDirectories);
 				this.isOptionCreatedInUpdateRoom = true;
 			}
+
+			const licenseManager = window.licenseManager;
+			if (!licenseManager.canUseFeature("ambientSounds")) {
+				updateAmbientSoundList.disabled = true;
+				updateAmbientSoundList.parentElement.style.opacity = "0.5";
+				updateAmbientSoundList.parentElement.title =
+					"🔒 Version PRO/BUSINESS requise";
+				updateAmbientSoundList.title =
+					"🔒 Disponible en version PRO/BUSINESS";
+			}
+
 			this.addValuesInInputs();
 			loadPhrases();
 			editPhrasesObj.loadPhrases();
@@ -88,7 +99,10 @@ const updateRoomObj = {
 		const time = timerInput.value || null;
 		const endTimerSound = updateAlarmSoundList.value || null;
 		const notificationSound = updateNotificationSoundList.value || null;
-		const ambientSound = updateAmbientSoundList.value || null;
+		const licenseManager = window.licenseManager;
+		const ambientSound = licenseManager.canUseFeature("ambientSounds")
+			? updateAmbientSoundList.value || null
+			: null;
 
 		let hours = null;
 		let minutes = null;

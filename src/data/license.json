@@ -1,8 +1,8 @@
 {
-    "type": "business",
-    "activatedAt": "2026-04-20T11:16:13.601Z",
-    "key": "BFPK-T1SK-QDMA-LOTN",
-    "plan": "BUSINESS",
-    "email": "mattbuchs25@gmail.com",
-    "signature": "37f840d55fe4e0d100ded149d3b3d5aeda3cab811dd5f870b6000b24054a4c00"
+    "type": "free",
+    "activatedAt": "2026-09-16T11:24:47.310Z",
+    "key": null,
+    "plan": null,
+    "email": null,
+    "signature": null
 }

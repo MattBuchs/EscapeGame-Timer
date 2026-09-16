@@ -80,6 +80,9 @@ const addRoomObj = {
 					this.ambientSoundList.parentElement.style.opacity = "0.5";
 					this.ambientSoundList.parentElement.title =
 						"🔒 Version PRO/BUISNESS requise";
+					this.ambientSoundList.title =
+						"🔒 Disponible en version PRO/BUSINESS";
+					this.ambientSoundList.value = "";
 				}
 			}
 		});
@@ -112,7 +115,9 @@ const addRoomObj = {
 		let time = document.querySelector("#room_times");
 		const endTimerSound = this.endTimerSoundList.value || null;
 		const notificationSound = this.notificationSoundList.value || null;
-		const ambientSound = this.ambientSoundList.value || null;
+		const ambientSound = licenseManager.canUseFeature("ambientSounds")
+			? this.ambientSoundList.value || null
+			: null;
 
 		const hours = time.value.split(":")[0];
 		const minutes = time.value.split(":")[1];

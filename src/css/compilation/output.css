@@ -1021,7 +1021,7 @@ body.light-navbar .logo-custom-active .logo-black,
 .header__version {
 	position: absolute;
 	top: 0.5rem;
-	right: 0.8rem;
+	right: 0.5rem;
 	padding: 0.25rem 0.5rem;
 	background: var(--color-bg-card);
 	border: 1px solid var(--color-border);
@@ -1337,7 +1337,7 @@ body.light-navbar .logo-custom-active .logo-black,
 	font-size: 0.7rem;
 	position: absolute;
 	bottom: 0.6rem;
-	right: 1rem;
+	left: 5.2rem;
 	z-index: 9999;
 	cursor: pointer;
 	transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -1696,7 +1696,7 @@ body.light-navbar .logo-custom-active .logo-black,
 	background: rgba(8, 8, 15, 0.85);
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
-	z-index: 1050;
+	z-index: 9999;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
@@ -3378,7 +3378,6 @@ body.light-navbar .logo-custom-active .logo-black,
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
-	display: none;
 }
 .editPhrase:hover {
 	border-color: var(--color-border-light);
@@ -4611,7 +4610,7 @@ body.light-navbar .logo-custom-active .logo-black,
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 1050;
+	z-index: 9999;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -5973,20 +5972,28 @@ body.light-navbar .logo-custom-active .logo-black,
 	text-align: center;
 }
 
-.photo {
+.timer2.photo {
+	position: fixed;
+	inset: 0;
+	width: 100vw;
+	min-height: 100vh;
+	height: 100vh;
+	margin-top: 0;
+	padding: 3vh 2rem;
 	background: var(--color-bg-darker);
+	z-index: 999;
 }
-.photo::before {
+.timer2.photo::before {
 	display: none;
 }
-.photo .timer2__logo {
+.timer2.photo .timer2__logo {
 	position: fixed;
 	top: 1.5rem;
 	left: 1.5rem;
 	width: clamp(80px, 12vw, 150px);
 	z-index: 10;
 }
-.photo .timer2__middle {
+.timer2.photo .timer2__middle {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -5994,14 +6001,14 @@ body.light-navbar .logo-custom-active .logo-black,
 	padding: 3vh 5vw;
 	border-width: 3px;
 }
-.photo .timer2__middle--timer {
+.timer2.photo .timer2__middle--timer {
 	font-size: clamp(6rem, 18vw, 20rem);
 	white-space: nowrap;
 }
-.photo .timer2__message {
+.timer2.photo .timer2__message {
 	display: none;
 }
-.photo #timer-roomNegative {
+.timer2.photo #timer-roomNegative {
 	display: none;
 }
 
@@ -6024,7 +6031,7 @@ body.light-navbar .logo-custom-active .logo-black,
 		padding: 2rem;
 		font-size: 1.125rem;
 	}
-	.photo .timer2__middle {
+	.timer2.photo .timer2__middle {
 		padding: 2vh 4vw;
 	}
 }

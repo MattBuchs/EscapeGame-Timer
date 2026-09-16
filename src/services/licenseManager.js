@@ -138,10 +138,135 @@
 						this.createFreeLicense();
 						return;
 					}
+
+					// Vérifier la validité PRO/BUSINESS au lancement uniquement si Internet est bien disponible.
+					if (this.isPro()) {
+						await this.verifyProLicenseOnStartup();
+					}
 				}
 			} catch (error) {
 				console.error("Error initializing license manager:", error);
 				this.createFreeLicense();
+			}
+		}
+
+		/**
+		 * Vérifie une vraie connectivité Internet (et pas seulement le réseau local)
+		 * @returns {Promise<boolean>}
+		 */
+		async hasVerifiedInternetConnection() {
+			const endpoints = [
+				"https://clients3.google.com/generate_204",
+				"https://www.cloudflare.com/cdn-cgi/trace",
+			];
+
+			for (const endpoint of endpoints) {
+				try {
+					const controller = new AbortController();
+					const timeout = setTimeout(() => controller.abort(), 4000);
+
+					const response = await fetch(endpoint, {
+						method: "GET",
+						signal: controller.signal,
+						cache: "no-store",
+					});
+
+					clearTimeout(timeout);
+
+					if (response && response.ok) {
+						return true;
+					}
+				} catch (error) {
+					// Essayer le endpoint suivant
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Vérifie la licence PRO/BUSINESS au lancement (si Internet est disponible)
+		 */
+		async verifyProLicenseOnStartup() {
+			if (!this.license?.key || !this.license?.email) {
+				return;
+			}
+
+			const hasInternet = await this.hasVerifiedInternetConnection();
+			if (!hasInternet) {
+				console.info(
+					"No verified Internet connection at startup, skipping PRO license validation",
+				);
+				return;
+			}
+
+			try {
+				const url = new URL(API_URL + "/validate-license");
+				url.searchParams.append("key", this.license.key);
+				url.searchParams.append("email", this.license.email);
+
+				const response = await fetch(url, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					cache: "no-store",
+				});
+
+				// Les erreurs 5xx sont considérées comme indisponibilité temporaire.
+				if (response.status >= 500) {
+					console.warn(
+						"PRO license check skipped: license API unavailable",
+						response.status,
+					);
+					return;
+				}
+
+				// Les erreurs 4xx indiquent une licence invalide/corrompue.
+				if (!response.ok) {
+					console.warn(
+						"PRO license invalid at startup (HTTP status), falling back to FREE",
+						response.status,
+					);
+					this.createFreeLicense();
+					return;
+				}
+
+				const data = await response.json();
+				const isValid =
+					data?.valid === true && data?.isActive !== false;
+
+				if (!isValid) {
+					console.warn(
+						"PRO license invalid at startup, falling back to FREE",
+					);
+					this.createFreeLicense();
+					return;
+				}
+
+				// Synchroniser les infos retournées par l'API si présentes.
+				if (typeof data?.remainingUsages === "number") {
+					this.license.remainingUsages = data.remainingUsages;
+				}
+				if (typeof data?.maxUsages === "number") {
+					this.license.maxUsages = data.maxUsages;
+				}
+				if (typeof data?.plan === "string") {
+					this.license.plan = data.plan;
+					this.license.type =
+						data.plan.toUpperCase() === "BUSINESS"
+							? LICENSE_TYPES.BUSINESS
+							: LICENSE_TYPES.PRO;
+				}
+
+				this.license.signature = this.generateSignature(this.license);
+				this.saveLicense();
+				this.lastVerificationTime = new Date().toISOString();
+			} catch (error) {
+				console.warn(
+					"Could not complete PRO startup validation, keeping local license:",
+					error,
+				);
 			}
 		}
 

@@ -23,233 +23,244 @@ const btnAmbient = document.querySelector("#btn-ambient_sound");
 const sectionHome = document.querySelector("#container-home");
 
 const roomsObj = {
-    hours: null,
-    minutes: null,
-    resetHours: null,
-    resetMinutes: null,
-    roomId: null,
-    rangeValue: [],
+	hours: null,
+	minutes: null,
+	resetHours: null,
+	resetMinutes: null,
+	roomId: null,
+	rangeValue: [],
 
-    init() {
-        this.loadRooms();
-    },
+	init() {
+		this.loadRooms();
+	},
 
-    loadRooms() {
-        if (containerBtnRooms.children.length > 0) {
-            const buttons = containerBtnRooms.querySelectorAll(
-                ".home__container--btn"
-            );
-            buttons.forEach((room) => {
-                containerBtnRooms.removeChild(room);
-            });
-        }
+	loadRooms() {
+		if (containerBtnRooms.children.length > 0) {
+			const buttons = containerBtnRooms.querySelectorAll(
+				".home__container--btn",
+			);
+			buttons.forEach((room) => {
+				containerBtnRooms.removeChild(room);
+			});
+		}
 
-        if (utils.dataloaded.length > 0) {
-            this.rangeValue = utils.dataloaded;
+		if (utils.dataloaded.length > 0) {
+			this.rangeValue = utils.dataloaded;
 
-            utils.dataloaded.forEach((el) => {
-                const btn = document.createElement("button");
-                btn.classList.add("home__container--btn");
+			utils.dataloaded.forEach((el) => {
+				const btn = document.createElement("button");
+				btn.classList.add("home__container--btn");
 
-                const h3 = document.createElement("h3");
-                h3.textContent = el.name;
-                btn.appendChild(h3);
+				const h3 = document.createElement("h3");
+				h3.textContent = el.name;
+				btn.appendChild(h3);
 
-                const pTimer = this.createParagraphWithSpan(
-                    `${el.hours > 0 ? el.hours + "h : " : ""}${
-                        el.minutes
-                    }mn : 0s`,
-                    window.i18n ? window.i18n.t("home.timerLabel") : "Timer : "
-                );
-                const pNotification = this.createParagraphWithSpan(
-                    el.notification_sound,
-                    window.i18n
-                        ? window.i18n.t("home.notificationSoundLabel")
-                        : "Son notification : "
-                );
-                const pAmbient = this.createParagraphWithSpan(
-                    el.ambient_sound,
-                    window.i18n
-                        ? window.i18n.t("home.ambientSoundLabel")
-                        : "Son ambiant : "
-                );
-                const pAlarm = this.createParagraphWithSpan(
-                    el.end_timer_sound,
-                    window.i18n
-                        ? window.i18n.t("home.endTimerSoundLabel")
-                        : "Son timer : "
-                );
+				const pTimer = this.createParagraphWithSpan(
+					`${el.hours > 0 ? el.hours + "h : " : ""}${
+						el.minutes
+					}mn : 0s`,
+					window.i18n ? window.i18n.t("home.timerLabel") : "Timer : ",
+				);
+				const pNotification = this.createParagraphWithSpan(
+					el.notification_sound,
+					window.i18n
+						? window.i18n.t("home.notificationSoundLabel")
+						: "Son notification : ",
+				);
+				const pAmbient = this.createParagraphWithSpan(
+					el.ambient_sound,
+					window.i18n
+						? window.i18n.t("home.ambientSoundLabel")
+						: "Son ambiant : ",
+				);
+				const pAlarm = this.createParagraphWithSpan(
+					el.end_timer_sound,
+					window.i18n
+						? window.i18n.t("home.endTimerSoundLabel")
+						: "Son timer : ",
+				);
 
-                btn.appendChild(pTimer);
-                btn.appendChild(pNotification);
-                btn.appendChild(pAmbient);
-                btn.appendChild(pAlarm);
+				btn.appendChild(pTimer);
+				btn.appendChild(pNotification);
+				btn.appendChild(pAmbient);
+				btn.appendChild(pAlarm);
 
-                containerBtnRooms.appendChild(btn);
+				containerBtnRooms.appendChild(btn);
 
-                const idOfRoom = el.id;
+				const idOfRoom = el.id;
 
-                btn.addEventListener("click", () => {
-                    this.startRoom(el, idOfRoom);
-                });
-            });
-        } else {
-            if (containerBtnRooms.children.length > 0) return;
+				btn.addEventListener("click", () => {
+					this.startRoom(el, idOfRoom);
+				});
+			});
+		} else {
+			if (containerBtnRooms.children.length > 0) return;
 
-            const div = document.createElement("div");
-            const h3 = document.createElement("h3");
-            const p = document.createElement("p");
-            const btn = document.createElement("button");
+			const div = document.createElement("div");
+			const h3 = document.createElement("h3");
+			const p = document.createElement("p");
+			const btn = document.createElement("button");
 
-            div.classList.add("home__container--noRoom");
-            h3.textContent = window.i18n
-                ? window.i18n.t("home.noTimer")
-                : "Il n'y a pas de timer pour le moment...";
-            p.textContent = window.i18n
-                ? window.i18n.t("home.createTimerPrompt")
-                : "Si vous voulez en créer un, cliquer sur ce bouton : ";
-            btn.textContent = "+";
+			div.classList.add("home__container--noRoom");
+			h3.textContent = window.i18n
+				? window.i18n.t("home.noTimer")
+				: "Il n'y a pas de timer pour le moment...";
+			p.textContent = window.i18n
+				? window.i18n.t("home.createTimerPrompt")
+				: "Si vous voulez en créer un, cliquer sur ce bouton : ";
+			btn.textContent = "+";
 
-            btn.addEventListener("click", () => {
-                const sectionAddRoom = document.querySelector(
-                    "#container-add_room"
-                );
-                const btnAddRoom = document.querySelector("#btn-add_room");
+			btn.addEventListener("click", () => {
+				const sectionAddRoom = document.querySelector(
+					"#container-add_room",
+				);
+				const btnAddRoom = document.querySelector("#btn-add_room");
 
-                sectionAddRoom.classList.add("activeContent");
-                sectionHome.classList.remove("activeContent");
-                btnAddRoom.classList.add("active");
-                btnHome.classList.remove("active");
-            });
+				sectionAddRoom.classList.add("activeContent");
+				sectionHome.classList.remove("activeContent");
+				btnAddRoom.classList.add("active");
+				btnHome.classList.remove("active");
+			});
 
-            div.appendChild(h3);
-            div.appendChild(p);
-            div.appendChild(btn);
-            containerBtnRooms.appendChild(div);
-        }
-    },
+			div.appendChild(h3);
+			div.appendChild(p);
+			div.appendChild(btn);
+			containerBtnRooms.appendChild(div);
+		}
+	},
 
-    startRoom(room, idOfRoom) {
-        this.roomId = idOfRoom;
-        this.hours = room.hours;
-        this.minutes = room.minutes;
-        this.resetHours = room.hours;
-        this.resetMinutes = room.minutes;
+	startRoom(room, idOfRoom) {
+		this.roomId = idOfRoom;
+		this.hours = room.hours;
+		this.minutes = room.minutes;
+		this.resetHours = room.hours;
+		this.resetMinutes = room.minutes;
+		const licenseManager = window.licenseManager;
+		const canUseAmbient =
+			licenseManager && licenseManager.canUseFeature
+				? licenseManager.canUseFeature("ambientSounds")
+				: true;
 
-        if (room.end_timer_sound) {
-            if (window.getPublicUrl) {
-                window
-                    .getPublicUrl("sounds", "end_timer", room.end_timer_sound)
-                    .then((url) => {
-                        endTimerSound.src = url;
-                    });
-            } else {
-                endTimerSound.src = `../../../public/sounds/end_timer/${room.end_timer_sound}`;
-            }
-        }
+		if (room.end_timer_sound) {
+			if (window.getPublicUrl) {
+				window
+					.getPublicUrl("sounds", "end_timer", room.end_timer_sound)
+					.then((url) => {
+						endTimerSound.src = url;
+					});
+			} else {
+				endTimerSound.src = `../../../public/sounds/end_timer/${room.end_timer_sound}`;
+			}
+		}
 
-        if (room.notification_sound) {
-            if (window.getPublicUrl) {
-                window
-                    .getPublicUrl(
-                        "sounds",
-                        "notification",
-                        room.notification_sound
-                    )
-                    .then((url) => {
-                        notificationSound.src = url;
-                    });
-            } else {
-                notificationSound.src = `../../../public/sounds/notification/${room.notification_sound}`;
-            }
+		if (room.notification_sound) {
+			if (window.getPublicUrl) {
+				window
+					.getPublicUrl(
+						"sounds",
+						"notification",
+						room.notification_sound,
+					)
+					.then((url) => {
+						notificationSound.src = url;
+					});
+			} else {
+				notificationSound.src = `../../../public/sounds/notification/${room.notification_sound}`;
+			}
 
-            if (btnNotification.disabled === true)
-                btnNotification.disabled = false;
-        } else btnNotification.disabled = true;
+			if (btnNotification.disabled === true)
+				btnNotification.disabled = false;
+		} else btnNotification.disabled = true;
 
-        if (room.ambient_sound) {
-            if (window.getPublicUrl) {
-                window
-                    .getPublicUrl("sounds", "ambient", room.ambient_sound)
-                    .then((url) => {
-                        ambientSound.src = url;
-                    });
-            } else {
-                ambientSound.src = `../../../public/sounds/ambient/${room.ambient_sound}`;
-            }
+		if (room.ambient_sound && canUseAmbient) {
+			if (window.getPublicUrl) {
+				window
+					.getPublicUrl("sounds", "ambient", room.ambient_sound)
+					.then((url) => {
+						ambientSound.src = url;
+					});
+			} else {
+				ambientSound.src = `../../../public/sounds/ambient/${room.ambient_sound}`;
+			}
 
-            if (btnAmbient.disabled === true) btnAmbient.disabled = false;
-        } else btnAmbient.disabled = true;
+			if (btnAmbient.disabled === true) btnAmbient.disabled = false;
+		} else {
+			btnAmbient.disabled = true;
+			if (!canUseAmbient) {
+				btnAmbient.title =
+					"🔒 Son ambiant disponible en version PRO/BUSINESS";
+			}
+		}
 
-        utils.displayTimer(
-            timer,
-            this.hours,
-            this.minutes,
-            utilsSettingsObj.isPreferenceTimer,
-            timer2
-        );
-        this.updateRangeAndSound(idOfRoom);
+		utils.displayTimer(
+			timer,
+			this.hours,
+			this.minutes,
+			utilsSettingsObj.isPreferenceTimer,
+			timer2,
+		);
+		this.updateRangeAndSound(idOfRoom);
 
-        if (sectionHome.classList.contains("activeContent")) {
-            navbarTimer.classList.remove("hidden");
-            btnHome.classList.remove("active");
-            btnTimerSelected.classList.add("active");
+		if (sectionHome.classList.contains("activeContent")) {
+			navbarTimer.classList.remove("hidden");
+			btnHome.classList.remove("active");
+			btnTimerSelected.classList.add("active");
 
-            for (let i = 0; i < content.length; i++) {
-                content[i].classList.remove("activeContent");
-            }
+			for (let i = 0; i < content.length; i++) {
+				content[i].classList.remove("activeContent");
+			}
 
-            containerRoom.classList.add("activeContent");
-        }
+			containerRoom.classList.add("activeContent");
+		}
 
-        this.loadOption();
+		this.loadOption();
 
-        ipcRenderer.send(
-            "reset-timer",
-            this.resetHours,
-            this.resetMinutes,
-            utilsSettingsObj.isPreferenceTimer
-        );
-    },
+		ipcRenderer.send(
+			"reset-timer",
+			this.resetHours,
+			this.resetMinutes,
+			utilsSettingsObj.isPreferenceTimer,
+		);
+	},
 
-    loadOption() {
-        const index = utils.dataloaded.findIndex(
-            (obj) => obj.id === this.roomId
-        );
-        addPhrasesObj.loadOption(utils.dataloaded[index]);
-    },
+	loadOption() {
+		const index = utils.dataloaded.findIndex(
+			(obj) => obj.id === this.roomId,
+		);
+		addPhrasesObj.loadOption(utils.dataloaded[index]);
+	},
 
-    updateRangeAndSound(idOfRoom) {
-        const findRoom = this.rangeValue.find((el) => el.id === idOfRoom);
+	updateRangeAndSound(idOfRoom) {
+		const findRoom = this.rangeValue.find((el) => el.id === idOfRoom);
 
-        endTimerRange.value = findRoom.end_timer_volume * 100;
-        notificationRange.value = findRoom.notification_volume * 100;
-        amibentRange.value = findRoom.ambient_volume * 100;
+		endTimerRange.value = findRoom.end_timer_volume * 100;
+		notificationRange.value = findRoom.notification_volume * 100;
+		amibentRange.value = findRoom.ambient_volume * 100;
 
-        pourcentageVolume[0].textContent = endTimerRange.value + "%";
-        pourcentageVolume[1].textContent = notificationRange.value + "%";
-        pourcentageVolume[2].textContent = amibentRange.value + "%";
+		pourcentageVolume[0].textContent = endTimerRange.value + "%";
+		pourcentageVolume[1].textContent = notificationRange.value + "%";
+		pourcentageVolume[2].textContent = amibentRange.value + "%";
 
-        endTimerSound.volume = Number(endTimerRange.value) / 100;
-        notificationSound.volume = Number(notificationRange.value) / 100;
-        ambientSound.volume = Number(amibentRange.value) / 100;
-    },
+		endTimerSound.volume = Number(endTimerRange.value) / 100;
+		notificationSound.volume = Number(notificationRange.value) / 100;
+		ambientSound.volume = Number(amibentRange.value) / 100;
+	},
 
-    createParagraphWithSpan(textValue, textLabel) {
-        const p = document.createElement("p");
-        const strong = document.createElement("strong");
-        const span = document.createElement("span");
+	createParagraphWithSpan(textValue, textLabel) {
+		const p = document.createElement("p");
+		const strong = document.createElement("strong");
+		const span = document.createElement("span");
 
-        strong.textContent = textLabel;
-        strong.classList.add("room-label-home");
+		strong.textContent = textLabel;
+		strong.classList.add("room-label-home");
 
-        span.textContent = textValue;
+		span.textContent = textValue;
 
-        p.appendChild(strong);
-        p.appendChild(span);
+		p.appendChild(strong);
+		p.appendChild(span);
 
-        return p;
-    },
+		return p;
+	},
 };
 
 export const { startRoom, updateRangeAndSound, loadRooms } = roomsObj;

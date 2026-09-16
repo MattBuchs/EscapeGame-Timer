@@ -1,185 +1,191 @@
 // ===== SECOND WINDOW - DISPLAY TIMER =====
 .timer2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: -3%;
-    min-height: 100vh;
-    padding: 3vh $spacing-xl;
-    background: $color-bg-dark;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: -3%;
+	min-height: 100vh;
+	padding: 3vh $spacing-xl;
+	background: $color-bg-dark;
 
-    // Modern gradient overlay
-    &::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(
-            circle at 50% 50%,
-            rgba(99, 102, 241, 0.1) 0%,
-            transparent 60%
-        );
-        pointer-events: none;
-        z-index: 0;
-    }
+	// Modern gradient overlay
+	&::before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: radial-gradient(
+			circle at 50% 50%,
+			rgba(99, 102, 241, 0.1) 0%,
+			transparent 60%
+		);
+		pointer-events: none;
+		z-index: 0;
+	}
 
-    &__logo {
-        width: clamp(100px, 20vw, 25rem);
-        height: auto;
-        margin-bottom: 3vh;
-        position: relative;
-        z-index: 1;
+	&__logo {
+		width: clamp(100px, 20vw, 25rem);
+		height: auto;
+		margin-bottom: 3vh;
+		position: relative;
+		z-index: 1;
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
-        }
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
+		}
 
-        // Logo personnalisé
-        .logo-custom {
-            max-width: 250px;
-            max-height: 200px;
-        }
-    }
+		// Logo personnalisé
+		.logo-custom {
+			max-width: 250px;
+			max-height: 200px;
+		}
+	}
 
-    &__middle {
-        position: relative;
-        @include neon-border($color-primary);
-        border-radius: $radius-2xl;
-        padding: 4vh 2vw;
-        background: linear-gradient(145deg, $color-bg-section, $color-bg-glass);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        box-shadow:
-            $shadow-lg,
-            inset 0 0 60px rgba(99, 102, 241, 0.1);
-        z-index: 1;
+	&__middle {
+		position: relative;
+		@include neon-border($color-primary);
+		border-radius: $radius-2xl;
+		padding: 4vh 2vw;
+		background: linear-gradient(145deg, $color-bg-section, $color-bg-glass);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		box-shadow:
+			$shadow-lg,
+			inset 0 0 60px rgba(99, 102, 241, 0.1);
+		z-index: 1;
 
-        &--timer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: clamp(4rem, 10.5vw, 25rem);
-            color: $color-text-primary;
-            font-family: $font-family-mono;
-            font-weight: $font-weight-extrabold;
-            letter-spacing: 0.05em;
-            text-shadow:
-                0 0 40px $color-primary-glow,
-                0 0 80px rgba(99, 102, 241, 0.4),
-                0 4px 8px rgba(0, 0, 0, 0.5);
-            line-height: 1;
-            text-wrap: nowrap;
-            letter-spacing: 0;
-        }
-    }
+		&--timer {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: clamp(4rem, 10.5vw, 25rem);
+			color: $color-text-primary;
+			font-family: $font-family-mono;
+			font-weight: $font-weight-extrabold;
+			letter-spacing: 0.05em;
+			text-shadow:
+				0 0 40px $color-primary-glow,
+				0 0 80px rgba(99, 102, 241, 0.4),
+				0 4px 8px rgba(0, 0, 0, 0.5);
+			line-height: 1;
+			text-wrap: nowrap;
+			letter-spacing: 0;
+		}
+	}
 
-    &__message {
-        @include glass-morphism;
-        width: min(70%, 80%);
-        min-height: 250px;
-        margin-top: 4vh;
-        border-radius: $radius-xl;
-        border: 1px solid $color-border-light;
-        box-shadow: $shadow-lg;
-        word-wrap: break-word;
-        z-index: 1;
+	&__message {
+		@include glass-morphism;
+		width: min(70%, 80%);
+		min-height: 250px;
+		margin-top: 4vh;
+		border-radius: $radius-xl;
+		border: 1px solid $color-border-light;
+		box-shadow: $shadow-lg;
+		word-wrap: break-word;
+		z-index: 1;
 
-        p {
-            font-family: $font-family-primary;
-            font-size: clamp(2rem, 1.8vw, 4rem);
-            color: $color-text-primary;
-            padding: $spacing-2xl;
-            line-height: 1.6;
-            text-align: center;
-        }
-    }
+		p {
+			font-family: $font-family-primary;
+			font-size: clamp(2rem, 1.8vw, 4rem);
+			color: $color-text-primary;
+			padding: $spacing-2xl;
+			line-height: 1.6;
+			text-align: center;
+		}
+	}
 }
 
 // ===== PHOTO MODE (Fullscreen timer) =====
-.photo {
-    background: $color-bg-darker;
+.timer2.photo {
+	position: fixed;
+	inset: 0;
+	width: 100vw;
+	min-height: 100vh;
+	height: 100vh;
+	margin-top: 0;
+	padding: 3vh $spacing-xl;
+	background: $color-bg-darker;
+	z-index: 999;
 
-    &::before {
-        display: none;
-    }
+	&::before {
+		display: none;
+	}
 
-    .timer2 {
-        &__logo {
-            position: fixed;
-            top: $spacing-lg;
-            left: $spacing-lg;
-            width: clamp(80px, 12vw, 150px);
-            z-index: 10;
-        }
+	.timer2__logo {
+		position: fixed;
+		top: $spacing-lg;
+		left: $spacing-lg;
+		width: clamp(80px, 12vw, 150px);
+		z-index: 10;
+	}
 
-        &__middle {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 3vh 5vw;
-            border-width: 3px;
+	.timer2__middle {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		padding: 3vh 5vw;
+		border-width: 3px;
 
-            &--timer {
-                font-size: clamp(6rem, 18vw, 20rem);
-                white-space: nowrap;
-            }
-        }
+		&--timer {
+			font-size: clamp(6rem, 18vw, 20rem);
+			white-space: nowrap;
+		}
+	}
 
-        &__message {
-            display: none;
-        }
-    }
+	.timer2__message {
+		display: none;
+	}
 
-    #timer-roomNegative {
-        display: none;
-    }
+	#timer-roomNegative {
+		display: none;
+	}
 }
 
 // ===== RESPONSIVE ADJUSTMENTS =====
 @media screen and (max-width: 1120px) {
-    .timer2 {
-        &__middle {
-            &--timer {
-                font-size: clamp(4rem, 10vw, 25rem);
-            }
-        }
-    }
+	.timer2 {
+		&__middle {
+			&--timer {
+				font-size: clamp(4rem, 10vw, 25rem);
+			}
+		}
+	}
 }
 
 @media screen and (max-width: 768px) {
-    .timer2 {
-        padding: 2vh $spacing-md;
+	.timer2 {
+		padding: 2vh $spacing-md;
 
-        &__middle {
-            padding: 3vh 4vw;
+		&__middle {
+			padding: 3vh 4vw;
 
-            &--timer {
-                font-size: clamp(2rem, 10vw, 12rem);
-            }
-        }
+			&--timer {
+				font-size: clamp(2rem, 10vw, 12rem);
+			}
+		}
 
-        &__message p {
-            padding: $spacing-xl;
-            font-size: $font-size-lg;
-        }
-    }
+		&__message p {
+			padding: $spacing-xl;
+			font-size: $font-size-lg;
+		}
+	}
 
-    .photo .timer2__middle {
-        padding: 2vh 4vw;
-    }
+	.timer2.photo .timer2__middle {
+		padding: 2vh 4vw;
+	}
 }
 
 @media screen and (max-width: 480px) {
-    .timer2 {
-        &__message p {
-            padding: $spacing-lg;
-        }
-    }
+	.timer2 {
+		&__message p {
+			padding: $spacing-lg;
+		}
+	}
 }
