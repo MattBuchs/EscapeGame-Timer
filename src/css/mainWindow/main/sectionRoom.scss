@@ -1,342 +1,346 @@
 // ===== HOME/ROOMS SECTION - MODERN CARDS =====
 .home {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: $spacing-3xl $spacing-xl;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	padding: $spacing-3xl $spacing-xl;
 
-    &__header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: $spacing-md;
-        margin-bottom: $spacing-2xl;
-        flex-wrap: wrap;
-        position: relative;
-    }
+	&__header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: $spacing-md;
+		margin-bottom: $spacing-2xl;
+		flex-wrap: wrap;
+		position: relative;
+	}
 
-    &__header-actions {
-        display: flex;
-        align-items: center;
-        gap: $spacing-md;
-    }
+	&__header-actions {
+		display: flex;
+		align-items: center;
+		gap: $spacing-md;
+	}
 
-    &__license-badge {
-        @include button-base;
-        display: flex;
-        align-items: center;
-        gap: $spacing-sm;
-        padding: $spacing-sm $spacing-md;
-        border-radius: $radius-full;
-        background: rgba(99, 102, 241, 0.1);
-        border: 2px solid $color-primary;
-        color: $color-text-primary;
-        font-weight: $font-weight-semibold;
-        font-size: 0.7rem;
-        position: absolute;
-        bottom: 0.6rem;
-        left: 5.2rem;
-        z-index: 9999;
-        cursor: pointer;
-        transition: all $transition-base;
+	&__license-badge {
+		@include button-base;
+		display: flex;
+		align-items: center;
+		gap: $spacing-sm;
+		padding: $spacing-sm $spacing-md;
+		border-radius: $radius-full;
+		background: rgba(99, 102, 241, 0.1);
+		border: 2px solid $color-primary;
+		color: $color-text-primary;
+		font-weight: $font-weight-semibold;
+		font-size: 0.7rem;
+		position: absolute;
+		bottom: 0.6rem;
+		right: 1rem;
+		z-index: 9999;
+		cursor: pointer;
+		transition: all $transition-base;
 
-        .icon-lock {
-            width: 18px;
-            height: 18px;
-            color: $color-primary;
-        }
+		.icon-lock {
+			width: 18px;
+			height: 18px;
+			color: $color-primary;
+		}
 
-        &:hover {
-            background: rgba(99, 102, 241, 0.2);
-            border-color: $color-primary;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
+		&:hover {
+			background: rgba(99, 102, 241, 0.2);
+			border-color: $color-primary;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+		}
 
-        &.license-active {
-            background: linear-gradient(135deg, #ffc107, #ff9800);
-            border-color: #ff9800;
-            color: #000;
+		&.license-active {
+			background: linear-gradient(135deg, #ffc107, #ff9800);
+			border-color: #ff9800;
+			color: #000;
 
-            .icon-lock {
-                color: #000;
-            }
+			.icon-lock {
+				color: #000;
+			}
 
-            &:hover {
-                background: linear-gradient(135deg, #ff9800, #f57c00);
-                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
-            }
-        }
-    }
+			&:hover {
+				background: linear-gradient(135deg, #ff9800, #f57c00);
+				box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+			}
+		}
+	}
 
-    &__title {
-        text-align: center;
-        font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
-        color: $color-text-primary;
-        font-weight: $font-weight-extrabold;
-        font-family: $font-family-display;
-        position: relative;
+	&__title {
+		text-align: center;
+		font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
+		color: $color-text-primary;
+		font-weight: $font-weight-extrabold;
+		font-family: $font-family-display;
+		position: relative;
 
-        &::after {
-            content: "";
-            position: absolute;
-            bottom: -$spacing-md;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 4px;
-            background: $gradient-primary;
-            border-radius: $radius-full;
-            box-shadow: $shadow-glow;
-        }
-    }
+		&::after {
+			content: "";
+			position: absolute;
+			bottom: -$spacing-md;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 120px;
+			height: 4px;
+			background: $gradient-primary;
+			border-radius: $radius-full;
+			box-shadow: $shadow-glow;
+		}
+	}
 
-    &__info-btn {
-        @include button-base;
-        width: 36px;
-        height: 36px;
-        padding: 0;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: $color-bg-card;
-        border: 1px solid $color-border;
-        color: $color-text-secondary;
-        transition: all $transition-base;
-        cursor: pointer;
+	&__info-btn {
+		@include button-base;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: $color-bg-card;
+		border: 1px solid $color-border;
+		color: $color-text-secondary;
+		transition: all $transition-base;
+		cursor: pointer;
 
-        &:hover {
-            background: $color-bg-card-hover;
-            border-color: $color-primary;
-            color: $color-primary;
-            transform: scale(1.1);
-        }
+		&:hover {
+			background: $color-bg-card-hover;
+			border-color: $color-primary;
+			color: $color-primary;
+			transform: scale(1.1);
+		}
 
-        svg {
-            width: 20px;
-            height: 20px;
-        }
-    }
+		svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
 
-    &__container {
-        width: 100%;
-        max-width: 1400px;
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: $spacing-xl;
-        padding: $spacing-xl 0;
+	&__container {
+		width: 100%;
+		max-width: 1400px;
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: $spacing-xl;
+		padding: $spacing-xl 0;
 
-        &--btn {
-            @include card-base;
-            min-height: 200px;
-            width: 420px;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            padding: $spacing-2xl;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            background: $gradient-card;
-            border: 2px solid transparent;
+		&--btn {
+			@include card-base;
+			min-height: 200px;
+			width: 420px;
+			flex-shrink: 0;
+			display: flex;
+			flex-direction: column;
+			padding: $spacing-2xl;
+			cursor: pointer;
+			position: relative;
+			overflow: hidden;
+			background: $gradient-card;
+			border: 2px solid transparent;
 
-            // Gradient overlay on hover
-            &::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: $gradient-primary;
-                opacity: 0;
-                transition: opacity $transition-base;
-                z-index: 0;
-            }
+			// Gradient overlay on hover
+			&::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: $gradient-primary;
+				opacity: 0;
+				transition: opacity $transition-base;
+				z-index: 0;
+			}
 
-            &:hover::before {
-                opacity: 0.15;
-            }
+			&:hover::before {
+				opacity: 0.15;
+			}
 
-            &:hover {
-                transform: translateY(-8px) scale(1.03);
-                box-shadow: $shadow-xl, 0 0 40px rgba(99, 102, 241, 0.3);
-                border-color: $color-primary;
-            }
+			&:hover {
+				transform: translateY(-8px) scale(1.03);
+				box-shadow:
+					$shadow-xl,
+					0 0 40px rgba(99, 102, 241, 0.3);
+				border-color: $color-primary;
+			}
 
-            // Content wrapper
-            > * {
-                position: relative;
-                z-index: 1;
-            }
+			// Content wrapper
+			> * {
+				position: relative;
+				z-index: 1;
+			}
 
-            h3 {
-                font-weight: $font-weight-bold;
-                font-size: clamp($font-size-xl, 3vw, $font-size-2xl);
-                color: $color-text-primary;
-                margin-bottom: $spacing-lg;
-                padding-bottom: $spacing-md;
-                text-align: left;
-                font-family: $font-family-display;
-                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-                border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-                position: relative;
+			h3 {
+				font-weight: $font-weight-bold;
+				font-size: clamp($font-size-xl, 3vw, $font-size-2xl);
+				color: $color-text-primary;
+				margin-bottom: $spacing-lg;
+				padding-bottom: $spacing-md;
+				text-align: left;
+				font-family: $font-family-display;
+				text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+				border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+				position: relative;
 
-                &::after {
-                    content: "";
-                    position: absolute;
-                    bottom: -2px;
-                    left: 0;
-                    width: 60px;
-                    height: 2px;
-                    background: $gradient-primary;
-                    border-radius: $radius-full;
-                }
-            }
+				&::after {
+					content: "";
+					position: absolute;
+					bottom: -2px;
+					left: 0;
+					width: 60px;
+					height: 2px;
+					background: $gradient-primary;
+					border-radius: $radius-full;
+				}
+			}
 
-            .room-info {
-                display: flex;
-                flex-direction: column;
-                gap: $spacing-sm;
-            }
+			.room-info {
+				display: flex;
+				flex-direction: column;
+				gap: $spacing-sm;
+			}
 
-            p {
-                font-size: $font-size-sm;
-                color: $color-text-secondary;
-                line-height: 1.6;
-                grid-template-columns: auto 1fr;
-                align-items: start;
-                gap: $spacing-sm;
-                padding: $spacing-xs 0;
-                text-align: left;
-                transition: all $transition-base;
+			p {
+				font-size: $font-size-sm;
+				color: $color-text-secondary;
+				line-height: 1.6;
+				grid-template-columns: auto 1fr;
+				align-items: start;
+				gap: $spacing-sm;
+				padding: $spacing-xs 0;
+				text-align: left;
+				transition: all $transition-base;
 
-                &:hover {
-                    transform: translateX(2px);
-                }
+				&:hover {
+					transform: translateX(2px);
+				}
 
-                span {
-                    &:first-child {
-                        font-weight: $font-weight-semibold;
-                        color: $color-text-primary;
-                        display: flex;
-                        align-items: center;
-                        gap: $spacing-xs;
+				span {
+					&:first-child {
+						font-weight: $font-weight-semibold;
+						color: $color-text-primary;
+						display: flex;
+						align-items: center;
+						gap: $spacing-xs;
 
-                        &::before {
-                            content: "";
-                            width: 6px;
-                            height: 6px;
-                            background: $color-primary;
-                            border-radius: 50%;
-                            flex-shrink: 0;
-                            box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
-                        }
-                    }
+						&::before {
+							content: "";
+							width: 6px;
+							height: 6px;
+							background: $color-primary;
+							border-radius: 50%;
+							flex-shrink: 0;
+							box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+						}
+					}
 
-                    &:last-child {
-                        color: $color-text-secondary;
-                        font-weight: $font-weight-normal;
-                        word-break: break-word;
-                    }
-                }
-            }
-        }
+					&:last-child {
+						color: $color-text-secondary;
+						font-weight: $font-weight-normal;
+						word-break: break-word;
+					}
+				}
+			}
+		}
 
-        &--noRoom {
-            grid-column: 1 / -1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: $spacing-3xl;
-            margin-top: $spacing-3xl;
-            text-align: center;
-            animation: fadeIn $transition-slow;
+		&--noRoom {
+			grid-column: 1 / -1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			padding: $spacing-3xl;
+			margin-top: $spacing-3xl;
+			text-align: center;
+			animation: fadeIn $transition-slow;
 
-            h3 {
-                font-size: clamp($font-size-2xl, 4vw, $font-size-4xl);
-                font-weight: $font-weight-bold;
-                color: $color-text-primary;
-                margin-bottom: $spacing-md;
-                font-family: $font-family-display;
-            }
+			h3 {
+				font-size: clamp($font-size-2xl, 4vw, $font-size-4xl);
+				font-weight: $font-weight-bold;
+				color: $color-text-primary;
+				margin-bottom: $spacing-md;
+				font-family: $font-family-display;
+			}
 
-            p {
-                font-size: $font-size-lg;
-                color: $color-text-secondary;
-                margin-bottom: $spacing-2xl;
-                max-width: 600px;
-            }
+			p {
+				font-size: $font-size-lg;
+				color: $color-text-secondary;
+				margin-bottom: $spacing-2xl;
+				max-width: 600px;
+			}
 
-            button {
-                @include button-base;
-                padding: $spacing-md $spacing-2xl;
-                font-size: $font-size-xl;
-                background: $gradient-button;
-                color: $color-text-primary;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                box-shadow: $shadow-md, 0 0 20px rgba(99, 102, 241, 0.2);
-                font-weight: $font-weight-bold;
+			button {
+				@include button-base;
+				padding: $spacing-md $spacing-2xl;
+				font-size: $font-size-xl;
+				background: $gradient-button;
+				color: $color-text-primary;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				box-shadow:
+					$shadow-md,
+					0 0 20px rgba(99, 102, 241, 0.2);
+				font-weight: $font-weight-bold;
 
-                &:hover {
-                    box-shadow: $shadow-lg, $shadow-glow;
-                    transform: translateY(-4px) scale(1.05);
-                }
-            }
-        }
-    }
+				&:hover {
+					box-shadow: $shadow-lg, $shadow-glow;
+					transform: translateY(-4px) scale(1.05);
+				}
+			}
+		}
+	}
 
-    // ===== RESPONSIVE =====
-    @media screen and (max-width: 1200px) {
-        &__container {
-            gap: $spacing-lg;
+	// ===== RESPONSIVE =====
+	@media screen and (max-width: 1200px) {
+		&__container {
+			gap: $spacing-lg;
 
-            &--btn {
-                width: 340px;
-            }
-        }
-    }
+			&--btn {
+				width: 340px;
+			}
+		}
+	}
 
-    @media screen and (max-width: 768px) {
-        padding: $spacing-2xl $spacing-md;
+	@media screen and (max-width: 768px) {
+		padding: $spacing-2xl $spacing-md;
 
-        &__container {
-            gap: $spacing-md;
-            padding: $spacing-lg 0;
+		&__container {
+			gap: $spacing-md;
+			padding: $spacing-lg 0;
 
-            &--btn {
-                width: 100%;
-                max-width: 450px;
-                min-height: 180px;
-                padding: $spacing-lg;
+			&--btn {
+				width: 100%;
+				max-width: 450px;
+				min-height: 180px;
+				padding: $spacing-lg;
 
-                h3 {
-                    text-align: center;
+				h3 {
+					text-align: center;
 
-                    &::after {
-                        left: 50%;
-                        transform: translateX(-50%);
-                    }
-                }
+					&::after {
+						left: 50%;
+						transform: translateX(-50%);
+					}
+				}
 
-                p {
-                    grid-template-columns: 1fr;
-                    gap: $spacing-xs;
+				p {
+					grid-template-columns: 1fr;
+					gap: $spacing-xs;
 
-                    span:first-child::before {
-                        display: none;
-                    }
-                }
-            }
-        }
-    }
+					span:first-child::before {
+						display: none;
+					}
+				}
+			}
+		}
+	}
 
-    @media screen and (max-width: 500px) {
-        padding: $spacing-xl $spacing-sm;
+	@media screen and (max-width: 500px) {
+		padding: $spacing-xl $spacing-sm;
 
-        &__title {
-            font-size: $font-size-2xl;
-        }
-    }
+		&__title {
+			font-size: $font-size-2xl;
+		}
+	}
 }
