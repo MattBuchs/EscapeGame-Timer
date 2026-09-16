@@ -21,9 +21,9 @@
 		"appId": "com.mattbuchs.gamemasteros",
 		"productName": "GameMaster OS",
 		"copyright": "Copyright © 2026 Matt Buchs",
-		"icon": "./public/img/AngelsGame.ico",
+		"icon": "./public/img/logo_gamemaster-og_white.ico",
 		"win": {
-			"icon": "./public/img/AngelsGame.ico",
+			"icon": "./public/img/logo_gamemaster-og_white.ico",
 			"target": [
 				{
 					"target": "nsis",
