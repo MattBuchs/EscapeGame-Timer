@@ -21,7 +21,8 @@ function getPublicUrlSync(relativePath) {
 // Preload common paths
 async function preloadPaths() {
     const commonPaths = [
-        "img/Logo.png",
+        "img/logo_gamemaster-og_white.png",
+        "img/logo_gamemaster-og_black.png",
         "img/chevron-right.svg",
         "img/chevron-left.svg",
         "img/delete.svg",

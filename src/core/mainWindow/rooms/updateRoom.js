@@ -1,8 +1,8 @@
-import { listSounds, dataloaded, writeFile } from "../../utils.js";
-import { notification } from "../UI/notification.js";
-import roomsObj from "./rooms.js";
+import { dataloaded, listSounds, writeFile } from "../../utils.js";
 import { loadPhrases } from "../phrases/deletePhrases.js";
 import editPhrasesObj from "../phrases/editPhrases.js";
+import { notification } from "../UI/notification.js";
+import roomsObj from "./rooms.js";
 const { ipcRenderer } = require("electron");
 
 const btnUpdateRoom = document.querySelector("#update-timer");
@@ -11,143 +11,160 @@ const nameInput = document.querySelector("#update-title");
 const timerInput = document.querySelector("#update-timer_input");
 const updateAlarmSoundList = document.querySelector("#update-alarm_sound-list");
 const updateAmbientSoundList = document.querySelector(
-    "#update-ambient_sound-list"
+	"#update-ambient_sound-list",
 );
 const updateNotificationSoundList = document.querySelector(
-    "#update-notification_sound-list"
+	"#update-notification_sound-list",
 );
 
 const updateRoomObj = {
-    isOptionCreatedInUpdateRoom: false,
-    soundDirectories: null,
+	isOptionCreatedInUpdateRoom: false,
+	soundDirectories: null,
 
-    async init() {
-        // Initialize sound directories with proper paths
-        this.soundDirectories = [
-            {
-                path: await ipcRenderer.invoke(
-                    "get-public-path",
-                    "sounds",
-                    "end_timer"
-                ),
-                listId: "#update-alarm_sound-list",
-            },
-            {
-                path: await ipcRenderer.invoke(
-                    "get-public-path",
-                    "sounds",
-                    "ambient"
-                ),
-                listId: "#update-ambient_sound-list",
-            },
-            {
-                path: await ipcRenderer.invoke(
-                    "get-public-path",
-                    "sounds",
-                    "notification"
-                ),
-                listId: "#update-notification_sound-list",
-            },
-        ];
+	async init() {
+		// Initialize sound directories with proper paths
+		this.soundDirectories = [
+			{
+				path: await ipcRenderer.invoke(
+					"get-public-path",
+					"sounds",
+					"end_timer",
+				),
+				listId: "#update-alarm_sound-list",
+			},
+			{
+				path: await ipcRenderer.invoke(
+					"get-public-path",
+					"sounds",
+					"ambient",
+				),
+				listId: "#update-ambient_sound-list",
+			},
+			{
+				path: await ipcRenderer.invoke(
+					"get-public-path",
+					"sounds",
+					"notification",
+				),
+				listId: "#update-notification_sound-list",
+			},
+		];
 
-        formUpdateTimer.addEventListener("submit", (e) => this.setupForm(e));
-        btnUpdateRoom.addEventListener("click", () => {
-            if (!this.isOptionCreatedInUpdateRoom) {
-                listSounds(this.soundDirectories);
-                this.isOptionCreatedInUpdateRoom = true;
-            }
-            this.addValuesInInputs();
-            loadPhrases();
-            editPhrasesObj.loadPhrases();
-        });
-    },
+		formUpdateTimer.addEventListener("submit", (e) => this.setupForm(e));
+		btnUpdateRoom.addEventListener("click", () => {
+			if (!this.isOptionCreatedInUpdateRoom) {
+				listSounds(this.soundDirectories);
+				this.isOptionCreatedInUpdateRoom = true;
+			}
 
-    addValuesInInputs() {
-        const indexRoom = dataloaded.findIndex(
-            (el) => el.id === roomsObj.roomId
-        );
+			const licenseManager = window.licenseManager;
+			if (!licenseManager.canUseFeature("ambientSounds")) {
+				updateAmbientSoundList.disabled = true;
+				updateAmbientSoundList.parentElement.style.opacity = "0.5";
+				updateAmbientSoundList.parentElement.title =
+					"🔒 Version PRO/BUSINESS requise";
+				updateAmbientSoundList.title =
+					"🔒 Disponible en version PRO/BUSINESS";
+			}
 
-        const roomValue = dataloaded[indexRoom];
+			this.addValuesInInputs();
+			loadPhrases();
+			editPhrasesObj.loadPhrases();
+		});
+	},
 
-        nameInput.value = roomValue.name;
-        timerInput.value = `${
-            roomValue.hours > 10 ? roomValue.hours : "0" + roomValue.hours
-        }:${
-            roomValue.minutes > 10 ? roomValue.minutes : "0" + roomValue.minutes
-        }`;
+	addValuesInInputs() {
+		const indexRoom = dataloaded.findIndex(
+			(el) => el.id === roomsObj.roomId,
+		);
 
-        updateAlarmSoundList.value = roomValue.end_timer_sound;
-        updateAmbientSoundList.value = roomValue.ambient_sound;
-        updateNotificationSoundList.value = roomValue.notification_sound;
-    },
+		const roomValue = dataloaded[indexRoom];
 
-    setupForm(e) {
-        e.preventDefault();
+		nameInput.value = roomValue.name;
+		timerInput.value = `${
+			roomValue.hours > 10 ? roomValue.hours : "0" + roomValue.hours
+		}:${
+			roomValue.minutes > 10 ? roomValue.minutes : "0" + roomValue.minutes
+		}`;
 
-        const name = nameInput.value || null;
-        const time = timerInput.value || null;
-        const endTimerSound = updateAlarmSoundList.value || null;
-        const notificationSound = updateNotificationSoundList.value || null;
-        const ambientSound = updateAmbientSoundList.value || null;
+		updateAlarmSoundList.value = roomValue.end_timer_sound;
+		updateAmbientSoundList.value = roomValue.ambient_sound;
+		updateNotificationSoundList.value = roomValue.notification_sound;
+	},
 
-        let hours = null;
-        let minutes = null;
-        if (time !== null) {
-            hours = time.split(":")[0];
-            minutes = time.split(":")[1];
-        }
+	setupForm(e) {
+		e.preventDefault();
 
-        if (hours === "00" && minutes === "00") {
-            notification("Le timer ne peut pas avoir une durée de 0.", "error");
-            return;
-        }
+		const name = nameInput.value || null;
+		const time = timerInput.value || null;
+		const endTimerSound = updateAlarmSoundList.value || null;
+		const notificationSound = updateNotificationSoundList.value || null;
+		const licenseManager = window.licenseManager;
+		const ambientSound = licenseManager.canUseFeature("ambientSounds")
+			? updateAmbientSoundList.value || null
+			: null;
 
-        this.updateRoomToData({
-            name,
-            hours,
-            minutes,
-            endTimerSound,
-            notificationSound,
-            ambientSound,
-        });
-    },
+		let hours = null;
+		let minutes = null;
+		if (time !== null) {
+			hours = time.split(":")[0];
+			minutes = time.split(":")[1];
+		}
 
-    updateRoomToData(obj) {
-        let name;
+		if (hours === "00" && minutes === "00") {
+			notification("Le timer ne peut pas avoir une durée de 0.", "error");
+			return;
+		}
 
-        dataloaded.map((el) => {
-            if (el.id === roomsObj.roomId) {
-                if (obj.name !== null) el.name = obj.name;
-                if (obj.hours !== null) el.hours = Number(obj.hours);
-                if (obj.minutes !== null) el.minutes = Number(obj.minutes);
-                if (obj.endTimerSound !== null)
-                    el.end_timer_sound = obj.endTimerSound;
-                if (obj.ambientSound !== null)
-                    el.ambient_sound = obj.ambientSound;
-                if (obj.notificationSound !== null)
-                    el.notification_sound = obj.notificationSound;
+		this.updateRoomToData({
+			name,
+			hours,
+			minutes,
+			endTimerSound,
+			notificationSound,
+			ambientSound,
+		});
+	},
 
-                name = el.name;
-            }
-        });
+	updateRoomToData(obj) {
+		let name;
 
-        // Écrire dans le fichier JSON
-        writeFile(dataloaded);
+		dataloaded.map((el) => {
+			if (el.id === roomsObj.roomId) {
+				if (obj.name !== null) el.name = obj.name;
+				if (obj.hours !== null) el.hours = Number(obj.hours);
+				if (obj.minutes !== null) el.minutes = Number(obj.minutes);
+				if (obj.endTimerSound !== null)
+					el.end_timer_sound = obj.endTimerSound;
+				if (obj.ambientSound !== null)
+					el.ambient_sound = obj.ambientSound;
+				if (obj.notificationSound !== null)
+					el.notification_sound = obj.notificationSound;
 
-        notification(`Le timer "${name}" à été modifié.`, "success");
-        this.reloadTimer();
-    },
+				name = el.name;
+			}
+		});
 
-    reloadTimer() {
-        const roomId = roomsObj.roomId;
+		// Écrire dans le fichier JSON
+		writeFile(dataloaded);
 
-        let room;
-        dataloaded.forEach((data) => {
-            if (data.id === roomId) return (room = data);
-        });
+		// Rafraîchir la vue des rooms pour afficher immédiatement les nouvelles valeurs
+		roomsObj.loadRooms();
 
-        roomsObj.startRoom(room, roomId);
-    },
+		notification(`Le timer "${name}" à été modifié.`, "success");
+		this.reloadTimer();
+	},
+
+	reloadTimer() {
+		const roomId = roomsObj.roomId;
+
+		let room;
+		dataloaded.forEach((data) => {
+			if (data.id === roomId) return (room = data);
+		});
+
+		roomsObj.startRoom(room, roomId);
+	},
 };
 
 export default updateRoomObj;

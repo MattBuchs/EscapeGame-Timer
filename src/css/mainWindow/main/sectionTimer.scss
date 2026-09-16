@@ -13,7 +13,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    margin: 4rem auto;
     animation: fadeIn $transition-base;
 
     button {
@@ -23,7 +23,9 @@
         color: $color-text-primary;
         font-weight: $font-weight-bold;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        box-shadow: $shadow-md, 0 0 20px rgba(99, 102, 241, 0.2);
+        box-shadow:
+            $shadow-md,
+            0 0 20px rgba(99, 102, 241, 0.2);
 
         &:hover:not(:disabled) {
             box-shadow: $shadow-lg, $shadow-glow;
@@ -58,8 +60,7 @@
         }
 
         &--img {
-            width: 10rem;
-            height: 10rem;
+            width: 16rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -130,16 +131,19 @@
             $color-bg-glass
         );
         backdrop-filter: blur(10px);
-        box-shadow: $shadow-lg, inset 0 0 40px rgba(99, 102, 241, 0.1);
+        box-shadow:
+            $shadow-lg,
+            inset 0 0 40px rgba(99, 102, 241, 0.1);
 
         p {
-            font-size: clamp(3rem, 8vw, 8rem);
+            font-size: clamp(3rem, 8vw, 7.6rem);
             color: $color-text-primary;
             font-family: $font-family-mono;
             font-weight: $font-weight-bold;
-            text-shadow: 0 0 30px $color-primary-glow,
+            text-shadow:
+                0 0 30px $color-primary-glow,
                 0 0 60px rgba(99, 102, 241, 0.3);
-            letter-spacing: 0.1em;
+            letter-spacing: 0;
         }
     }
 
@@ -531,7 +535,7 @@
             padding: $spacing-xl $spacing-md;
 
             p {
-                font-size: clamp(2rem, 10vw, 4rem);
+                font-size: clamp(2rem, 10vw, 3rem);
             }
         }
 
@@ -545,6 +549,12 @@
     }
 
     @media screen and (max-width: 600px) {
+        &__middle {
+            p {
+                font-size: clamp(2rem, 6vw, 2rem);
+            }
+        }
+
         &__bottom--container {
             flex-direction: column;
 

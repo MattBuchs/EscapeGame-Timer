@@ -1,0 +1,514 @@
+<div class="license-section">
+    <div class="license-section__header">
+        <h2 class="license-section__title" data-i18n="license.title">
+            Choisissez la licence adaptée à votre structure
+        </h2>
+    </div>
+
+    <!-- Affichage si aucune licence active -->
+    <div class="license-section__content" id="license-content-inactive">
+        <div class="license-plans">
+            <!-- Version Gratuite -->
+            <div class="license-plan license-plan--free">
+                <div class="license-plan__icon">🆓</div>
+                <h3 class="license-plan__title" data-i18n="license.free.title">
+                    Version Gratuite
+                </h3>
+                <p
+                    class="license-plan__subtitle"
+                    data-i18n="license.free.subtitle"
+                >
+                    Pour tester l'application en conditions réelles
+                </p>
+
+                <div class="license-plan__price">
+                    <span class="price-amount">0€</span>
+                    <span class="price-period" data-i18n="license.free.period"
+                        >Sans limite de durée</span
+                    >
+                </div>
+
+                <ul class="license-plan__features">
+                    <li class="limitation">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        <span data-i18n="license.free.limit1"
+                            >1 seul timer</span
+                        >
+                    </li>
+                    <li class="limitation">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        <span data-i18n="license.free.limit2">1 thème</span>
+                    </li>
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.free.feature1"
+                            >Double écran</span
+                        >
+                    </li>
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.free.feature2"
+                            >Gestion audio</span
+                        >
+                    </li>
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.free.feature3"
+                            >Français / Anglais</span
+                        >
+                    </li>
+                </ul>
+
+                <button
+                    class="license-plan__btn license-plan__btn--free"
+                    disabled
+                >
+                    <span data-i18n="license.currentVersion"
+                        >Version actuelle</span
+                    >
+                </button>
+            </div>
+
+            <!-- Version PRO -->
+            <div class="license-plan license-plan--pro">
+                <div class="license-plan__badge">POPULAIRE</div>
+                <div class="license-plan__icon">👑</div>
+                <h3 class="license-plan__title" data-i18n="license.pro.title">
+                    Version PRO
+                </h3>
+                <p
+                    class="license-plan__subtitle"
+                    data-i18n="license.pro.subtitle"
+                >
+                    Pour un poste maître du jeu
+                </p>
+
+                <div class="license-plan__price">
+                    <div class="price-wrapper">
+                        <span class="price-amount">99€</span>
+                        <span class="price-tag">TTC</span>
+                    </div>
+                    <span class="price-period" data-i18n="license.pro.period"
+                        >Paiement unique • Licence perpétuelle</span
+                    >
+                    <span class="price-offer" data-i18n="license.pro.offer"
+                        >Offre valable jusqu'au 1 mars 2026</span
+                    >
+                </div>
+
+                <ul class="license-plan__features">
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.pro.feature1"
+                            >Installation sur 1 poste</span
+                        >
+                    </li>
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.pro.feature2"
+                            >Timers illimités</span
+                        >
+                    </li>
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.pro.feature3"
+                            >Tous les thèmes</span
+                        >
+                    </li>
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.pro.feature4"
+                            >Éditeur de thème</span
+                        >
+                    </li>
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.pro.feature5"
+                            >Indices pré-configurés</span
+                        >
+                    </li>
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.pro.feature6"
+                            >Mises à jour incluses</span
+                        >
+                    </li>
+                    <li class="feature">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.pro.feature7"
+                            >Licence perpétuelle</span
+                        >
+                    </li>
+                </ul>
+
+                <button
+                    class="license-plan__btn license-plan__btn--pro"
+                    id="btn-activate-pro"
+                >
+                    <span data-i18n="license.activateBtn"
+                        >Activer la version PRO</span
+                    >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Version Business -->
+            <div class="license-plan license-plan--business">
+                <div class="license-plan__icon">🏢</div>
+                <h3
+                    class="license-plan__title"
+                    data-i18n="license.business.title"
+                >
+                    Entreprise
+                </h3>
+                <p
+                    class="license-plan__subtitle"
+                    data-i18n="license.business.subtitle"
+                >
+                    Pour 3 postes maître du jeu
+                </p>
+
+                <div class="license-plan__price">
+                    <div class="price-wrapper">
+                        <span class="price-amount">179€</span>
+                        <span class="price-tag">TTC</span>
+                    </div>
+                    <span
+                        class="price-period"
+                        data-i18n="license.business.period"
+                        >Paiement unique • Multi-postes</span
+                    >
+                    <span class="price-offer" data-i18n="license.business.offer"
+                        >Offre valable jusqu'au 1 mars 2026</span
+                    >
+                </div>
+
+                <ul class="license-plan__features">
+                    <li class="feature feature--highlight">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.business.feature1"
+                            >Toutes les fonctionnalités PRO</span
+                        >
+                    </li>
+                    <li class="feature feature--highlight">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.business.feature2"
+                            >Installation sur 3 postes</span
+                        >
+                    </li>
+                    <li class="feature feature--highlight">
+                        <svg
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n="license.business.feature3"
+                            >Support prioritaire</span
+                        >
+                    </li>
+                </ul>
+
+                <button
+                    class="license-plan__btn license-plan__btn--business"
+                    id="btn-activate-business"
+                >
+                    <span data-i18n="license.activateBtn"
+                        >Activer la version Entreprise</span
+                    >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Section d'activation -->
+        <div class="license-activation" id="license-activation-form">
+            <div class="license-activation__header">
+                <h3 data-i18n="license.activate">Activer votre licence</h3>
+                <p data-i18n="license.enterKey">
+                    Entrez votre email et votre clé de licence ci-dessous pour
+                    débloquer toutes les fonctionnalités :
+                </p>
+            </div>
+
+            <div class="license-input-group">
+                <div class="license-input-wrapper">
+                    <svg
+                        class="license-input-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        ></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <input
+                        type="email"
+                        id="license-email-input"
+                        placeholder="votre@email.com"
+                        data-i18n-placeholder="license.emailPlaceholder"
+                        required
+                    />
+                </div>
+                <div class="license-input-wrapper">
+                    <svg
+                        class="license-input-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect
+                            x="3"
+                            y="11"
+                            width="18"
+                            height="11"
+                            rx="2"
+                            ry="2"
+                        ></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <input
+                        type="text"
+                        id="license-key-input"
+                        placeholder="XXXX-XXXX-XXXX-XXXX"
+                        maxlength="19"
+                        pattern="[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}"
+                        data-i18n-placeholder="license.keyPlaceholder"
+                    />
+                </div>
+                <button
+                    class="btn btn-primary"
+                    id="activate-license-btn"
+                    data-i18n="license.activateBtn"
+                >
+                    <span>Activer</span>
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="license-message" id="license-activation-message"></div>
+
+            <div class="license-purchase">
+                <p data-i18n="license.noKey">
+                    Vous n'avez pas encore de clé de licence ?
+                </p>
+                <a
+                    href="#"
+                    class="btn btn-secondary"
+                    id="purchase-license-link"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path
+                            d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                        ></path>
+                    </svg>
+                    <span data-i18n="license.purchase"
+                        >Acheter une licence</span
+                    >
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Affichage si licence activée -->
+    <div class="license-section__activated" id="license-content-active">
+        <div class="license-activated">
+            <div class="license-activated__icon">
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="8 12 11 15 16 9"></polyline>
+                </svg>
+            </div>
+            <h2
+                class="license-activated__title"
+                data-i18n="license.activated.title"
+            >
+                Licence activée avec succès !
+            </h2>
+            <p class="license-activated__subtitle" id="license-activated-plan">
+                Version PRO
+            </p>
+            <div class="license-activated__info">
+                <div class="license-activated__detail">
+                    <span class="label" data-i18n="license.activated.email"
+                        >Email :</span
+                    >
+                    <span class="value" id="license-activated-email"
+                        >exemple@email.com</span
+                    >
+                </div>
+                <div class="license-activated__detail">
+                    <span class="label" data-i18n="license.activated.status"
+                        >Statut :</span
+                    >
+                    <span
+                        class="value status-active"
+                        data-i18n="license.activated.statusActive"
+                        >Actif</span
+                    >
+                </div>
+            </div>
+            <p
+                class="license-activated__message"
+                data-i18n="license.activated.message"
+            >
+                Toutes les fonctionnalités sont maintenant disponibles. Profitez
+                pleinement de votre expérience !
+            </p>
+        </div>
+    </div>
+</div>

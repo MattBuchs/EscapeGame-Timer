@@ -2,6 +2,7 @@ import roomsObj from "../rooms/rooms.js";
 import { openModal, closeModal, dataloaded, writeFile } from "../../utils.js";
 import { notification } from "../UI/notification.js";
 import phrasesAutocompleteObj from "./phrasesAutocomplete.js";
+const dataValidator = require("../../services/dataValidator");
 
 const containerRoom = document.querySelector("#container-room");
 const btnAddPhrases = document.querySelector("#btn-add_phrases");
@@ -88,7 +89,7 @@ const addPhrasesObj = {
         if (!categoryDatalist) return;
 
         // Vider la datalist
-        categoryDatalist.innerHTML = "";
+        categoryDatalist.textContent = "";
 
         // Récupérer toutes les catégories uniques de toutes les phrases
         const allCategories = new Set();
@@ -113,7 +114,7 @@ const addPhrasesObj = {
     initCategoryIcons() {
         if (!iconButtonsContainer) return;
 
-        iconButtonsContainer.innerHTML = "";
+        iconButtonsContainer.textContent = "";
         CATEGORY_ICONS.forEach((icon) => {
             const button = document.createElement("button");
             button.type = "button";
@@ -147,6 +148,18 @@ const addPhrasesObj = {
 
         // Trouve l'index de l'objet avec l'ID donné dans le tableau
         const index = dataloaded.findIndex((obj) => obj.id === roomsObj.roomId);
+
+        // ✅ Vérifier avec le validator
+        if (!dataValidator.canAddPhrase(roomsObj.roomId)) {
+            const licenseManager = window.licenseManager;
+            const maxPhrases =
+                licenseManager?.getFreeFeatures()?.maxPhrases || 5;
+            notification(
+                `🔒 Version FREE : maximum ${maxPhrases} phrases autorisées. Passez à la version PRO pour des phrases illimitées !`,
+                "error"
+            );
+            return;
+        }
 
         // Créer l'objet phrase avec métadonnées
         const category = categoryInput ? categoryInput.value.trim() : "";

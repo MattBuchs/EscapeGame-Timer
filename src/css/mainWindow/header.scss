@@ -58,6 +58,41 @@
         }
     }
 
+    &__version {
+        position: absolute;
+        top: $spacing-sm;
+        right: $spacing-sm;
+        padding: 0.25rem 0.5rem;
+        background: $color-bg-card;
+        border: 1px solid $color-border;
+        border-radius: $radius-sm;
+        font-size: 0.75rem;
+        color: $color-text-muted;
+        font-weight: $font-weight-medium;
+        transition: all $transition-base;
+        z-index: 10;
+
+        span {
+            display: block;
+        }
+
+        &:hover {
+            color: $color-text-primary;
+            border-color: $color-border-light;
+        }
+
+        #app-version.update-available {
+            color: $color-primary;
+            animation: pulse 2s ease-in-out infinite;
+            font-weight: $font-weight-bold;
+
+            &::after {
+                content: " 🚀";
+                margin-left: 0.25rem;
+            }
+        }
+    }
+
     &__nav {
         height: 100%;
         width: 100%;

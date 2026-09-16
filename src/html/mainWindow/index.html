@@ -1,101 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            http-equiv="Content-Security-Policy"
-            content="default-src 'self'; script-src 'self'; img-src 'self' data: file:"
-        />
-        <link rel="stylesheet" href="../../css/compilation/output.css" />
-        <title>EscapeTime - Game Master</title>
-    </head>
-    <body data-theme="neon">
-        <div id="app">
-            <header id="header-load" class="header"></header>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="default-src 'self'; script-src 'self'; img-src 'self' data: file:; connect-src 'self' https://matt-buchs.me https://* http://*"
+		/>
+		<link rel="stylesheet" href="../../css/compilation/output.css" />
+		<title>GameMaster OS</title>
+	</head>
+	<body data-theme="neon">
+		<div id="startup-loader" aria-live="polite" aria-label="Chargement">
+			<div class="startup-loader__bars" aria-hidden="true">
+				<span class="startup-loader__bar"></span>
+				<span class="startup-loader__bar"></span>
+				<span class="startup-loader__bar"></span>
+				<span class="startup-loader__bar"></span>
+				<span class="startup-loader__bar"></span>
+			</div>
+			<div class="startup-loader__text">Chargement...</div>
+		</div>
 
-            <main class="main">
-                <section
-                    id="container-home"
-                    class="content activeContent"
-                    data-onglet="1"
-                >
-                    <div class="home">
-                        <div class="home__header">
-                            <h2 class="home__title" data-i18n="home.title">
-                                Accueil
-                            </h2>
-                            <button
-                                class="home__info-btn"
-                                id="btn-second-window-info"
-                                data-i18n-title="home.secondWindowInfoTitle"
-                                title="Aide sur la fenêtre secondaire"
-                            >
-                                <svg
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line
-                                        x1="12"
-                                        y1="16"
-                                        x2="12"
-                                        y2="12"
-                                    ></line>
-                                    <line
-                                        x1="12"
-                                        y1="8"
-                                        x2="12.01"
-                                        y2="8"
-                                    ></line>
-                                </svg>
-                            </button>
-                        </div>
-                        <div
-                            id="container-btn_rooms"
-                            class="home__container"
-                        ></div>
-                    </div>
-                </section>
+		<div id="app">
+			<header id="header-load" class="header"></header>
+			<button
+				class="home__license-badge"
+				id="btn-license-badge"
+				data-i18n-title="header.activatePro"
+				title="Cliquez pour activer une licence"
+			>
+				<svg
+					class="icon-lock"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<rect
+						x="3"
+						y="11"
+						width="18"
+						height="11"
+						rx="2"
+						ry="2"
+					></rect>
+					<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+				</svg>
+				<span id="license-badge-text">Version Gratuite</span>
+			</button>
+			<div class="header__version">
+				<span id="app-version">v1.0.0</span>
+			</div>
 
-                <section id="container-room" class="content"></section>
+			<main class="main">
+				<section
+					id="container-home"
+					class="content activeContent"
+					data-onglet="1"
+				>
+					<div class="home">
+						<div class="home__header">
+							<h2 class="home__title" data-i18n="home.title">
+								Accueil
+							</h2>
+							<div class="home__header-actions">
+								<button
+									class="home__info-btn"
+									id="btn-second-window-info"
+									data-i18n-title="home.secondWindowInfoTitle"
+									title="Aide sur la fenêtre secondaire"
+								>
+									<svg
+										width="20"
+										height="20"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<circle cx="12" cy="12" r="10"></circle>
+										<line
+											x1="12"
+											y1="16"
+											x2="12"
+											y2="12"
+										></line>
+										<line
+											x1="12"
+											y1="8"
+											x2="12.01"
+											y2="8"
+										></line>
+									</svg>
+								</button>
+							</div>
+						</div>
+						<div
+							id="container-btn_rooms"
+							class="home__container"
+						></div>
+					</div>
+				</section>
 
-                <section
-                    id="container-add_room"
-                    class="content"
-                    data-onglet="2"
-                ></section>
+				<section id="container-room" class="content"></section>
 
-                <section
-                    id="global-settings"
-                    class="content"
-                    data-onglet="3"
-                ></section>
+				<section
+					id="container-add_room"
+					class="content"
+					data-onglet="2"
+				></section>
 
-                <section
-                    id="update-room"
-                    data-onglet="4"
-                    class="content"
-                ></section>
-            </main>
+				<section
+					id="global-settings"
+					class="content"
+					data-onglet="3"
+				></section>
 
-            <div id="modal-settings"></div>
-            <div id="modal-utils"></div>
-        </div>
+				<section
+					id="update-room"
+					data-onglet="4"
+					class="content"
+				></section>
 
-        <script src="../../services/loadHtml.js"></script>
-        <script src="../../services/settingsManager.js"></script>
-        <script src="../../core/i18n.js"></script>
-        <script src="../../core/mainWindow/settings/languageSelector.js"></script>
-        <script
-            type="module"
-            src="../../core/mainWindow/index.mainWindow.js"
-        ></script>
-    </body>
+				<section
+					id="contact-section"
+					data-onglet="5"
+					class="content"
+				></section>
+			</main>
+
+			<div id="modal-settings"></div>
+			<div id="modal-utils"></div>
+			<div id="modal-license"></div>
+		</div>
+
+		<script src="../../services/loadHtml.js"></script>
+		<script src="../../services/licenseManager.js"></script>
+		<script src="../../services/settingsManager.js"></script>
+		<script src="../../services/versionChecker.js"></script>
+		<script src="../../core/i18n.js"></script>
+		<script src="../../core/logoAdapter.js"></script>
+		<script src="../../core/mainWindow/settings/languageSelector.js"></script>
+		<script
+			type="module"
+			src="../../core/mainWindow/index.mainWindow.js"
+		></script>
+	</body>
 </html>

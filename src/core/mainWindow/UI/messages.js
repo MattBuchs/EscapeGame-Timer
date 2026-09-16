@@ -61,7 +61,7 @@ const messagesObj = {
         if (!checkMark) {
             checkMark = document.createElement("span");
             checkMark.className = "send-check";
-            checkMark.innerHTML = "✓";
+            checkMark.textContent = "✓";
             sendButton.appendChild(checkMark);
         }
 

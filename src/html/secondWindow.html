@@ -1,34 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            http-equiv="Content-Security-Policy"
-            content="default-src 'self'; script-src 'self'; img-src 'self' data: file:"
-        />
-        <link rel="stylesheet" href="../css/compilation/output.css" />
-        <title>EscapeTime</title>
-    </head>
-    <body data-theme="neon">
-        <div class="timer2">
-            <section class="timer2__logo">
-                <img src="../../public/img/Logo.png" alt="" />
-            </section>
-            <section class="timer2__middle">
-                <p id="timer-roomNegative" class="hidden">1h : 0m : 0s</p>
-                <p id="timer2-room" class="timer2__middle--timer">
-                    1h : 0m : 0s
-                </p>
-            </section>
-            <section class="timer2__message">
-                <p id="message-received" class="message-received"></p>
-            </section>
-        </div>
-        <script src="../core/secondWindow/i18n.js"></script>
-        <script
-            type="module"
-            src="../core/secondWindow/index.secondWindow.js"
-        ></script>
-    </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="default-src 'self'; script-src 'self'; img-src 'self' data: file:"
+		/>
+		<link rel="stylesheet" href="../css/compilation/output.css" />
+		<title>GameMaster OS</title>
+	</head>
+	<body data-theme="neon">
+		<div class="timer2">
+			<section class="timer2__logo">
+				<img
+					src="../../public/img/logo_gamemaster-og_white.png"
+					alt=""
+					class="logo-white"
+				/>
+				<img
+					src="../../public/img/logo_gamemaster-og_black.png"
+					alt=""
+					class="logo-black"
+				/>
+			</section>
+			<section class="timer2__middle">
+				<p id="timer-roomNegative" class="hidden">1h : 0m : 0s</p>
+				<p id="timer2-room" class="timer2__middle--timer">
+					1h : 0m : 0s
+				</p>
+			</section>
+			<section class="timer2__message">
+				<p id="message-received" class="message-received"></p>
+			</section>
+		</div>
+		<script src="../core/secondWindow/i18n.js"></script>
+		<script src="../core/logoAdapter.js"></script>
+		<script src="../core/secondWindow/init.js"></script>
+		<script
+			type="module"
+			src="../core/secondWindow/index.secondWindow.js"
+		></script>
+	</body>
 </html>

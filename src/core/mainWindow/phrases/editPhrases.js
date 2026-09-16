@@ -124,7 +124,7 @@ const editPhrasesObj = {
     loadCategories() {
         if (!editCategoryDatalist) return;
 
-        editCategoryDatalist.innerHTML = "";
+        editCategoryDatalist.textContent = "";
 
         const allCategories = new Set();
         dataloaded.forEach((room) => {
@@ -147,7 +147,7 @@ const editPhrasesObj = {
     initCategoryIcons() {
         if (!editIconsContainer) return;
 
-        editIconsContainer.innerHTML = "";
+        editIconsContainer.textContent = "";
         CATEGORY_ICONS.forEach((icon) => {
             const button = document.createElement("button");
             button.type = "button";

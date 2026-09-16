@@ -1,0 +1,79 @@
+// ===== UPDATE NOTIFICATION =====
+.update-notification {
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    transition: top 0.3s ease-out;
+
+    &.show {
+        top: $spacing-xl;
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        background: $color-bg-card;
+        border: 2px solid $color-primary;
+        border-radius: $radius-lg;
+        padding: $spacing-lg $spacing-xl;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 20px $color-primary-glow;
+        min-width: 400px;
+        max-width: 500px;
+        cursor: pointer;
+        transition: all $transition-base;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7),
+                0 0 30px $color-primary-glow;
+        }
+    }
+
+    &__icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    &__text {
+        flex: 1;
+
+        strong {
+            display: block;
+            color: $color-primary;
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            margin-bottom: 0.25rem;
+        }
+
+        p {
+            color: $color-text-secondary;
+            font-size: $font-size-sm;
+            margin: 0;
+        }
+    }
+
+    &__close {
+        background: none;
+        border: none;
+        color: $color-text-muted;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: $radius-sm;
+        transition: all $transition-fast;
+        flex-shrink: 0;
+
+        &:hover {
+            background: $color-bg-accent-hover;
+            color: $color-text-primary;
+        }
+    }
+}

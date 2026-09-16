@@ -1,143 +1,191 @@
 const path = require("path");
-import { sounds } from "./loadInput.js";
 import { notification } from "../UI/notification.js";
-
-const btnNotificationSound = document.querySelector("#btn-notification_sound");
-const btnAmbientSound = document.querySelector("#btn-ambient_sound");
-const btnStopAmbientSound = document.querySelector("#btn-stop--ambient_sound");
-const notificationSound = document.querySelector("#notification_sound");
-const ambientSound = document.querySelector("#ambient_sound");
+import { sounds } from "./loadInput.js";
 
 const manageSoundObj = {
-    endTimer: null,
+	endTimer: null,
+	btnNotificationSound: null,
+	btnAmbientSound: null,
+	btnStopAmbientSound: null,
+	notificationSound: null,
+	ambientSound: null,
 
-    init() {
-        btnNotificationSound.addEventListener(
-            "click",
-            this.startNotificationSound.bind(this)
-        );
-        btnAmbientSound.addEventListener(
-            "click",
-            this.startAmbientSound.bind(this)
-        );
-        btnStopAmbientSound.addEventListener(
-            "click",
-            this.stopAmbientSoundInRoom.bind(this)
-        );
-        sounds.forEach((obj) => {
-            obj.btnListenMusic.addEventListener("click", () => {
-                this.startSound(
-                    obj.audioFolderName,
-                    obj.soundList,
-                    obj.btnStopMusic,
-                    obj.btnListenMusic
-                );
-            });
-        });
-    },
+	init() {
+		console.log("manageSound.init() called");
+		// Sélectionner les éléments DOM
+		this.btnNotificationSound = document.querySelector(
+			"#btn-notification_sound",
+		);
+		this.btnAmbientSound = document.querySelector("#btn-ambient_sound");
+		this.btnStopAmbientSound = document.querySelector(
+			"#btn-stop--ambient_sound",
+		);
+		this.notificationSound = document.querySelector("#notification_sound");
+		this.ambientSound = document.querySelector("#ambient_sound");
 
-    startNotificationSound() {
-        notificationSound.play();
+		console.log("manageSound elements:", {
+			btnNotificationSound: this.btnNotificationSound,
+			btnAmbientSound: this.btnAmbientSound,
+			notificationSound: this.notificationSound,
+		});
 
-        if (notificationSound.duration > 6) {
-            setTimeout(() => {
-                notificationSound.pause();
-                notificationSound.currentTime = 0;
-            }, 6000);
-        }
-    },
+		if (!this.btnNotificationSound || !this.btnAmbientSound) {
+			console.error("Elements for manageSound not found");
+			return;
+		}
 
-    startAmbientSound() {
-        ambientSound.play();
+		const licenseManager = window.licenseManager;
+		const canUseAmbient =
+			licenseManager && licenseManager.canUseFeature
+				? licenseManager.canUseFeature("ambientSounds")
+				: true;
 
-        // Loop the sound
-        ambientSound.addEventListener(
-            "ended",
-            function () {
-                this.currentTime = 0;
-                this.play();
-            },
-            false
-        );
+		if (!canUseAmbient) {
+			this.btnAmbientSound.disabled = true;
+			this.btnAmbientSound.title =
+				"🔒 Son ambiant disponible en version PRO/BUSINESS";
+			this.btnStopAmbientSound.classList.add("hidden");
+		}
 
-        btnStopAmbientSound.classList.remove("hidden");
-        btnAmbientSound.classList.add("hidden");
-    },
+		this.btnNotificationSound.addEventListener(
+			"click",
+			this.startNotificationSound.bind(this),
+		);
+		this.btnAmbientSound.addEventListener(
+			"click",
+			this.startAmbientSound.bind(this),
+		);
+		this.btnStopAmbientSound.addEventListener(
+			"click",
+			this.stopAmbientSoundInRoom.bind(this),
+		);
+		sounds.forEach((obj) => {
+			obj.btnListenMusic.addEventListener("click", () => {
+				this.startSound(
+					obj.audioFolderName,
+					obj.soundList,
+					obj.btnStopMusic,
+					obj.btnListenMusic,
+				);
+			});
+		});
+	},
 
-    stopAmbientSoundInRoom() {
-        ambientSound.pause();
-        ambientSound.currentTime = 0;
+	startNotificationSound() {
+		this.notificationSound.play();
 
-        btnStopAmbientSound.classList.add("hidden");
-        btnAmbientSound.classList.remove("hidden");
-    },
+		if (this.notificationSound.duration > 6) {
+			setTimeout(() => {
+				this.notificationSound.pause();
+				this.notificationSound.currentTime = 0;
+			}, 6000);
+		}
+	},
 
-    startSound(audioName, soundList, btnStopMusic, btnListenMusic) {
-        const audio = this[audioName];
+	startAmbientSound() {
+		const licenseManager = window.licenseManager;
+		if (
+			licenseManager &&
+			licenseManager.canUseFeature &&
+			!licenseManager.canUseFeature("ambientSounds")
+		) {
+			notification(
+				"🔒 Le son ambiant est disponible uniquement en version PRO/BUSINESS.",
+				"error",
+			);
+			return;
+		}
 
-        if (audio) {
-            audio.pause();
-            audio.currentTime = 0;
-        }
+		this.ambientSound.play();
 
-        const soundValue = soundList.value;
+		// Loop the sound
+		this.ambientSound.addEventListener(
+			"ended",
+			function () {
+				this.currentTime = 0;
+				this.play();
+			},
+			false,
+		);
 
-        if (!soundValue) {
-            return notification("Veuillez sélectionner un son.", "error");
-        }
+		this.btnStopAmbientSound.classList.remove("hidden");
+		this.btnAmbientSound.classList.add("hidden");
+	},
 
-        const soundPath = path.join(
-            __dirname,
-            `../../../public/sounds/${audioName}/${soundValue}`
-        );
+	stopAmbientSoundInRoom() {
+		this.ambientSound.pause();
+		this.ambientSound.currentTime = 0;
 
-        this[audioName] = new Audio(soundPath);
-        const newAudio = this[audioName];
-        newAudio.play();
+		this.btnStopAmbientSound.classList.add("hidden");
+		this.btnAmbientSound.classList.remove("hidden");
+	},
 
-        btnStopMusic.classList.remove("hidden");
-        btnListenMusic.classList.add("hidden");
+	startSound(audioName, soundList, btnStopMusic, btnListenMusic) {
+		const audio = this[audioName];
 
-        this.managesSoundButtonEvents(
-            btnStopMusic,
-            newAudio,
-            soundList,
-            btnListenMusic
-        );
-    },
+		if (audio) {
+			audio.pause();
+			audio.currentTime = 0;
+		}
 
-    resetBtn(stopMusic, btnListenMusic, audio) {
-        stopMusic.classList.add("hidden");
-        btnListenMusic.classList.remove("hidden");
+		const soundValue = soundList.value;
 
-        audio.pause();
-        audio.currentTime = 0;
-    },
+		if (!soundValue) {
+			return notification("Veuillez sélectionner un son.", "error");
+		}
 
-    managesSoundButtonEvents(
-        btnStopMusic,
-        newAudio,
-        soundList,
-        btnListenMusic
-    ) {
-        // Retirer les gestionnaires d'événements existants
-        btnStopMusic.removeEventListener("click", this.resetBtn);
-        newAudio.removeEventListener("ended", this.resetBtn);
-        soundList.removeEventListener("change", this.resetBtn);
-        // closeAddRoom.removeEventListener("click", this.closeModal);
+		const soundPath = path.join(
+			__dirname,
+			`../../../public/sounds/${audioName}/${soundValue}`,
+		);
 
-        btnStopMusic.addEventListener("click", () => {
-            this.resetBtn(btnStopMusic, btnListenMusic, newAudio);
-        });
+		this[audioName] = new Audio(soundPath);
+		const newAudio = this[audioName];
+		newAudio.play();
 
-        newAudio.addEventListener("ended", () => {
-            this.resetBtn(btnStopMusic, btnListenMusic, newAudio);
-        });
+		btnStopMusic.classList.remove("hidden");
+		btnListenMusic.classList.add("hidden");
 
-        soundList.addEventListener("change", () => {
-            this.resetBtn(btnStopMusic, btnListenMusic, newAudio);
-        });
-    },
+		this.managesSoundButtonEvents(
+			btnStopMusic,
+			newAudio,
+			soundList,
+			btnListenMusic,
+		);
+	},
+
+	resetBtn(stopMusic, btnListenMusic, audio) {
+		stopMusic.classList.add("hidden");
+		btnListenMusic.classList.remove("hidden");
+
+		audio.pause();
+		audio.currentTime = 0;
+	},
+
+	managesSoundButtonEvents(
+		btnStopMusic,
+		newAudio,
+		soundList,
+		btnListenMusic,
+	) {
+		// Retirer les gestionnaires d'événements existants
+		btnStopMusic.removeEventListener("click", this.resetBtn);
+		newAudio.removeEventListener("ended", this.resetBtn);
+		soundList.removeEventListener("change", this.resetBtn);
+		// closeAddRoom.removeEventListener("click", this.closeModal);
+
+		btnStopMusic.addEventListener("click", () => {
+			this.resetBtn(btnStopMusic, btnListenMusic, newAudio);
+		});
+
+		newAudio.addEventListener("ended", () => {
+			this.resetBtn(btnStopMusic, btnListenMusic, newAudio);
+		});
+
+		soundList.addEventListener("change", () => {
+			this.resetBtn(btnStopMusic, btnListenMusic, newAudio);
+		});
+	},
 };
 
 export default manageSoundObj;

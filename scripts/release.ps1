@@ -1,4 +1,4 @@
-# Script de Release pour EscapeTime
+# Script de Release pour GameMaster OS
 # Ce script facilite la création d'une nouvelle version pour distribution locale
 
 param(
@@ -8,7 +8,7 @@ param(
 )
 
 Write-Host "╔════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║   EscapeTime - Script de Release      ║" -ForegroundColor Cyan
+Write-Host "║   GameMaster OS - Script de Release      ║" -ForegroundColor Cyan
 Write-Host "║      Distribution Locale (Web)        ║" -ForegroundColor Cyan
 Write-Host "╚════════════════════════════════════════╝" -ForegroundColor Cyan
 Write-Host ""

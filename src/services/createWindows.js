@@ -32,10 +32,10 @@ function createWindows() {
 
         if (secondaryDisplay) {
             const secondWindow = new BrowserWindow({
-                width: secondaryDisplay.bounds.width,
-                height: secondaryDisplay.bounds.height,
+                width: 1200,
+                height: 800,
                 x: secondaryDisplay.bounds.x,
-                y: secondaryDisplay.bounds.y,
+                y: secondaryDisplay.bounds.y + 50,
                 icon,
                 fullscreen: true,
                 webPreferences: {

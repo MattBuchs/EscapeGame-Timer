@@ -1,5 +1,7 @@
 {
     "language": "fr",
     "theme": "modern",
-    "preferenceTimer": false
+    "preferenceTimer": false,
+    "hideSecondWindowLogo": false,
+    "customLogoPath": null
 }

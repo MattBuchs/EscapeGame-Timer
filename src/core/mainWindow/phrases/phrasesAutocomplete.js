@@ -58,9 +58,12 @@ const phrasesAutocompleteObj = {
     initCategoryFilter() {
         if (!categoryFilter) return;
 
-        categoryFilter.innerHTML = `
-            <option value="all">📋 Toutes les catégories</option>
-        `;
+        categoryFilter.textContent = "";
+
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "all";
+        defaultOption.textContent = "📋 Toutes les catégories";
+        categoryFilter.appendChild(defaultOption);
 
         // Récupérer toutes les catégories uniques
         const allCategories = new Set();
@@ -128,7 +131,7 @@ const phrasesAutocompleteObj = {
 
     filterAndDisplayPhrases(searchValue) {
         // Vider le dropdown
-        phrasesDropdown.innerHTML = "";
+        phrasesDropdown.textContent = "";
 
         let filteredPhrases = [...this.allPhrases];
 
@@ -235,7 +238,7 @@ const phrasesAutocompleteObj = {
                         // Bouton toggle favori
                         const favoriteBtn = document.createElement("button");
                         favoriteBtn.className = "phrase-favorite-btn";
-                        favoriteBtn.innerHTML = phrase.favorite ? "⭐" : "☆";
+                        favoriteBtn.textContent = phrase.favorite ? "⭐" : "☆";
                         favoriteBtn.title = phrase.favorite
                             ? "Retirer des favoris"
                             : "Ajouter aux favoris";

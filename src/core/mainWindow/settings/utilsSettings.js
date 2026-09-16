@@ -12,6 +12,8 @@ const utilsSettingsObj = {
     isPreferenceTimer: null,
 
     init() {
+        const licenseManager = window.licenseManager;
+
         this.isPreferenceTimer = dataloaded[0]?.isPreferenceTimer;
         ipcRenderer.send("update-preference", this.isPreferenceTimer);
         ipcRenderer.send("load-timer", this.isPreferenceTimer);
@@ -19,11 +21,29 @@ const utilsSettingsObj = {
         if (this.isPreferenceTimer) inputsRadio[0].checked = true;
         else inputsRadio[1].checked = true;
 
+        // Désactiver en version gratuite
+        if (!licenseManager.canUseFeature("timerPreference")) {
+            inputsRadio.forEach((input) => {
+                input.disabled = true;
+                input.parentElement.style.opacity = "0.5";
+                input.parentElement.title = "🔒 Version PRO/BUISNESS requise";
+            });
+        }
+
         // inputColor.value = "#e4c600";
         // inputColor.addEventListener("input", this.updateColor.bind(this));
 
         inputsRadio.forEach((input) => {
             input.addEventListener("click", async () => {
+                // Vérifier la licence
+                if (!licenseManager.canUseFeature("timerPreference")) {
+                    notification(
+                        "🔒 Cette fonctionnalité est réservée à la version PRO.",
+                        "error"
+                    );
+                    return;
+                }
+
                 await this.updatePreferenceTimer(input);
                 notification(
                     "La préférence du timer à été pris en compte.",

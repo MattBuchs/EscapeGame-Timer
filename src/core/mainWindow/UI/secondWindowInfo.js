@@ -3,6 +3,40 @@
  * Gère l'affichage de l'aide pour la fenêtre secondaire
  */
 
+/**
+ * Nettoie et insère du HTML de manière sécurisée
+ * Utilise DOMParser pour parser le HTML sans exécuter de scripts
+ */
+function setHTMLContent(element, html) {
+    if (!element) return;
+
+    // Vide l'élément
+    element.textContent = "";
+
+    // Parse le HTML de manière sécurisée avec DOMParser
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+
+    // Retire tous les scripts pour la sécurité
+    const scripts = doc.querySelectorAll("script");
+    scripts.forEach((script) => script.remove());
+
+    // Retire les attributs on* (onclick, onload, etc.) pour la sécurité
+    const allElements = doc.querySelectorAll("*");
+    allElements.forEach((elem) => {
+        Array.from(elem.attributes).forEach((attr) => {
+            if (attr.name.startsWith("on")) {
+                elem.removeAttribute(attr.name);
+            }
+        });
+    });
+
+    // Ajoute tous les nœuds du body parsé
+    while (doc.body.firstChild) {
+        element.appendChild(doc.body.firstChild);
+    }
+}
+
 function initSecondWindowInfo() {
     // Attendre que le DOM soit chargé
     if (document.readyState === "loading") {
@@ -70,7 +104,9 @@ function showSecondWindowInfo() {
         });
     }
 
-    modal.innerHTML = `
+    setHTMLContent(
+        modal,
+        `
         <div class="modal__overlay"></div>
         <div class="modal__content modal__content--info">
     <button class="modal__content--close" id="btn-close-info">
@@ -89,13 +125,13 @@ function showSecondWindowInfo() {
             <ol>
                 <li>
                     ${t("home.secondWindowModal.step1")} <kbd>${t(
-        "home.secondWindowModal.step1Keys"
-    )}</kbd> ${t("home.secondWindowModal.step1End")}
+            "home.secondWindowModal.step1Keys"
+        )}</kbd> ${t("home.secondWindowModal.step1End")}
                 </li>
                 <li>
                     ${t("home.secondWindowModal.step2")} <kbd>${t(
-        "home.secondWindowModal.step2Key"
-    )}</kbd> ${t("home.secondWindowModal.step2End")}
+            "home.secondWindowModal.step2Key"
+        )}</kbd> ${t("home.secondWindowModal.step2End")}
                 </li>
                 <li>
                     ${t("home.secondWindowModal.step3")}
@@ -105,15 +141,16 @@ function showSecondWindowInfo() {
                 </li>
                 <li>
                     ${t("home.secondWindowModal.step5")} <kbd>${t(
-        "home.secondWindowModal.step5Key"
-    )}</kbd> ${t("home.secondWindowModal.step5End")}
+            "home.secondWindowModal.step5Key"
+        )}</kbd> ${t("home.secondWindowModal.step5End")}
                 </li>
             </ol>
         </div>
     </div>
 </div>
 
-    `;
+    `
+    );
 
     document.body.appendChild(modal);
 
