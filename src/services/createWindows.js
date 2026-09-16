@@ -2,8 +2,7 @@ const { BrowserWindow, screen, app } = require("electron");
 const path = require("path");
 const icon = path.join(__dirname, "../../public/img/AngelsGame.ico");
 
-// const isDev = !app.isPackaged;
-const isDev = true;
+const isDev = !app.isPackaged;
 
 function createWindows() {
 	const displays = screen.getAllDisplays();
