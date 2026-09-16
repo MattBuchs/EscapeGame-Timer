@@ -1,518 +1,622 @@
 // ===== CONTACT SECTION =====
 .contact {
-    padding: $spacing-xl;
-    max-width: 900px;
-    margin: 0 auto;
+	padding: $spacing-xl;
+	max-width: 900px;
+	margin: 0 auto;
 
-    &__header {
-        margin-bottom: $spacing-2xl;
-        text-align: center;
-    }
+	&__header {
+		margin-bottom: $spacing-2xl;
+		text-align: center;
+	}
 
-    &__title {
-        font-size: $font-size-3xl;
-        font-weight: $font-weight-bold;
-        color: $color-text-primary;
-        margin-bottom: $spacing-md;
-        font-family: $font-family-display;
-    }
+	&__title {
+		font-size: $font-size-3xl;
+		font-weight: $font-weight-bold;
+		color: $color-text-primary;
+		margin-bottom: $spacing-md;
+		font-family: $font-family-display;
+	}
 
-    &__subtitle {
-        font-size: $font-size-lg;
-        color: $color-text-secondary;
-    }
+	&__subtitle {
+		font-size: $font-size-lg;
+		color: $color-text-secondary;
+	}
 
-    &__content {
-        display: flex;
-        flex-direction: column;
-        gap: $spacing-xl;
-    }
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: $spacing-xl;
+	}
 
-    &__section {
-        background: $color-bg-card;
-        border: 1px solid $color-border;
-        border-radius: $border-radius-lg;
-        padding: $spacing-xl;
-        display: flex;
-        gap: $spacing-lg;
-        transition: all $transition-base;
+	&__section {
+		background: $color-bg-card;
+		border: 1px solid $color-border;
+		border-radius: $border-radius-lg;
+		padding: $spacing-xl;
+		display: flex;
+		gap: $spacing-lg;
+		transition: all $transition-base;
 
-        &:hover {
-            border-color: $color-primary;
-            box-shadow: 0 4px 20px rgba($color-primary, 0.1);
-        }
+		&:hover {
+			border-color: $color-primary;
+			box-shadow: 0 4px 20px rgba($color-primary, 0.1);
+		}
 
-        &--license {
-            flex-direction: column;
-            gap: $spacing-md;
+		&--license {
+			flex-direction: column;
+			gap: $spacing-md;
 
-            .contact__section-icon {
-                margin-bottom: $spacing-md;
-            }
+			.contact__section-icon {
+				margin-bottom: $spacing-md;
+			}
 
-            .contact__section-content {
-                padding: 0;
-            }
-        }
-    }
+			.contact__section-content {
+				padding: 0;
+			}
+		}
+	}
 
-    &__section-icon {
-        flex-shrink: 0;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(
-            135deg,
-            $color-primary,
-            $color-primary-light
-        );
-        border-radius: $border-radius-md;
+	&__section-icon {
+		flex-shrink: 0;
+		width: 60px;
+		height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: linear-gradient(
+			135deg,
+			$color-primary,
+			$color-primary-light
+		);
+		border-radius: $border-radius-md;
 
-        svg {
-            width: 30px;
-            height: 30px;
-            stroke: white;
-        }
-    }
+		svg {
+			width: 30px;
+			height: 30px;
+			stroke: white;
+		}
+	}
 
-    &__section-content {
-        flex: 1;
-        padding-top: $spacing-xs;
+	&__section-content {
+		flex: 1;
+		padding-top: $spacing-xs;
 
-        h3 {
-            font-size: $font-size-xl;
-            font-weight: $font-weight-semibold;
-            color: $color-text-primary;
-            margin-bottom: $spacing-sm;
-        }
+		h3 {
+			font-size: $font-size-xl;
+			font-weight: $font-weight-semibold;
+			color: $color-text-primary;
+			margin-bottom: $spacing-sm;
+		}
 
-        p {
-            font-size: $font-size-base;
-            color: $color-text-secondary;
-            margin-bottom: $spacing-lg;
-            line-height: 1.6;
-        }
-    }
+		p {
+			font-size: $font-size-base;
+			color: $color-text-secondary;
+			margin-bottom: $spacing-lg;
+			line-height: 1.6;
+		}
+	}
 
-    &__btn {
-        display: inline-flex;
-        align-items: center;
-        gap: $spacing-sm;
-        padding: $spacing-sm $spacing-lg;
-        border-radius: $border-radius-md;
-        font-size: $font-size-base;
-        font-weight: $font-weight-medium;
-        cursor: pointer;
-        transition: all $transition-base;
-        border: none;
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: $spacing-sm;
+		padding: $spacing-sm $spacing-lg;
+		border-radius: $border-radius-md;
+		font-size: $font-size-base;
+		font-weight: $font-weight-medium;
+		cursor: pointer;
+		transition: all $transition-base;
+		border: none;
 
-        a {
-            text-decoration: none;
-        }
+		a {
+			text-decoration: none;
+		}
 
-        svg {
-            width: 18px;
-            height: 18px;
-            transition: transform $transition-base;
-        }
+		svg {
+			width: 18px;
+			height: 18px;
+			transition: transform $transition-base;
+		}
 
-        &:hover svg {
-            transform: translateX(2px);
-        }
+		&:hover svg {
+			transform: translateX(2px);
+		}
 
-        &--primary {
-            background: $color-primary;
-            color: white;
+		&--primary {
+			background: $color-primary;
+			color: white;
 
-            &-license {
-                padding: 0.6rem 0;
-                justify-content: center;
-            }
+			&-license {
+				padding: 0.6rem 0;
+				justify-content: center;
+			}
 
-            &:hover {
-                background: $color-primary-light;
-                box-shadow: 0 4px 12px rgba($color-primary, 0.3);
-            }
-        }
+			&:hover {
+				background: $color-primary-light;
+				box-shadow: 0 4px 12px rgba($color-primary, 0.3);
+			}
+		}
 
-        &--secondary {
-            background: $color-bg-accent;
-            color: $color-text-primary;
-            border: 1px solid $color-border;
+		&--secondary {
+			background: $color-bg-accent;
+			color: $color-text-primary;
+			border: 1px solid $color-border;
 
-            &:hover {
-                background: $color-bg-accent-hover;
-                border-color: $color-primary;
-            }
-        }
+			&:hover {
+				background: $color-bg-accent-hover;
+				border-color: $color-primary;
+			}
+		}
 
-        &--warning {
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-            color: white;
-            width: 100%;
-            justify-content: center;
-            padding: $spacing-md $spacing-lg;
-            margin-bottom: $spacing-md;
+		&--warning {
+			background: linear-gradient(135deg, #f59e0b, #f97316);
+			color: white;
+			width: 100%;
+			justify-content: center;
+			padding: $spacing-md $spacing-lg;
+			margin-bottom: $spacing-md;
 
-            &:hover {
-                box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
-                transform: translateY(-2px);
-            }
+			&:hover {
+				box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+				transform: translateY(-2px);
+			}
 
-            &:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-                transform: none;
-            }
-        }
+			&:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+				transform: none;
+			}
+		}
 
-        &--danger {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            padding: $spacing-md $spacing-xl;
+		&--danger {
+			background: linear-gradient(135deg, #ef4444, #dc2626);
+			color: white;
+			padding: $spacing-md $spacing-xl;
 
-            &:hover {
-                box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
-            }
-        }
+			&:hover {
+				box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+			}
+		}
 
-        &--link {
-            background: transparent;
-            color: $color-text-primary !important;
-            padding: $spacing-xs $spacing-md;
-            text-decoration: none;
+		&--link {
+			background: transparent;
+			color: $color-text-primary !important;
+			padding: $spacing-xs $spacing-md;
+			text-decoration: none;
 
-            &:hover {
-                color: $color-primary-light;
-                text-decoration: underline;
-            }
-        }
-    }
+			&:hover {
+				color: $color-primary-light;
+				text-decoration: underline;
+			}
+		}
+	}
 
-    // Supprimer le soulignement des liens
-    a {
-        text-decoration: none;
+	// Supprimer le soulignement des liens
+	a {
+		text-decoration: none;
 
-        &:hover {
-            text-decoration: none;
-        }
-    }
+		&:hover {
+			text-decoration: none;
+		}
+	}
 
-    &__license-info {
-        background: $color-bg-accent;
-        border-radius: $border-radius-md;
-        padding: $spacing-lg;
-        margin: $spacing-lg 0;
-    }
+	&__license-info {
+		background: $color-bg-accent;
+		border-radius: $border-radius-md;
+		padding: $spacing-lg;
+		margin: $spacing-lg 0;
+	}
 
-    &__license-status {
-        display: flex;
-        align-items: center;
-        gap: $spacing-md;
-        margin-bottom: $spacing-sm;
-        font-size: $font-size-base;
-        color: $color-text-secondary;
-    }
+	&__license-status {
+		display: flex;
+		align-items: center;
+		gap: $spacing-md;
+		margin-bottom: $spacing-sm;
+		font-size: $font-size-base;
+		color: $color-text-secondary;
+	}
 
-    &__license-badge {
-        padding: $spacing-xs $spacing-md;
-        border-radius: $border-radius-sm;
-        font-weight: $font-weight-semibold;
-        font-size: $font-size-sm;
+	&__license-badge {
+		padding: $spacing-xs $spacing-md;
+		border-radius: $border-radius-sm;
+		font-weight: $font-weight-semibold;
+		font-size: $font-size-sm;
 
-        &.free {
-            background: rgba(156, 163, 175, 0.2);
-            color: #9ca3af;
-        }
+		&.free {
+			background: rgba(156, 163, 175, 0.2);
+			color: #9ca3af;
+		}
 
-        &.pro {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-        }
+		&.pro {
+			background: rgba(34, 197, 94, 0.2);
+			color: #22c55e;
+		}
 
-        &.business {
-            background: rgba(168, 85, 247, 0.2);
-            color: #a855f7;
-        }
-    }
+		&.business {
+			background: rgba(168, 85, 247, 0.2);
+			color: #a855f7;
+		}
+	}
 
-    &__license-email {
-        font-size: $font-size-sm;
-        color: $color-text-secondary;
-        font-family: monospace;
-    }
+	&__license-email {
+		font-size: $font-size-sm;
+		color: $color-text-secondary;
+		font-family: monospace;
+	}
 
-    &__license-actions {
-        margin: $spacing-lg 0;
-    }
+	&__license-actions {
+		margin: $spacing-lg 0;
+	}
 
-    &__info-box {
-        display: flex;
-        gap: $spacing-md;
-        background: rgba($color-primary, 0.1);
-        border: 1px solid rgba($color-primary, 0.3);
-        border-radius: $border-radius-md;
-        padding: $spacing-md;
-        margin-top: $spacing-md;
+	&__info-box {
+		display: flex;
+		gap: $spacing-md;
+		background: rgba($color-primary, 0.1);
+		border: 1px solid rgba($color-primary, 0.3);
+		border-radius: $border-radius-md;
+		padding: $spacing-md;
+		margin-top: $spacing-md;
 
-        svg {
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            stroke: $color-primary;
-            margin-top: 2px;
-        }
+		svg {
+			flex-shrink: 0;
+			width: 20px;
+			height: 20px;
+			stroke: $color-primary;
+			margin-top: 2px;
+		}
 
-        p {
-            margin: 0;
-            font-size: $font-size-sm;
-            color: $color-text-primary;
-            line-height: 1.5;
-        }
-    }
+		p {
+			margin: 0;
+			font-size: $font-size-sm;
+			color: $color-text-primary;
+			line-height: 1.5;
+		}
+	}
 
-    &__help {
-        margin-top: $spacing-xl;
-        padding-top: $spacing-xl;
-        border-top: 1px solid $color-border;
-        text-align: center;
+	&__help {
+		margin-top: $spacing-xl;
+		padding-top: $spacing-xl;
+		border-top: 1px solid $color-border;
+		text-align: center;
 
-        p {
-            margin-bottom: $spacing-md;
-            color: $color-text-secondary;
-        }
-    }
+		p {
+			margin-bottom: $spacing-md;
+			color: $color-text-secondary;
+		}
+	}
 
-    &__transfer-section {
-        margin-top: $spacing-2xl;
-        padding-top: $spacing-xl;
-        border-top: 2px solid $color-border;
+	&__transfer-section {
+		margin-top: $spacing-2xl;
+		padding-top: $spacing-xl;
+		border-top: 2px solid $color-border;
 
-        h4 {
-            font-size: $font-size-lg;
-            font-weight: $font-weight-semibold;
-            color: $color-text-primary;
-            margin-bottom: $spacing-lg;
-        }
-    }
+		h4 {
+			font-size: $font-size-lg;
+			font-weight: $font-weight-semibold;
+			color: $color-text-primary;
+			margin-bottom: $spacing-lg;
+		}
+	}
 }
 
 // License Activation Form in Contact
 .license-activation-form {
-    background: rgba($color-primary, 0.05);
-    border: 2px solid $color-primary;
-    border-radius: $border-radius-lg;
-    padding: $spacing-2xl;
-    margin: $spacing-xl 0;
+	background: rgba($color-primary, 0.05);
+	border: 2px solid $color-primary;
+	border-radius: $border-radius-lg;
+	padding: $spacing-2xl;
+	margin: $spacing-xl 0;
 
-    h4 {
-        font-size: $font-size-xl;
-        font-weight: $font-weight-bold;
-        color: $color-text-primary;
-        margin-bottom: $spacing-md;
-        display: flex;
-        align-items: center;
-        gap: $spacing-sm;
+	h4 {
+		font-size: $font-size-xl;
+		font-weight: $font-weight-bold;
+		color: $color-text-primary;
+		margin-bottom: $spacing-md;
+		display: flex;
+		align-items: center;
+		gap: $spacing-sm;
 
-        &::before {
-            content: "🔑";
-            font-size: 1.5rem;
-        }
-    }
+		&::before {
+			content: "🔑";
+			font-size: 1.5rem;
+		}
+	}
 
-    > p {
-        color: $color-text-secondary;
-        margin-bottom: $spacing-lg;
-        line-height: 1.6;
-    }
+	> p {
+		color: $color-text-secondary;
+		margin-bottom: $spacing-lg;
+		line-height: 1.6;
+	}
 }
 
 .license-input-group {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-md;
-    margin-bottom: $spacing-lg;
+	display: flex;
+	flex-direction: column;
+	gap: $spacing-md;
+	margin-bottom: $spacing-lg;
 }
 
 .license-input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
+	position: relative;
+	display: flex;
+	align-items: center;
 }
 
 .license-input-icon {
-    position: absolute;
-    left: $spacing-md;
-    width: 20px;
-    height: 20px;
-    color: $color-text-secondary;
-    pointer-events: none;
-    z-index: 1;
+	position: absolute;
+	left: $spacing-md;
+	width: 20px;
+	height: 20px;
+	color: $color-text-secondary;
+	pointer-events: none;
+	z-index: 1;
 }
 
 .license-input-wrapper input {
-    flex: 1;
-    padding: $spacing-md $spacing-md $spacing-md calc($spacing-md + 30px);
-    border: 2px solid $color-border;
-    border-radius: $border-radius-md;
-    background: $color-bg-input;
-    color: $color-text-primary;
-    font-size: $font-size-base;
-    transition: all $transition-base;
-    width: 100%;
+	flex: 1;
+	padding: $spacing-md $spacing-md $spacing-md calc($spacing-md + 30px);
+	border: 2px solid $color-border;
+	border-radius: $border-radius-md;
+	background: $color-bg-input;
+	color: $color-text-primary;
+	font-size: $font-size-base;
+	transition: all $transition-base;
+	width: 100%;
 
-    &::placeholder {
-        color: $color-text-secondary;
-        opacity: 0.6;
-    }
+	&::placeholder {
+		color: $color-text-secondary;
+		opacity: 0.6;
+	}
 
-    &:focus {
-        outline: none;
-        border-color: $color-primary;
-        box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
-    }
+	&:focus {
+		outline: none;
+		border-color: $color-primary;
+		box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+	}
 }
 
 #license-key-input {
-    font-family: "Courier New", monospace;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+	font-family: "Courier New", monospace;
+	letter-spacing: 2px;
+	text-transform: uppercase;
 }
 
 .license-message {
-    padding: $spacing-md $spacing-lg;
-    border-radius: $border-radius-md;
-    margin-bottom: $spacing-md;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-medium;
-    line-height: 1.5;
-    display: none;
+	padding: $spacing-md $spacing-lg;
+	border-radius: $border-radius-md;
+	margin-bottom: $spacing-md;
+	font-size: $font-size-sm;
+	font-weight: $font-weight-medium;
+	line-height: 1.5;
+	display: none;
 
-    &:not(:empty) {
-        display: block;
-        animation: slideDown 0.3s ease;
-    }
+	&:not(:empty) {
+		display: block;
+		animation: slideDown 0.3s ease;
+	}
 
-    &--success {
-        background: rgba(34, 197, 94, 0.15);
-        border: 2px solid #22c55e;
-        color: #22c55e;
-    }
+	&--success {
+		background: rgba(34, 197, 94, 0.15);
+		border: 2px solid #22c55e;
+		color: #22c55e;
+	}
 
-    &--error {
-        background: rgba(239, 68, 68, 0.15);
-        border: 2px solid #ef4444;
-        color: #ef4444;
-    }
+	&--error {
+		background: rgba(239, 68, 68, 0.15);
+		border: 2px solid #ef4444;
+		color: #ef4444;
+	}
 }
 
 @keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .license-purchase {
-    text-align: center;
-    padding-top: $spacing-lg;
-    border-top: 1px solid $color-border;
+	text-align: center;
+	padding-top: $spacing-lg;
+	border-top: 1px solid $color-border;
 
-    p {
-        color: $color-text-secondary;
-        margin-bottom: $spacing-md;
-        font-size: $font-size-sm;
-    }
+	p {
+		color: $color-text-secondary;
+		margin-bottom: $spacing-md;
+		font-size: $font-size-sm;
+	}
 }
 
 // Modal de transfert
 .modal__content--transfer {
-    max-width: 500px;
+	max-width: 500px;
+	width: min(560px, 92vw);
+	padding: 0;
+	overflow: hidden;
 
-    .modal__warning {
-        display: flex;
-        gap: $spacing-md;
-        background: rgba(245, 158, 11, 0.1);
-        border: 1px solid rgba(245, 158, 11, 0.3);
-        border-radius: $border-radius-md;
-        padding: $spacing-md;
-        margin-bottom: $spacing-lg;
+	.modal__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: $spacing-md;
+		padding: $spacing-xl $spacing-xl $spacing-lg;
+		border-bottom: 1px solid $color-border;
 
-        svg {
-            flex-shrink: 0;
-            width: 24px;
-            height: 24px;
-            stroke: #f59e0b;
-        }
+		h3 {
+			margin: 0;
+			font-size: $font-size-xl;
+			color: $color-text-primary;
+			font-family: $font-family-display;
+			line-height: 1.3;
+		}
 
-        p {
-            margin: 0;
-            font-size: $font-size-sm;
-            color: $color-text-primary;
-            line-height: 1.5;
-        }
-    }
+		.modal__close {
+			width: 2.25rem;
+			height: 2.25rem;
+			border-radius: $radius-md;
+			border: 1px solid $color-border-light;
+			background: $color-bg-card;
+			color: $color-text-secondary;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			transition: all $transition-fast;
 
-    .modal__info {
-        margin-bottom: $spacing-lg;
+			svg {
+				width: 16px;
+				height: 16px;
+			}
 
-        p {
-            font-size: $font-size-sm;
-            color: $color-text-secondary;
-            line-height: 1.5;
-        }
-    }
+			&:hover {
+				color: $color-text-primary;
+				border-color: $color-primary;
+				box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+			}
+		}
+	}
 
-    .modal__license-details {
-        background: $color-bg-accent;
-        border-radius: $border-radius-md;
-        padding: $spacing-lg;
-        margin-bottom: $spacing-lg;
-        font-family: monospace;
-        font-size: $font-size-sm;
-        color: $color-text-secondary;
-    }
+	.modal__body {
+		padding: $spacing-lg $spacing-xl $spacing-md;
+	}
+
+	.modal__footer {
+		display: flex;
+		gap: $spacing-md;
+		justify-content: flex-end;
+		padding: $spacing-md $spacing-xl $spacing-xl;
+		border-top: 1px solid $color-border;
+
+		.contact__btn {
+			min-width: 170px;
+		}
+	}
+
+	.modal__warning {
+		display: flex;
+		gap: $spacing-md;
+		background: rgba(245, 158, 11, 0.1);
+		border: 1px solid rgba(245, 158, 11, 0.3);
+		border-radius: $border-radius-md;
+		padding: $spacing-md;
+		margin-bottom: $spacing-lg;
+
+		svg {
+			flex-shrink: 0;
+			width: 24px;
+			height: 24px;
+			stroke: #f59e0b;
+		}
+
+		p {
+			margin: 0;
+			font-size: $font-size-sm;
+			color: $color-text-primary;
+			line-height: 1.5;
+		}
+	}
+
+	.modal__info {
+		margin-bottom: $spacing-lg;
+
+		p {
+			font-size: $font-size-sm;
+			color: $color-text-secondary;
+			line-height: 1.5;
+		}
+	}
+
+	.modal__license-details {
+		background: $color-bg-accent;
+		border-radius: $border-radius-md;
+		padding: $spacing-lg;
+		margin-bottom: $spacing-lg;
+		font-family: monospace;
+		font-size: $font-size-sm;
+		color: $color-text-secondary;
+
+		> div {
+			display: flex;
+			justify-content: space-between;
+			gap: $spacing-sm;
+			margin-bottom: $spacing-sm;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			strong {
+				color: $color-text-primary;
+			}
+		}
+	}
 }
 
 // Animation spinner
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .spinning {
-    animation: spin 1s linear infinite;
+	animation: spin 1s linear infinite;
+}
+
+#btn-confirm-transfer {
+	&.is-loading {
+		opacity: 0.9;
+		pointer-events: none;
+	}
+
+	.btn-spinner {
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		border: 2px solid rgba(255, 255, 255, 0.35);
+		border-top-color: #fff;
+		animation: spin 0.8s linear infinite;
+		flex-shrink: 0;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	.modal__content--transfer {
+		.modal__footer {
+			flex-direction: column;
+
+			.contact__btn {
+				width: 100%;
+			}
+		}
+	}
 }
 
 // Animations pour les notifications
 @keyframes slideIn {
-    from {
-        transform: translateX(400px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+	from {
+		transform: translateX(400px);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
 }
 
 @keyframes slideOut {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateX(400px);
-        opacity: 0;
-    }
+	from {
+		transform: translateX(0);
+		opacity: 1;
+	}
+	to {
+		transform: translateX(400px);
+		opacity: 0;
+	}
 }
