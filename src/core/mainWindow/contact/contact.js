@@ -20,6 +20,8 @@ const btnConfirmTransfer = document.querySelector("#btn-confirm-transfer");
 const transferLicenseDetails = document.querySelector(
 	"#transfer-license-details",
 );
+const confirmTransferLabel =
+	window.i18n?.t("contact.confirmTransfer") || "Confirmer le transfert";
 
 const contactObj = {
 	init() {
@@ -188,6 +190,52 @@ const contactObj = {
 		modalTransferLicense?.classList.add("hidden");
 	},
 
+	setConfirmTransferButtonState(isLoading) {
+		if (!btnConfirmTransfer) return;
+
+		btnConfirmTransfer.disabled = isLoading;
+		btnConfirmTransfer.classList.toggle("is-loading", isLoading);
+		btnConfirmTransfer.textContent = "";
+
+		if (isLoading) {
+			const spinner = document.createElement("span");
+			spinner.className = "btn-spinner";
+			spinner.setAttribute("aria-hidden", "true");
+
+			const span = document.createElement("span");
+			span.textContent =
+				window.i18n?.t("contact.processing") || "Traitement...";
+
+			btnConfirmTransfer.appendChild(spinner);
+			btnConfirmTransfer.appendChild(span);
+			return;
+		}
+
+		const svg = document.createElementNS(
+			"http://www.w3.org/2000/svg",
+			"svg",
+		);
+		svg.setAttribute("viewBox", "0 0 24 24");
+		svg.setAttribute("fill", "none");
+		svg.setAttribute("stroke", "currentColor");
+		svg.setAttribute("stroke-width", "2");
+
+		const polyline = document.createElementNS(
+			"http://www.w3.org/2000/svg",
+			"polyline",
+		);
+		polyline.setAttribute("points", "20 6 9 17 4 12");
+
+		svg.appendChild(polyline);
+
+		const span = document.createElement("span");
+		span.setAttribute("data-i18n", "contact.confirmTransfer");
+		span.textContent = confirmTransferLabel;
+
+		btnConfirmTransfer.appendChild(svg);
+		btnConfirmTransfer.appendChild(span);
+	},
+
 	async confirmTransfer() {
 		if (!window.licenseManager?.isPro()) {
 			this.showMessage(
@@ -198,53 +246,13 @@ const contactObj = {
 			return;
 		}
 
-		// Désactiver le bouton pendant le traitement
-		if (btnConfirmTransfer) {
-			btnConfirmTransfer.disabled = true;
-			btnConfirmTransfer.textContent = "";
-
-			// Créer le SVG de chargement
-			const svg = document.createElementNS(
-				"http://www.w3.org/2000/svg",
-				"svg",
-			);
-			svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-			svg.setAttribute("viewBox", "0 0 24 24");
-			svg.setAttribute("fill", "none");
-			svg.setAttribute("stroke", "currentColor");
-			svg.setAttribute("stroke-width", "2");
-			svg.setAttribute("class", "spinning");
-
-			const circle = document.createElementNS(
-				"http://www.w3.org/2000/svg",
-				"circle",
-			);
-			circle.setAttribute("cx", "12");
-			circle.setAttribute("cy", "12");
-			circle.setAttribute("r", "10");
-			circle.setAttribute("stroke-opacity", "0.25");
-
-			const path = document.createElementNS(
-				"http://www.w3.org/2000/svg",
-				"path",
-			);
-			path.setAttribute("d", "M12 2a10 10 0 0110 10");
-			path.setAttribute("stroke-opacity", "1");
-
-			svg.appendChild(circle);
-			svg.appendChild(path);
-
-			const span = document.createElement("span");
-			span.textContent =
-				window.i18n?.t("contact.processing") || "Traitement...";
-
-			btnConfirmTransfer.appendChild(svg);
-			btnConfirmTransfer.appendChild(span);
-		}
+		this.setConfirmTransferButtonState(true);
 
 		try {
 			const licenseInfo = window.licenseManager.getLicenseInfo();
-			const licenseKey = window.licenseManager.getDecryptedLicenseKey();
+			const licenseKey =
+				window.licenseManager.getDecryptedLicenseKey?.() ||
+				window.licenseManager.license?.key;
 			const machineId = window.licenseManager.getMachineId();
 
 			if (!licenseKey) {
@@ -255,30 +263,47 @@ const contactObj = {
 				throw new Error("Impossible d'identifier cette machine");
 			}
 
-			// Importer config pour récupérer l'URL de l'API
-			const path = require("path");
-			const configPath = path.join(__dirname, "../../config.js");
-			const config = require(configPath);
-			const API_URL = config.API_URL;
+			if (!window.licenseManager.isApiUrlConfigured?.()) {
+				throw new Error("Configuration API invalide (API_URL).");
+			}
 
 			// Appel API pour transférer la licence (incrémenter remainingUsages)
-			const response = await fetch(`${API_URL}/transfer-license`, {
-				method: "PATCH",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					licenseKey: licenseKey,
-					email: licenseInfo.email,
-					machineId: machineId,
-					timestamp: Date.now(),
-				}),
-			});
+			let response = null;
+			let data = null;
 
-			const data = await response.json();
+			for (const endpointUrl of window.licenseManager.getApiEndpointCandidates(
+				"/transfer-license",
+			)) {
+				response = await fetch(endpointUrl, {
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						licenseKey: licenseKey,
+						email: licenseInfo.email,
+						machineId: machineId,
+						timestamp: Date.now(),
+					}),
+				});
+
+				data = await response.json().catch(() => ({}));
+
+				if (response.status !== 404) {
+					break;
+				}
+			}
+
+			if (!response || response.status === 404) {
+				throw new Error(
+					"Endpoint transfer-license introuvable (vérifiez domaine et chemin API).",
+				);
+			}
 
 			if (!response.ok) {
-				throw new Error(data.message || "Erreur lors du transfert");
+				throw new Error(
+					data.message || data.error || "Erreur lors du transfert",
+				);
 			}
 
 			// Succès : réinitialiser la licence locale en FREE
@@ -305,39 +330,7 @@ const contactObj = {
 				"error",
 			);
 		} finally {
-			// Réactiver le bouton
-			if (btnConfirmTransfer) {
-				btnConfirmTransfer.disabled = false;
-				btnConfirmTransfer.textContent = "";
-
-				// Créer le SVG de confirmation
-				const svg = document.createElementNS(
-					"http://www.w3.org/2000/svg",
-					"svg",
-				);
-				svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-				svg.setAttribute("viewBox", "0 0 24 24");
-				svg.setAttribute("fill", "none");
-				svg.setAttribute("stroke", "currentColor");
-				svg.setAttribute("stroke-width", "2");
-
-				const polyline = document.createElementNS(
-					"http://www.w3.org/2000/svg",
-					"polyline",
-				);
-				polyline.setAttribute("points", "20 6 9 17 4 12");
-
-				svg.appendChild(polyline);
-
-				const span = document.createElement("span");
-				span.setAttribute("data-i18n", "contact.confirmTransfer");
-				span.textContent =
-					window.i18n?.t("contact.confirmTransfer") ||
-					"Confirmer le transfert";
-
-				btnConfirmTransfer.appendChild(svg);
-				btnConfirmTransfer.appendChild(span);
-			}
+			this.setConfirmTransferButtonState(false);
 		}
 	},
 

@@ -2,120 +2,121 @@ const { BrowserWindow, screen, app } = require("electron");
 const path = require("path");
 const icon = path.join(__dirname, "../../public/img/AngelsGame.ico");
 
-const isDev = !app.isPackaged;
+// const isDev = !app.isPackaged;
+const isDev = true;
 
 function createWindows() {
-    const displays = screen.getAllDisplays();
-    const mainScreen = screen.getPrimaryDisplay();
+	const displays = screen.getAllDisplays();
+	const mainScreen = screen.getPrimaryDisplay();
 
-    // Fenêtre principale (Game Master) sur l'écran principal
-    const mainWindow = new BrowserWindow({
-        width: 1200,
-        height: 800,
-        x: mainScreen.bounds.x,
-        y: mainScreen.bounds.y,
-        icon,
-        webPreferences: {
-            devTools: isDev,
-            nodeIntegration: true,
-            contextIsolation: false,
-        },
-    });
-    mainWindow.setMenuBarVisibility(false);
+	// Fenêtre principale (Game Master) sur l'écran principal
+	const mainWindow = new BrowserWindow({
+		width: 1200,
+		height: 800,
+		x: mainScreen.bounds.x,
+		y: mainScreen.bounds.y,
+		icon,
+		webPreferences: {
+			devTools: isDev,
+			nodeIntegration: true,
+			contextIsolation: false,
+		},
+	});
+	mainWindow.setMenuBarVisibility(false);
 
-    const windows = [mainWindow];
+	const windows = [mainWindow];
 
-    // Créer la 2ème fenêtre sur l'écran secondaire si disponible
-    if (displays.length > 1) {
-        // Trouver le premier écran qui n'est PAS l'écran principal
-        const secondaryDisplay = displays.find((d) => d.id !== mainScreen.id);
+	// Créer la 2ème fenêtre sur l'écran secondaire si disponible
+	if (displays.length > 1) {
+		// Trouver le premier écran qui n'est PAS l'écran principal
+		const secondaryDisplay = displays.find((d) => d.id !== mainScreen.id);
 
-        if (secondaryDisplay) {
-            const secondWindow = new BrowserWindow({
-                width: 1200,
-                height: 800,
-                x: secondaryDisplay.bounds.x,
-                y: secondaryDisplay.bounds.y + 50,
-                icon,
-                fullscreen: true,
-                webPreferences: {
-                    devTools: isDev,
-                    nodeIntegration: true,
-                    contextIsolation: false,
-                },
-            });
-            secondWindow.setMenuBarVisibility(false);
-            windows.push(secondWindow);
-        }
-    }
+		if (secondaryDisplay) {
+			const secondWindow = new BrowserWindow({
+				width: 1200,
+				height: 800,
+				x: secondaryDisplay.bounds.x,
+				y: secondaryDisplay.bounds.y + 50,
+				icon,
+				fullscreen: true,
+				webPreferences: {
+					devTools: isDev,
+					nodeIntegration: true,
+					contextIsolation: false,
+				},
+			});
+			secondWindow.setMenuBarVisibility(false);
+			windows.push(secondWindow);
+		}
+	}
 
-    windows.forEach((window, index) => {
-        // Maximise uniquement la fenêtre principale
-        if (index === 0) {
-            window.maximize();
-        }
+	windows.forEach((window, index) => {
+		// Maximise uniquement la fenêtre principale
+		if (index === 0) {
+			window.maximize();
+		}
 
-        window.loadFile(
-            index === 0
-                ? "src/html/mainWindow/index.html"
-                : "src/html/secondWindow.html"
-        );
+		window.loadFile(
+			index === 0
+				? "src/html/mainWindow/index.html"
+				: "src/html/secondWindow.html",
+		);
 
-        // Ouvrir les devtools
-        if (isDev) {
-            window.webContents.openDevTools();
-        }
-    });
+		// Ouvrir les devtools
+		if (isDev) {
+			window.webContents.openDevTools();
+		}
+	});
 
-    return windows;
+	return windows;
 }
 
 function createWindowsIf1Screen() {
-    const mainScreen = screen.getPrimaryDisplay();
+	const mainScreen = screen.getPrimaryDisplay();
 
-    const window1 = new BrowserWindow({
-        width: mainScreen.workAreaSize.width,
-        height: mainScreen.workAreaSize.height,
-        x: mainScreen.bounds.x,
-        y: mainScreen.bounds.y,
-        center: true,
-        icon,
-        webPreferences: {
-            devTools: isDev,
-            nodeIntegration: true,
-            contextIsolation: false,
-        },
-    });
+	const window1 = new BrowserWindow({
+		width: mainScreen.workAreaSize.width,
+		height: mainScreen.workAreaSize.height,
+		x: mainScreen.bounds.x,
+		y: mainScreen.bounds.y,
+		center: true,
+		icon,
+		webPreferences: {
+			devTools: isDev,
+			nodeIntegration: true,
+			contextIsolation: false,
+		},
+	});
 
-    const window2 = new BrowserWindow({
-        width: 1200,
-        height: 800,
-        x: mainScreen.bounds.x,
-        y: mainScreen.bounds.y,
-        fullscreen: true,
-        icon,
-        webPreferences: {
-            devTools: isDev,
-            nodeIntegration: true,
-            contextIsolation: false,
-        },
-    });
+	const window2 = new BrowserWindow({
+		width: 1200,
+		height: 800,
+		x: mainScreen.bounds.x,
+		y: mainScreen.bounds.y,
+		fullscreen: true,
+		icon,
+		webPreferences: {
+			devTools: isDev,
+			nodeIntegration: true,
+			contextIsolation: false,
+		},
+	});
 
-    window2.loadFile("src/html/secondWindow.html");
-    window1.loadFile("src/html/mainWindow/index.html");
-    window1.setMenuBarVisibility(false);
-    window2.setMenuBarVisibility(false);
+	window2.loadFile("src/html/secondWindow.html");
+	window1.loadFile("src/html/mainWindow/index.html");
+	window1.setMenuBarVisibility(false);
+	window2.setMenuBarVisibility(false);
 
-    // Ouvrir les devtools
-    if (isDev) {
-        window1.webContents.openDevTools();
-        window2.webContents.openDevTools();
-    }
+	// Ouvrir les devtools
+	if (isDev) {
+		window1.webContents.openDevTools();
+		window2.webContents.openDevTools();
+	}
 
-    return [window1, window2];
+	return [window1, window2];
 }
 
 module.exports = {
-    createWindows,
-    createWindowsIf1Screen,
+	createWindows,
+	createWindowsIf1Screen,
 };

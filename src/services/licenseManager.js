@@ -21,11 +21,14 @@
 			? window.require(configPath)
 			: require(configPath);
 
-		API_URL = config.API_URL;
-		LICENSE_SECRET = config.LICENSE_SECRET;
+		API_URL = (config.API_URL || "").replace(/\/+$/, "");
+		LICENSE_SECRET =
+			config.LICENSE_SECRET || "gamemaster-os-local-signature-v1";
 	} catch (error) {
 		console.error("Config file error:", error);
 		console.warn("Config file not found, using default values");
+		API_URL = "https://matt-buchs.me/api";
+		LICENSE_SECRET = "gamemaster-os-local-signature-v1";
 	}
 
 	const LICENSE_TYPES = {
@@ -45,6 +48,78 @@
 	};
 
 	class LicenseManager {
+		isApiUrlConfigured() {
+			return /^https?:\/\//i.test(API_URL || "");
+		}
+
+		getApiBaseCandidates() {
+			if (!this.isApiUrlConfigured()) {
+				return [];
+			}
+
+			const candidates = [API_URL];
+
+			try {
+				const parsed = new URL(API_URL);
+				const alt = new URL(parsed.toString());
+
+				if (parsed.hostname.startsWith("www.")) {
+					alt.hostname = parsed.hostname.replace(/^www\./, "");
+				} else {
+					alt.hostname = `www.${parsed.hostname}`;
+				}
+
+				const altUrl = alt.toString().replace(/\/+$/, "");
+				if (!candidates.includes(altUrl)) {
+					candidates.push(altUrl);
+				}
+			} catch {
+				// Ignore URL parse fallback
+			}
+
+			return candidates;
+		}
+
+		getApiEndpointCandidates(endpointPath) {
+			const endpoints = [];
+			const endpoint = endpointPath.startsWith("/")
+				? endpointPath
+				: `/${endpointPath}`;
+			const prefixedEndpoint = endpoint.startsWith("/api/")
+				? endpoint
+				: `/api${endpoint}`;
+
+			for (const baseUrl of this.getApiBaseCandidates()) {
+				try {
+					const base = new URL(baseUrl);
+					const basePath = base.pathname.replace(/\/+$/, "");
+
+					const paths = basePath.endsWith("/api")
+						? [
+								`${basePath}${endpoint}`,
+								`${basePath}${prefixedEndpoint}`,
+							]
+						: [
+								`${basePath}${endpoint}`,
+								`${basePath}${prefixedEndpoint}`,
+							];
+
+					for (const pathValue of paths) {
+						const candidate = new URL(base.toString());
+						candidate.pathname = pathValue.replace(/\/+/g, "/");
+						const value = candidate.toString().replace(/\/+$/, "");
+						if (!endpoints.includes(value)) {
+							endpoints.push(value);
+						}
+					}
+				} catch {
+					// Ignore malformed URL candidate
+				}
+			}
+
+			return endpoints;
+		}
+
 		constructor() {
 			this.license = null;
 			this.licensePath = null;
@@ -111,6 +186,22 @@
 				.substring(0, 32);
 
 			return this.machineId;
+		}
+
+		/**
+		 * Retourne la clé de licence locale (déjà stockée en clair côté app)
+		 * @returns {string|null}
+		 */
+		getDecryptedLicenseKey() {
+			return this.license?.key || null;
+		}
+
+		/**
+		 * Désactive la licence locale et repasse en FREE
+		 * @returns {Promise<void>}
+		 */
+		async deactivateLicense() {
+			this.createFreeLicense();
 		}
 
 		/**
@@ -192,6 +283,13 @@
 				return;
 			}
 
+			if (!this.isApiUrlConfigured()) {
+				console.warn(
+					"API_URL is not configured correctly, skipping PRO startup validation",
+				);
+				return;
+			}
+
 			const hasInternet = await this.hasVerifiedInternetConnection();
 			if (!hasInternet) {
 				console.info(
@@ -201,17 +299,33 @@
 			}
 
 			try {
-				const url = new URL(API_URL + "/validate-license");
-				url.searchParams.append("key", this.license.key);
-				url.searchParams.append("email", this.license.email);
+				let response = null;
+				for (const endpointUrl of this.getApiEndpointCandidates(
+					"/validate-license",
+				)) {
+					const url = new URL(endpointUrl);
+					url.searchParams.append("key", this.license.key);
+					url.searchParams.append("email", this.license.email);
 
-				const response = await fetch(url, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					cache: "no-store",
-				});
+					response = await fetch(url, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						cache: "no-store",
+					});
+
+					if (response.status !== 404) {
+						break;
+					}
+				}
+
+				if (!response) {
+					console.warn(
+						"No API endpoint candidate available for PRO check",
+					);
+					return;
+				}
 
 				// Les erreurs 5xx sont considérées comme indisponibilité temporaire.
 				if (response.status >= 500) {
@@ -321,17 +435,37 @@
 			if (!this.license?.key || !this.license?.email)
 				return { valid: true };
 
-			try {
-				const url = new URL(API_URL + "/validate-license");
-				url.searchParams.append("key", this.license.key);
-				url.searchParams.append("email", this.license.email);
+			if (!this.isApiUrlConfigured()) {
+				console.warn(
+					"API_URL invalide, impossible de vérifier la licence",
+				);
+				return { valid: true };
+			}
 
-				const response = await fetch(url, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
+			try {
+				let response = null;
+				for (const endpointUrl of this.getApiEndpointCandidates(
+					"/validate-license",
+				)) {
+					const url = new URL(endpointUrl);
+					url.searchParams.append("key", this.license.key);
+					url.searchParams.append("email", this.license.email);
+
+					response = await fetch(url, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+
+					if (response.status !== 404) {
+						break;
+					}
+				}
+
+				if (!response) {
+					return { valid: true };
+				}
 
 				if (!response.ok) {
 					console.warn("License check failed:", response.status);
@@ -370,23 +504,48 @@
 			}
 
 			try {
+				if (!this.isApiUrlConfigured()) {
+					return {
+						success: false,
+						error: "Configuration API invalide (API_URL). Vérifiez la configuration de l'application.",
+					};
+				}
+
 				// Récupérer le machineId pour l'enregistrer côté serveur
 				const machineId = this.getMachineId();
 
 				// Valider la clé via l'API (POST consomme une utilisation)
-				const response = await fetch(API_URL + "/validate-license", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						licenseKey: licenseKey,
-						email: email,
-						machineId: machineId,
-					}),
-				});
+				let response = null;
+				let data = null;
 
-				const data = await response.json();
+				for (const endpointUrl of this.getApiEndpointCandidates(
+					"/validate-license",
+				)) {
+					response = await fetch(endpointUrl, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							licenseKey: licenseKey,
+							email: email,
+							machineId: machineId,
+						}),
+					});
+
+					data = await response.json().catch(() => ({}));
+
+					if (response.status !== 404) {
+						break;
+					}
+				}
+
+				if (!response || response.status === 404) {
+					return {
+						success: false,
+						error: "Endpoint validate-license introuvable (vérifiez domaine et chemin API_URL, avec/sans www et avec/sans /api).",
+					};
+				}
 
 				if (!response.ok) {
 					return {

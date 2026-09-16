@@ -1,8 +1,10 @@
 {
-    "type": "free",
-    "activatedAt": "2026-09-16T11:24:47.310Z",
-    "key": null,
-    "plan": null,
-    "email": null,
-    "signature": null
+    "type": "business",
+    "activatedAt": "2026-09-16T12:13:12.139Z",
+    "key": "WI97-4GN2-V314-DW0G",
+    "plan": "BUSINESS",
+    "email": "mattbuchs25@gmail.com",
+    "signature": "8a9175fd7730a8a6d57dfd755d05f5678b6366f0f800462ff75d65c84a5fa55b",
+    "remainingUsages": 4,
+    "maxUsages": 5
 }
